@@ -4,6 +4,10 @@
 + Hovor s Trejkym a Otou ohledne prvnich napadu na realizaci
 + precteni uvodniho textu a specifikace
 
+**2020-10-26 08:07:26**
++ dokonceni a poslani vedoucimu prvni verze specifikace
+
+
+
 *TODO:* 
-+   zavolat Kenovi, Vanovi a Vratovi
 +   udelat nejaky predbezny plan ukolu
