@@ -1,5 +1,6 @@
 /**/.idea
 /O-starterWebApp/venv
 /**/__pycache__
-/O-starterWebApp/startlists/migrations
 /O-starterWebApp/o_starter/db.sqlite3
+/development_diary.md
+/O-starterWebApp/o_starter/startlists/migrations
