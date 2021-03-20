@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<h1 style="text-align: center;">O-starter</h1>
+<h2 style="text-align: center;">{{ race }}</h2>
+<hr/>
+<p style="text-align: center;"><span style="color: #0000ff;"><strong>Zmeny</strong></span> &nbsp;|&nbsp; &nbsp;&nbsp;<a
+        style="text-decoration: underline;"><a
+        href={% url 'view_unstarted' race.id %}>Neodtartovan&iacute; z&aacute;vodn&iacute;ci</a></span></span></p>
+<hr/>
+<table border="1" style="border-collapse: collapse; width: 100%;">
+    <tbody>
+    <tr style="height: 20px;">
+        <td style="width: 50%; height: 20px;">Před Změnou</td>
+        <td style="width: 50%; height: 20px;">Po změně</td>
+        {% for change in race.change_set.all %}
+    </tr>
+    <tr style="height: 20px;">
+        <td style="width: 50%; height: 20px;">{{ change.old_record }}</td>
+        <td style="width: 50%; height: 20px;">{{ change.new_record }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>

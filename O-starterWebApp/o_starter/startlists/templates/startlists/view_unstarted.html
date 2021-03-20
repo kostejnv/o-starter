@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<h1 style="text-align: center;">O-starter</h1>
+<h2 style="text-align: center;">{{ race }}</h2>
+<hr/>
+<p style="text-align: center;"><span style="color: #0000ff;"><a
+        style="text-decoration: underline;"><a
+        href={% url 'view_changes' race.id %}>Zmeny</a>&nbsp; &nbsp;|&nbsp; &nbsp;&nbsp;<strong>Neodtartovan&iacute; z&aacute;vodn&iacute;ci</strong></span>
+</p>
+<hr/>
+<table border="1" style="border-collapse: collapse; width: 100%;">
+    <tbody>
+    <tr style="height: 20px;">
+        <td style="width: 50%; height: 20px;">Neodstartovani zavodnici</td>
+        {% for unstart in race.unstarted_runner_set.all %}
+    </tr>
+    <tr style="height: 20px;">
+        <td style="width: 50%; height: 20px;">{{ unstart }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
