@@ -1,3 +1,5 @@
-/.idea
-/O-starterWebApp/.idea
-/O-starterWebApp/o_starter/.idea
+/**/.idea
+/O-starterWebApp/venv
+/**/__pycache__
+/O-starterWebApp/startlists/migrations
+/O-starterWebApp/o_starter/db.sqlite3
