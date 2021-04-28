@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">O-Starter</string>
+    <string name="competition_name">Competition Name</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="default_date">25.04.2021</string>
+    <string name="time">Time</string>
+    <string name="default_SI">0000000</string>
+    <string name="default_name">Name Surname</string>
+    <string name="default_statNumber">435</string>
+    <string name="dok9800">DOK9800</string>
+    <string name="settings">Settings</string>
+    <string name="share_changes">Share Changes</string>
+    <string name="show_changes">Show Changes</string>
+    <string name="share_race">Share Race</string>
+    <string name="new_activity">New Activity</string>
+    <string name="about_app">About App</string>
+    <string name="send_data_on_server">Send data on Server</string>
+    <string name="web_server">Web Server</string>
+    <string name="edit_startlist">Edit Startlist</string>
+    <string name="change_starttime">Change time of start</string>
+    <string name="show_only_some_cat">Show only some categories</string>
+    <string name="control">Control</string>
+    <string name="shoft_on_actual_time_automatically">Shift on actual time automatically</string>
+    <string name="not_implemented">Not implemented</string>
+</resources>

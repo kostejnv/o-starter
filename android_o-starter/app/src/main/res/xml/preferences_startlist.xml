@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/web_server">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:id="@+id/sendDataOnServerPreferences"
+            android:key="switch_preference_1"
+            android:title="@string/send_data_on_server"
+            android:summary="The changes in startlist will be sent on Internet and you can show them there."/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/edit_startlist">
+
+        <EditTextPreference
+            android:defaultValue="Default value"
+            android:inputType="time"
+            android:key="edit_text_preference_1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/change_starttime" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="check_box_preference_1"
+            android:title="@string/show_only_some_cat" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/control">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="check_box_preference_2"
+            android:title="@string/shoft_on_actual_time_automatically" />
+
+    </PreferenceCategory>
+
+
+
+</PreferenceScreen>

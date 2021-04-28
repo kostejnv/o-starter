@@ -14,24 +14,21 @@ def create_change(change_str, race):
         new_lastname=parameters[8],
         new_sinumber=parameters[9])
 
-def add_all_changes(all_changes_str, race_id):
-    race = models.Race.objects.get(pk=race_id)
-    changes_str = all_changes_str.split("$&")
+def add_all_changes(all_changes_str, race):
+    changes_str = all_changes_str.split("@&")
     for change_str in changes_str:
         create_change(change_str, race)
 
 
-def create_unstarted_runner(unstarted_runner_str, race_id):
+def create_unstarted_runner(unstarted_runner_str, race):
     parameters = unstarted_runner_str.split("@#")
-    race = models.Race.objects.get(pk=race_id)
     race.unstarted_runner_set.create(
         start_time=parameters[0],
         reg_number=parameters[1],
         firstname=parameters[2],
         lastname=parameters[3])
 
-def add_all_unstarted_runners(all_unstarted_runners_str, race_id):
-    race = models.Race.objects.get(pk=race_id)
-    unstarted_runners_str = all_unstarted_runners_str.split("$&")
+def add_all_unstarted_runners(all_unstarted_runners_str, race):
+    unstarted_runners_str = all_unstarted_runners_str.split("@&")
     for unstarted_runner_str in unstarted_runners_str:
         create_change(unstarted_runner_str, race)
