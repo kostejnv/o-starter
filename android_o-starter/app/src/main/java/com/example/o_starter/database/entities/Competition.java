@@ -1,4 +1,4 @@
-package com.example.o_starter;
+package com.example.o_starter.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
@@ -18,6 +18,7 @@ public class Competition {
     private Date startTime;
     @Embedded
     private CompetitionSettings settings;
+    private int change;
 
     @Ignore
     public Competition() {  }
@@ -54,5 +55,17 @@ public class Competition {
 
     public CompetitionSettings getSettings() {
         return settings;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setSettings(CompetitionSettings settings) {
+        this.settings = settings;
     }
 }

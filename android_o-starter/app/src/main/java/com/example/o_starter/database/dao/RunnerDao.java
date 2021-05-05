@@ -1,4 +1,4 @@
-package com.example.o_starter;
+package com.example.o_starter.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
