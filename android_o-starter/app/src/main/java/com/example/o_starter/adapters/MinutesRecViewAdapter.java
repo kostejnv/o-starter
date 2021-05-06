@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.o_starter.R;
@@ -25,6 +27,7 @@ public class MinutesRecViewAdapter extends RecyclerView.Adapter<MinutesRecViewAd
     public static final String TAG = "MinuteAdapter";
     private List<Date> sortedMinutes;
     private int competitionId;
+    private RunnerRecViewAdapter adapter;
 
     public MinutesRecViewAdapter(Context context, int competitionId) {
         this.context = context;
@@ -51,6 +54,13 @@ public class MinutesRecViewAdapter extends RecyclerView.Adapter<MinutesRecViewAd
 
         holder.timeTextView.setText(new SimpleDateFormat("hh:mm:ss").format(sortedMinutes.get(position)).toString());
         Log.i(TAG, String.format("Time set on " + new SimpleDateFormat("hh:mm:ss").format(sortedMinutes.get(position)).toString()));
+
+        adapter = new RunnerRecViewAdapter(context, competitionId, sortedMinutes.get(position));
+
+        holder.runnersRecView.setAdapter(adapter);
+        holder.runnersRecView.setLayoutManager(new LinearLayoutManager(context));
+        holder.runnersRecView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+        Log.i(TAG, "runner recycler view created");
     }
 
     @Override
@@ -65,6 +75,7 @@ public class MinutesRecViewAdapter extends RecyclerView.Adapter<MinutesRecViewAd
 
         private TextView timeTextView;
         private ImageView arrowImageView;
+        private RecyclerView runnersRecView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +86,7 @@ public class MinutesRecViewAdapter extends RecyclerView.Adapter<MinutesRecViewAd
         private void InitializeComponents(@NonNull View itemView) {
             timeTextView = itemView.findViewById(R.id.time_text_view);
             arrowImageView = itemView.findViewById(R.id.arrow_up_image_view);
+            runnersRecView = itemView.findViewById(R.id.runnersRecView);
             Log.i(TAG, "initialize components in minute item");
         }
     }

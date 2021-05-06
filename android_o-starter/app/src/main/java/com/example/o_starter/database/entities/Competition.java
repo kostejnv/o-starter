@@ -35,7 +35,9 @@ public class Competition {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+
     private String name;
+
     @ColumnInfo(name = "start_time")
     @TypeConverters(DateToLongConverter.class)
     private Date startTime;
@@ -139,7 +141,7 @@ public class Competition {
             allCategories.add(runner.getCategory());
             minutesSet.add(runner.getStartTime());
         }
-        settings.setCategoriesToShow(allCategories);
+        settings.setCategoriesToShow(new ArrayList<String>(allCategories));
         setChange(0);
         setSettings(settings);
         setStartTime(minutesSet.first());

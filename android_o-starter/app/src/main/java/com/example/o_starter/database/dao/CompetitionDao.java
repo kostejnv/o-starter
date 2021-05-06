@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.o_starter.database.entities.Competition;
+import com.example.o_starter.database.entities.abstracts.AbstractCategoriesToShow;
 import com.example.o_starter.database.entities.abstracts.AbstractMinutesWithRunner;
 
 import java.util.List;
@@ -35,4 +36,7 @@ public interface CompetitionDao {
 
     @Query("SELECT minutes_with_runner FROM competitions WHERE id = :id")
     AbstractMinutesWithRunner GetMinutesWithRunnerById(int id);
+
+    @Query("SELECT categories_to_show FROM competitions where id = :id")
+    AbstractCategoriesToShow GetCategoriesToShow(int id);
 }

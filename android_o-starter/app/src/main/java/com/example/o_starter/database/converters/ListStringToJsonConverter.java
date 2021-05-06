@@ -9,19 +9,20 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
-public class HashSetStringToJsonConverter {
+public class ListStringToJsonConverter {
 
     @TypeConverter
-    public String HashSetStringToJson(HashSet<String> set){
+    public String HashSetStringToJson(List<String> list){
         Gson gson = new Gson();
-        return gson.toJson(set);
+        return gson.toJson(list);
     }
 
     @TypeConverter
-    public HashSet<String> JsonToHashSet(String json){
+    public List<String> JsonToList(String json){
         Gson gson = new Gson();
-        Type type = new TypeToken<HashSet<String>>() {}.getType();
+        Type type = new TypeToken<List<String>>() {}.getType();
         return gson.fromJson(json, type);
     }
 }
