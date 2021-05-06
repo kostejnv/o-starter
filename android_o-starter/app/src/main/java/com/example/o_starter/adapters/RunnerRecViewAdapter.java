@@ -1,5 +1,6 @@
 package com.example.o_starter.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,10 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.preference.PreferenceManager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.o_starter.R;
+import com.example.o_starter.activities.ChangeRunnerDialog;
+import com.example.o_starter.activities.NewCompetitionFragment;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.Runner;
 
@@ -48,8 +54,46 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TryInitializeData();
         holder.SItextView.setText(String.valueOf(runners.get(position).getCardNumber()));
-        holder.runnerNametextView.setText(String.format(runners.get(position).getName() + runners.get(position).getSurname()));
+        holder.runnerNametextView.setText(String.format(runners.get(position).getName() + " " + runners.get(position).getSurname()));
         holder.startNumbertextView.setText(String.valueOf(runners.get(position).getStartNumber()));
+        holder.registrationIDtextView.setText(runners.get(position).getRegistrationId());
+        if(runners.get(position).isChecked()){
+            holder.startedcheckBox.setChecked(runners.get(position).isChecked());
+            holder.runnerLayout.setBackgroundColor(context.getResources().getColor(R.color.light_gray));
+        }
+        holder.startedcheckBox.setChecked(runners.get(position).isChecked());
+
+        holder.startedcheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.startedcheckBox.isChecked()){
+                    runners.get(position).setChecked(true);
+                    StartlistsDatabase.getInstance(context).runnerDao().updateSiglerunner(runners.get(position));
+                    holder.runnerLayout.setBackgroundColor(context.getResources().getColor(R.color.light_gray));
+                }
+                else
+                {
+                    runners.get(position).setChecked(false);
+                    holder.runnerLayout.setBackgroundColor(context.getResources().getColor(R.color.white));
+                }
+            }
+        });
+
+        holder.editImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try{
+                    DialogFragment newFragment = new ChangeRunnerDialog(RunnerRecViewAdapter.this, runners.get(position));
+                    newFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "change runner");
+
+                } catch (ClassCastException e) {
+                    Log.d(TAG, "Can't get the fragment manager with this");
+                }
+
+
+            }
+        });
 
     }
 
@@ -75,7 +119,8 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
         private TextView startNumbertextView;
         private TextView registrationIDtextView;
         private ImageView editImageView;
-        private CheckBox StartedcheckBox;
+        private CheckBox startedcheckBox;
+        private ConstraintLayout runnerLayout;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -89,7 +134,8 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
             startNumbertextView = itemView.findViewById(R.id.startNumbertextView);
             registrationIDtextView = itemView.findViewById(R.id.registrationIDtextView);
             editImageView = itemView.findViewById(R.id.editImageView);
-            StartedcheckBox = itemView.findViewById(R.id.StartedcheckBox);
+            startedcheckBox = itemView.findViewById(R.id.StartedcheckBox);
+            runnerLayout = itemView.findViewById(R.id.runner_layout);
             Log.i(TAG, "initialize components in minute item");
         }
     }

@@ -8,7 +8,7 @@ import androidx.room.TypeConverters;
 
 import com.example.o_starter.database.converters.DateToLongConverter;
 
-import java.sql.Date;
+import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -50,6 +50,20 @@ public class ChangedRunner {
         this.oldCardNumber = oldCardNumber;
         this.oldStartNumber = oldStartNumber;
         this.oldCompetitionId = oldCompetitionId;
+        this.category = category;
+    }
+
+    @Ignore
+    public ChangedRunner(Runner runner){
+        this.runnerId = runner.getId();
+        this.competitionId = runner.getCompetitionId();
+        this.oldName = runner.getName();
+        this.oldSurname = runner.getSurname();
+        this.oldStartTime = runner.getStartTime();
+        this.oldClubShort = runner.getClubShort();
+        this.oldCardNumber = runner.getCardNumber();
+        this.oldStartNumber = runner.getStartNumber();
+        this.oldCompetitionId = runner.getCompetitionId();
         this.category = category;
     }
 

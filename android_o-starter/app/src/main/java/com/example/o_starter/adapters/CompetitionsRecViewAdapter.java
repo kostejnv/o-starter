@@ -145,7 +145,7 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             InitializeComponents(itemView);
-            PreferenceManager.setDefaultValues(context, R.xml.preferences_startlist, false);
+            //PreferenceManager.setDefaultValues(context, R.xml.preferences_startlist, false);
         }
 
         private void InitializeComponents(@NonNull View itemView) {

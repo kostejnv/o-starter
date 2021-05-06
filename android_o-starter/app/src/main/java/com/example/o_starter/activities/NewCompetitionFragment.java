@@ -105,8 +105,12 @@ public class NewCompetitionFragment extends DialogFragment {
                         }
                         else
                         {
-                            AddCompetitionToDatabase addToDatabase = new AddCompetitionToDatabase(newCompetition, competitors);
-                            addToDatabase.execute();
+                            StartlistsDatabase db = StartlistsDatabase.getInstance(getContext());
+                            int competitionId = (int) db.competitionDao().insertSingleCompetition(newCompetition);
+                            for(Runner runner: competitors){
+                                runner.setCompetitionId(competitionId);
+                                db.runnerDao().insertSingleRunner(runner);
+                            }
                             ((DialogFragUpdateListener)(MainActivity)(getActivity())).OnDBUpdate();
                             dialog.dismiss();
                         }

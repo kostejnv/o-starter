@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/givenNameEditText"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/givenTextView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/SIEditTextNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/familyNameEditText"
+        app:layout_constraintStart_toStartOf="@+id/familyNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/familyNameEditText" />
+
+    <EditText
+        android:id="@+id/startNumberEditTextNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/SIEditTextNumber"
+        app:layout_constraintStart_toStartOf="@+id/SIEditTextNumber"
+        app:layout_constraintTop_toBottomOf="@+id/SIEditTextNumber" />
+
+    <EditText
+        android:id="@+id/familyNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/givenNameEditText"
+        app:layout_constraintStart_toStartOf="@+id/givenNameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/givenNameEditText" />
+
+    <TextView
+        android:id="@+id/givenTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:text="Given Name:"
+        app:layout_constraintBottom_toBottomOf="@+id/givenNameEditText"
+        app:layout_constraintEnd_toStartOf="@+id/givenNameEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/givenNameEditText" />
+
+    <TextView
+        android:id="@+id/familyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Family Name:"
+        app:layout_constraintBottom_toBottomOf="@+id/familyNameEditText"
+        app:layout_constraintStart_toStartOf="@+id/givenTextView"
+        app:layout_constraintTop_toTopOf="@+id/familyNameEditText" />
+
+    <TextView
+        android:id="@+id/SITextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SI Number:"
+        app:layout_constraintBottom_toBottomOf="@+id/SIEditTextNumber"
+        app:layout_constraintStart_toStartOf="@+id/familyTextView"
+        app:layout_constraintTop_toTopOf="@+id/SIEditTextNumber" />
+
+    <TextView
+        android:id="@+id/regTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Number:"
+        app:layout_constraintBottom_toBottomOf="@+id/startNumberEditTextNumber"
+        app:layout_constraintStart_toStartOf="@+id/SITextView"
+        app:layout_constraintTop_toTopOf="@+id/startNumberEditTextNumber" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

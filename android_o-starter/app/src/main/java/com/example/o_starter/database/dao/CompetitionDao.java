@@ -39,4 +39,7 @@ public interface CompetitionDao {
 
     @Query("SELECT categories_to_show FROM competitions where id = :id")
     AbstractCategoriesToShow GetCategoriesToShow(int id);
+
+    @Query("SELECT * FROM competitions WHERE id = :id")
+    Competition GetCompetitionById(int id);
 }

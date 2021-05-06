@@ -51,6 +51,7 @@ public class XMLv3StartlistsConverter implements StartlistsConverter {
     public static final String XML_STARTTIME="StartTime";
     public static final String XML_BIBNUMBER="BibNumber";
     public static final String XML_CONTROLCARD="ControlCard";
+    public static final String XML_ID="Id";
 
 
 
@@ -238,7 +239,7 @@ public class XMLv3StartlistsConverter implements StartlistsConverter {
                     runner.setCardNumber(Integer.parseInt(getContent(parser, XML_CONTROLCARD)));
 
                 } else if (parser.getName().equals(XML_BIBNUMBER)) {
-                    runner.setCardNumber(Integer.parseInt(getContent(parser, XML_BIBNUMBER)));
+                    runner.setStartNumber(Integer.parseInt(getContent(parser, XML_BIBNUMBER)));
 
                 } else {
                     skipTag(parser);
@@ -292,7 +293,10 @@ public class XMLv3StartlistsConverter implements StartlistsConverter {
                         }
                     }
 
+                } else if (parser.getName().equals(XML_ID)) {
+                    runner.setRegistrationId(getContent(parser, XML_ID));
                 } else {
+
                     skipTag(parser);
                 }
             }

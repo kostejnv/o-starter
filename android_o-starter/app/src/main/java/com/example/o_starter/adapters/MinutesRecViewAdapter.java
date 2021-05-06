@@ -80,7 +80,6 @@ public class MinutesRecViewAdapter extends RecyclerView.Adapter<MinutesRecViewAd
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             InitializeComponents(itemView);
-            PreferenceManager.setDefaultValues(context, R.xml.preferences_startlist, false);
         }
 
         private void InitializeComponents(@NonNull View itemView) {

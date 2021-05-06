@@ -6,19 +6,20 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.o_starter.database.entities.ChangedRunner;
 import com.example.o_starter.database.entities.Runner;
 
 @Dao
 public interface ChangedRunnerDao {
 
     @Insert
-    long insertSingleRunner(Runner runner);
+    long insertSingleRunner(ChangedRunner runner);
 
     @Delete
-    void deleteSingleRunner(Runner runner);
+    void deleteSingleRunner(ChangedRunner runner);
 
     @Update
-    void updateSiglerunner(Runner runner);
+    void updateSiglerunner(ChangedRunner runner);
 
     @Query("DELETE FROM changed_runners WHERE competition_id = :competition_id")
     void deleteByCompetitionId(int competition_id);

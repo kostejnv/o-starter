@@ -35,10 +35,12 @@ public class Runner {
     @ColumnInfo(name = "competition_id")
     private int competitionId;
     private String category;
-    private boolean shown;
+    private boolean checked;
+    @ColumnInfo(name = "registration_id")
+    private String registrationId;
 
 
-    public Runner(String name, String surname, Date startTime, String clubShort, int cardNumber, int startNumber, int competitionId, String category, boolean shown) {
+    public Runner(String name, String surname, Date startTime, String clubShort, int cardNumber, int startNumber, int competitionId, String category, boolean checked, String registrationId) {
         this.name = name;
         this.surname = surname;
         this.startTime = startTime;
@@ -47,11 +49,12 @@ public class Runner {
         this.startNumber = startNumber;
         this.competitionId = competitionId;
         this.category = category;
-        this.shown = shown;
+        this.checked = checked;
+        this.registrationId = registrationId;
     }
 
     @Ignore
-    public Runner(int id, String name, String surname, Date startTime, String clubShort, int cardNumber, int startNumber, int competitionId, String category, boolean shown) {
+    public Runner(int id, String name, String surname, Date startTime, String clubShort, int cardNumber, int startNumber, int competitionId, String category, boolean checked, String registrationId) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -61,7 +64,8 @@ public class Runner {
         this.startNumber = startNumber;
         this.competitionId = competitionId;
         this.category = category;
-        this.shown = shown;
+        this.checked = checked;
+        this.registrationId = registrationId;
     }
 
     @Ignore
@@ -139,11 +143,19 @@ public class Runner {
         this.category = category;
     }
 
-    public boolean isShown() {
-        return shown;
+    public boolean isChecked() {
+        return checked;
     }
 
-    public void setShown(boolean shown) {
-        this.shown = shown;
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public String getRegistrationId() {
+        return registrationId;
+    }
+
+    public void setRegistrationId(String registrationId) {
+        this.registrationId = registrationId;
     }
 }
