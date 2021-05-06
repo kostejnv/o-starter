@@ -1,7 +1,10 @@
-package com.example.o_starter.database;
+package com.example.o_starter.database.entities;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Ignore;
 import androidx.room.TypeConverters;
+
+import com.example.o_starter.database.converters.HashSetStringToJsonConverter;
 
 import java.util.HashSet;
 
@@ -16,6 +19,10 @@ public class CompetitionSettings {
     public CompetitionSettings(Boolean sendOnServer, HashSet<String> categoriesToShow) {
         this.sendOnServer = sendOnServer;
         this.categoriesToShow = categoriesToShow;
+    }
+
+    @Ignore
+    public CompetitionSettings() {
     }
 
     public Boolean getSendOnServer() {

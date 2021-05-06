@@ -1,12 +1,11 @@
-package com.example.o_starter;
+package com.example.o_starter.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.CheckBoxPreference;
-import androidx.preference.EditTextPreference;
-import androidx.preference.SwitchPreference;
 
 import android.os.Bundle;
 import android.util.Log;
+
+import com.example.o_starter.R;
 
 public class SettingsStartlistActivity extends AppCompatActivity {
 

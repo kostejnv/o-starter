@@ -35,4 +35,7 @@
     <string name="control">Control</string>
     <string name="shoft_on_actual_time_automatically">Shift on actual time automatically</string>
     <string name="not_implemented">Not implemented</string>
+    <string name="create">Create</string>
+    <string name="cancel">cancel</string>
+    <string name="delete_race">Delete Race</string>
 </resources>

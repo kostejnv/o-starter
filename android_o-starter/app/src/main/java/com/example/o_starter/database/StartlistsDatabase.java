@@ -1,4 +1,4 @@
-package com.example.o_starter;
+package com.example.o_starter.database;
 
 
 import android.content.Context;
@@ -9,12 +9,23 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Competition.class, Runner.class}, version = 1)
+import com.example.o_starter.database.dao.ChangedRunnerDao;
+import com.example.o_starter.database.dao.CompetitionDao;
+import com.example.o_starter.database.dao.RunnerDao;
+import com.example.o_starter.database.dao.UnstartedRunnerDao;
+import com.example.o_starter.database.entities.ChangedRunner;
+import com.example.o_starter.database.entities.Competition;
+import com.example.o_starter.database.entities.Runner;
+import com.example.o_starter.database.entities.UnstartedRunner;
+
+@Database(entities = {Competition.class, Runner.class, ChangedRunner.class, UnstartedRunner.class}, version = 1)
 public abstract class StartlistsDatabase extends RoomDatabase {
 
     //Dao classes
     public abstract CompetitionDao competitionDao();
     public abstract RunnerDao runnerDao();
+    public abstract ChangedRunnerDao changedRunnerDao();
+    public abstract UnstartedRunnerDao unstartedRunnerDao();
 
     //database instance
     private static StartlistsDatabase instance;

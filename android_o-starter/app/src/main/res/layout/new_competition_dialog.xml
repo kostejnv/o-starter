@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp">
+
+    <EditText
+        android:id="@+id/competitionNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/competition_name"
+        android:text=""
+        android:layout_marginTop="30dp"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/loadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load StartLists"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/competitionNameTextView"
+        app:layout_constraintStart_toStartOf="@+id/competitionNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/competitionNameTextView" />
+
+    <TextView
+        android:id="@+id/loadTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="(The support format is IOF XML v.3)"
+        app:layout_constraintEnd_toEndOf="@+id/loadButton"
+        app:layout_constraintStart_toStartOf="@+id/loadButton"
+        app:layout_constraintTop_toBottomOf="@+id/loadButton" />
+
+    <ImageView
+        android:id="@+id/OkImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/loadButton"
+        app:layout_constraintStart_toEndOf="@+id/loadButton"
+        app:layout_constraintTop_toTopOf="@+id/loadButton"
+        android:src="@drawable/ic_ok"
+        android:layout_marginLeft="10dp" />
+
+    <ImageView
+        android:id="@+id/CrossImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/loadButton"
+        app:layout_constraintStart_toEndOf="@+id/loadButton"
+        app:layout_constraintTop_toTopOf="@+id/loadButton"
+        android:src="@drawable/ic_cross"
+        android:layout_marginLeft="10dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

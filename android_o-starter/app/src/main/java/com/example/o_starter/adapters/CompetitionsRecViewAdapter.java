@@ -1,8 +1,10 @@
-package com.example.o_starter;
+package com.example.o_starter.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,16 +15,25 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.example.o_starter.DialogFragUpdateListener;
+import com.example.o_starter.R;
+import com.example.o_starter.activities.SettingsStartlistActivity;
+import com.example.o_starter.activities.StartlistViewActivity;
+import com.example.o_starter.database.StartlistsDatabase;
+import com.example.o_starter.database.entities.Competition;
 
-import static androidx.core.content.ContextCompat.startActivity;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<CompetitionsRecViewAdapter.ViewHolder> {
 
-    private ArrayList<CompetitionBase> competitions = new ArrayList<CompetitionBase>();
     private Context context;
     private static final String TAG = "CompetitionsAdapter";
 
@@ -41,8 +52,77 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //TODO:jiny thread
+        List<Competition> competitions = StartlistsDatabase.getInstance(context).competitionDao().GetAllCompetition();
         holder.competitionTextView.setText(competitions.get(position).getName());
-        holder.dateTextView.setText((competitions.get(position).getDate()));
+        Date date = competitions.get(position).getStartTime();
+        holder.dateTextView.setText(new SimpleDateFormat("E dd.MM.yyyy").format(date));
+
+
+        holder.menuImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(context, holder.menuImageView);
+                popup.getMenuInflater().inflate(R.menu.competition_menu, popup.getMenu());
+
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @SuppressLint("NonConstantResourceId")
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.setting_item:
+                                Intent intent = new Intent(context, SettingsStartlistActivity.class);
+                                context.startActivity(intent);
+                                Log.i(TAG, "open settings activity");
+                                break;
+                            case R.id.share_changes_item:
+                                break;
+                            case R.id.show_changes_item:
+                                break;
+                            case R.id.share_race_item:
+                                break;
+                            case R.id.delete_race_item:
+                                new AlertDialog.Builder(context)
+                                        .setTitle("Delete Competition")
+                                        .setMessage("Are you sure you want to delete this Competition?")
+
+                                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                                        // The dialog is automatically dismissed when a dialog button is clicked.
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                int competitionId = competitions.get(position).getId();
+                                                DeleteCompetitionAsyncTask deleteTask = new DeleteCompetitionAsyncTask();
+                                                deleteTask.execute(competitionId);
+                                                ((DialogFragUpdateListener)context).OnDBUpdate();
+                                            }
+                                        })
+                                        .setNegativeButton("No", null)
+                                        .show();
+                                break;
+                            default:
+                                throw new IllegalStateException(context.getString(R.string.not_implemented));
+
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show();
+                Log.i(TAG, "Popup menu opened");
+            }
+        });
+
+        holder.startImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, StartlistViewActivity.class);
+                intent.putExtra("COMPETITION_ID", competitions.get(position).getId());
+                context.startActivity(intent);
+                Log.i(TAG, "startlist view activity started");
+            }
+        });
+
         Log.i(TAG, "Set competitions items");
 
 
@@ -50,14 +130,9 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
 
     @Override
     public int getItemCount() {
-        return competitions.size();
+        return StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionCount();
     }
 
-    public void setCompetitions(ArrayList<CompetitionBase> competitions) {
-        this.competitions = competitions;
-        notifyDataSetChanged();
-        Log.i(TAG, "Competitions list added");
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -70,43 +145,6 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             InitializeComponents(itemView);
-
-            menuImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PopupMenu popup = new PopupMenu(context, menuImageView);
-                    popup.getMenuInflater().inflate(R.menu.competition_menu, popup.getMenu());
-
-
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @SuppressLint("NonConstantResourceId")
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.setting_item:
-                                    Intent intent = new Intent(context, SettingsStartlistActivity.class);
-                                    context.startActivity(intent);
-                                    Log.i(TAG, "open settings activity");
-                                    break;
-                                case R.id.share_changes_item:
-                                    break;
-                                case R.id.show_changes_item:
-                                    break;
-                                case R.id.share_race_item:
-                                    break;
-                                default:
-                                    throw new IllegalStateException(context.getString(R.string.not_implemented));
-
-                            }
-                            return true;
-                        }
-                    });
-
-                    popup.show();
-                    Log.i(TAG, "Popup menu opened");
-                }
-            });
-
             PreferenceManager.setDefaultValues(context, R.xml.preferences_startlist, false);
         }
 
@@ -120,4 +158,14 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
 
 
     }
+
+    private class DeleteCompetitionAsyncTask extends AsyncTask<Integer, Void,Void>{
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            int competitionId = integers[0];
+            StartlistsDatabase.getInstance(context).competitionDao().DeleteById(competitionId);
+            return null;
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.o_starter.database;
+package com.example.o_starter.database.converters;
 
 import androidx.room.TypeConverter;
 

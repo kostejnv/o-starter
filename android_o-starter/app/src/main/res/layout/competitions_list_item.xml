@@ -14,12 +14,17 @@
         android:id="@+id/competitioTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:ellipsize="end"
+        android:maxLength="20"
         android:fontFamily="sans-serif-black"
+        android:maxLines="1"
         android:text="@string/competition_name"
         android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/menuImageView"
         app:layout_constraintStart_toEndOf="@+id/startImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="30dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dateTextView"

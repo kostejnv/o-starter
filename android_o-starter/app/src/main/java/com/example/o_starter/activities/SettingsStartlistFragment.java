@@ -1,10 +1,12 @@
-package com.example.o_starter;
+package com.example.o_starter.activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import com.example.o_starter.R;
 
 public class SettingsStartlistFragment extends PreferenceFragment {
 
