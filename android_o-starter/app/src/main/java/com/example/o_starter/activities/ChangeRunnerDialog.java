@@ -27,6 +27,7 @@ public class ChangeRunnerDialog extends DialogFragment {
     private EditText familyNameEditText;
     private EditText SIEditTextNumber;
     private EditText startNumberEditTextNumber;
+    private EditText regEditText;
 
     private RunnerRecViewAdapter adapter;
 
@@ -50,6 +51,7 @@ public class ChangeRunnerDialog extends DialogFragment {
         familyNameEditText.setHint(runner.getSurname());
         SIEditTextNumber.setHint(new Integer(runner.getCardNumber()).toString());
         startNumberEditTextNumber.setHint(new Integer(runner.getStartNumber()).toString());
+        regEditText.setHint(runner.getRegistrationId());
 
         final AlertDialog dialog = new AlertDialog.Builder(getContext())
                 .setView(view)
@@ -102,6 +104,9 @@ public class ChangeRunnerDialog extends DialogFragment {
         if (!startNumberEditTextNumber.getText().toString().equals("")){
             changedRunner.setOldStartNumber(Integer.parseInt(startNumberEditTextNumber.getText().toString()));
         }
+        if(!regEditText.getText().toString().equals("")) {
+            changedRunner.setOldRegistrationId(regEditText.getText().toString());
+        }
         Competition competition = StartlistsDatabase.getInstance(getContext()).competitionDao().GetCompetitionById(runner.getCompetitionId());
         changedRunner.setChange(competition.getChange());
         competition.setChange(competition.getChange()+1);
@@ -122,7 +127,9 @@ public class ChangeRunnerDialog extends DialogFragment {
         if (!startNumberEditTextNumber.getText().toString().equals("")){
             runner.setStartNumber(Integer.parseInt(startNumberEditTextNumber.getText().toString()));
         }
-
+        if(!regEditText.getText().toString().equals("")) {
+            runner.setRegistrationId(regEditText.getText().toString());
+        }
         StartlistsDatabase.getInstance(getContext()).runnerDao().updateSiglerunner(runner);
     }
 
@@ -130,7 +137,8 @@ public class ChangeRunnerDialog extends DialogFragment {
         return !givenNameEditText.getText().toString().equals("")
                 || !familyNameEditText.getText().toString().equals("")
                 || !SIEditTextNumber.getText().toString().equals("")
-                || !startNumberEditTextNumber.getText().toString().equals("");
+                || !startNumberEditTextNumber.getText().toString().equals("")
+                ||!regEditText.getText().toString().equals("");
     }
 
     private String getStringChange() {
@@ -159,6 +167,12 @@ public class ChangeRunnerDialog extends DialogFragment {
             stringChange.append(startNumberEditTextNumber.getText().toString());
             stringChange.append("\n");
         }
+        if (!regEditText.getText().toString().equals("")) {
+            stringChange.append(runner.getRegistrationId());
+            stringChange.append(" -> ");
+            stringChange.append(regEditText.getText().toString());
+            stringChange.append("\n");
+        }
         String change = stringChange.toString();
         return change.substring(0, change.length()-1);
     }
@@ -168,6 +182,7 @@ public class ChangeRunnerDialog extends DialogFragment {
         familyNameEditText = view.findViewById(R.id.familyNameEditText);
         SIEditTextNumber = view.findViewById(R.id.SIEditTextNumber);
         startNumberEditTextNumber = view.findViewById(R.id.startNumberEditTextNumber);
+        regEditText = view.findViewById(R.id.regEditText);
 
     }
 }

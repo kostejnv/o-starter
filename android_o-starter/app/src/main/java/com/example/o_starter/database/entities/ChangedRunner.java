@@ -37,9 +37,11 @@ public class ChangedRunner {
     private int oldStartNumber;
     @ColumnInfo(name = "old_competition_id")
     private int oldCompetitionId;
+    @ColumnInfo(name = "old_registration_id")
+    private String oldRegistrationId;
     private String category;
 
-    public ChangedRunner(int runnerId, int competitionId, int change, String oldName, String oldSurname, Date oldStartTime, String oldClubShort, int oldCardNumber, int oldStartNumber, int oldCompetitionId, String category) {
+    public ChangedRunner(int runnerId, int competitionId, int change, String oldName, String oldSurname, Date oldStartTime, String oldClubShort, int oldCardNumber, int oldStartNumber, int oldCompetitionId, String oldRegistrationId, String category) {
         this.runnerId = runnerId;
         this.competitionId = competitionId;
         this.change = change;
@@ -50,6 +52,7 @@ public class ChangedRunner {
         this.oldCardNumber = oldCardNumber;
         this.oldStartNumber = oldStartNumber;
         this.oldCompetitionId = oldCompetitionId;
+        this.oldRegistrationId = oldRegistrationId;
         this.category = category;
     }
 
@@ -64,6 +67,7 @@ public class ChangedRunner {
         this.oldCardNumber = runner.getCardNumber();
         this.oldStartNumber = runner.getStartNumber();
         this.oldCompetitionId = runner.getCompetitionId();
+        this.oldRegistrationId = runner.getRegistrationId();
         this.category = category;
     }
 
@@ -157,5 +161,13 @@ public class ChangedRunner {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getOldRegistrationId() {
+        return oldRegistrationId;
+    }
+
+    public void setOldRegistrationId(String oldRegistrationId) {
+        this.oldRegistrationId = oldRegistrationId;
     }
 }

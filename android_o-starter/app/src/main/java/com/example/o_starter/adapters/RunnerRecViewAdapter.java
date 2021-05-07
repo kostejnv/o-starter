@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -123,6 +124,7 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
         private ConstraintLayout runnerLayout;
 
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             InitializeComponents(itemView);
@@ -136,6 +138,7 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
             editImageView = itemView.findViewById(R.id.editImageView);
             startedcheckBox = itemView.findViewById(R.id.StartedcheckBox);
             runnerLayout = itemView.findViewById(R.id.runner_layout);
+
             Log.i(TAG, "initialize components in minute item");
         }
     }

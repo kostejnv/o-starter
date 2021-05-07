@@ -82,12 +82,33 @@
         app:layout_constraintTop_toTopOf="@+id/SIEditTextNumber" />
 
     <TextView
-        android:id="@+id/regTextView"
+        android:id="@+id/startNumTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start Number:"
         app:layout_constraintBottom_toBottomOf="@+id/startNumberEditTextNumber"
         app:layout_constraintStart_toStartOf="@+id/SITextView"
         app:layout_constraintTop_toTopOf="@+id/startNumberEditTextNumber" />
+
+    <TextView
+        android:id="@+id/regTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registration Id:"
+        app:layout_constraintBottom_toBottomOf="@+id/regEditText"
+        app:layout_constraintStart_toStartOf="@+id/startNumTextView"
+        app:layout_constraintTop_toTopOf="@+id/regEditText" />
+
+    <EditText
+        android:id="@+id/regEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/startNumberEditTextNumber"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/startNumberEditTextNumber"
+        app:layout_constraintTop_toBottomOf="@+id/startNumberEditTextNumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
