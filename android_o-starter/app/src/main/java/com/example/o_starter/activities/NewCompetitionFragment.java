@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,6 +54,7 @@ public class NewCompetitionFragment extends DialogFragment {
     private Button loadButton;
     private ImageView okImageView;
     private ImageView crossImageView;
+    private Switch sendOnServerSwitch;
 
     private Competition newCompetition;
     private ArrayList<Runner> competitors;
@@ -105,6 +107,8 @@ public class NewCompetitionFragment extends DialogFragment {
                         }
                         else
                         {
+                            newCompetition.setName(competitionNameTextView.getText().toString());
+                            newCompetition.getSettings().setSendOnServer(sendOnServerSwitch.isChecked());
                             StartlistsDatabase db = StartlistsDatabase.getInstance(getContext());
                             int competitionId = (int) db.competitionDao().insertSingleCompetition(newCompetition);
                             for(Runner runner: competitors){
@@ -128,6 +132,7 @@ public class NewCompetitionFragment extends DialogFragment {
         loadButton = view.findViewById(R.id.loadButton);
         okImageView = view.findViewById(R.id.OkImageView);
         crossImageView = view.findViewById(R.id.CrossImageView);
+        sendOnServerSwitch = view.findViewById(R.id.sendOnServerSwitch);
 
     }
 

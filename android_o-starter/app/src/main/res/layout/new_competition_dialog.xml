@@ -10,11 +10,11 @@
         android:id="@+id/competitionNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="@string/competition_name"
-        android:text=""
-        android:layout_marginTop="30dp"
         android:inputType="textPersonName"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Load StartLists"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/competitionNameTextView"
         app:layout_constraintStart_toStartOf="@+id/competitionNameTextView"
         app:layout_constraintTop_toBottomOf="@+id/competitionNameTextView" />
@@ -44,23 +44,33 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_ok"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/loadButton"
         app:layout_constraintStart_toEndOf="@+id/loadButton"
-        app:layout_constraintTop_toTopOf="@+id/loadButton"
-        android:src="@drawable/ic_ok"
-        android:layout_marginLeft="10dp" />
+        app:layout_constraintTop_toTopOf="@+id/loadButton" />
 
     <ImageView
         android:id="@+id/CrossImageView"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_cross"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/loadButton"
         app:layout_constraintStart_toEndOf="@+id/loadButton"
-        app:layout_constraintTop_toTopOf="@+id/loadButton"
-        android:src="@drawable/ic_cross"
-        android:layout_marginLeft="10dp" />
+        app:layout_constraintTop_toTopOf="@+id/loadButton" />
+
+    <Switch
+        android:id="@+id/sendOnServerSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:checked="true"
+        android:text="Send data on Server"
+        app:layout_constraintStart_toStartOf="@+id/loadTextView"
+        app:layout_constraintTop_toBottomOf="@+id/loadTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

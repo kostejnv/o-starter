@@ -60,25 +60,26 @@ public class Competition {
     public Competition() {  }
 
     @Ignore
-    public Competition(int id, String name, Date startTime, List<Date> minutesWithRunner, CompetitionSettings settings, int change) {
+    public Competition(int id, String name, Date startTime, List<Date> minutesWithRunner, int serverId, boolean wasFinished, CompetitionSettings settings, int change) {
         this.id = id;
         this.name = name;
         this.startTime = startTime;
         this.minutesWithRunner = minutesWithRunner;
+        this.serverId = serverId;
+        this.wasFinished = wasFinished;
         this.settings = settings;
         this.change = change;
     }
 
-    public Competition(String name, Date startTime, List<Date> minutesWithRunner, CompetitionSettings settings, int change) {
+    public Competition(String name, Date startTime, List<Date> minutesWithRunner, int serverId, boolean wasFinished, CompetitionSettings settings, int change) {
         this.name = name;
         this.startTime = startTime;
         this.minutesWithRunner = minutesWithRunner;
+        this.serverId = serverId;
+        this.wasFinished = wasFinished;
         this.settings = settings;
         this.change = change;
     }
-
-
-
 
     public int getChange() {
         return change;
@@ -126,6 +127,22 @@ public class Competition {
 
     public void setMinutesWithRunner(List<Date> minutesWithRunner) {
         this.minutesWithRunner = minutesWithRunner;
+    }
+
+    public int getServerId() {
+        return serverId;
+    }
+
+    public void setServerId(int serverId) {
+        this.serverId = serverId;
+    }
+
+    public boolean isWasFinished() {
+        return wasFinished;
+    }
+
+    public void setWasFinished(boolean wasFinished) {
+        this.wasFinished = wasFinished;
     }
 
     @SuppressLint("SimpleDateFormat")
