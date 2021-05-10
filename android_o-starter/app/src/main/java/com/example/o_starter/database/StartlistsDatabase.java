@@ -16,9 +16,11 @@ import com.example.o_starter.database.dao.UnstartedRunnerDao;
 import com.example.o_starter.database.entities.ChangedRunner;
 import com.example.o_starter.database.entities.Competition;
 import com.example.o_starter.database.entities.Runner;
+import com.example.o_starter.database.entities.UnsentChange;
+import com.example.o_starter.database.entities.UnsentUnstertedRunner;
 import com.example.o_starter.database.entities.UnstartedRunner;
 
-@Database(entities = {Competition.class, Runner.class, ChangedRunner.class, UnstartedRunner.class}, version = 1)
+@Database(entities = {Competition.class, Runner.class, ChangedRunner.class, UnstartedRunner.class, UnsentChange.class, UnsentUnstertedRunner.class}, version = 1)
 public abstract class StartlistsDatabase extends RoomDatabase {
 
     //Dao classes

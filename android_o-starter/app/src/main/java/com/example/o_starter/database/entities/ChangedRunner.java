@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import com.example.o_starter.database.converters.DateToLongConverter;
@@ -13,10 +14,12 @@ import java.util.Date;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "changed_runners",
-        primaryKeys = {"runner_id", "competition_id", "change"},
         foreignKeys = {@ForeignKey(entity = Runner.class, parentColumns = "id", childColumns = "runner_id", onDelete = CASCADE),
                         @ForeignKey(entity = Competition.class, parentColumns = "id", childColumns = "competition_id", onDelete = CASCADE)})
 public class ChangedRunner {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     @ColumnInfo(name = "runner_id")
     private int runnerId;
@@ -73,6 +76,14 @@ public class ChangedRunner {
 
     @Ignore
     public ChangedRunner() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getRunnerId() {

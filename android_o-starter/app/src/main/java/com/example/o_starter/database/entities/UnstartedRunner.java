@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import com.example.o_starter.database.entities.Competition;
 import com.example.o_starter.database.entities.Runner;
@@ -11,10 +12,12 @@ import com.example.o_starter.database.entities.Runner;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "unstarted_runner",
-        primaryKeys = {"runner_id", "competition_id"},
         foreignKeys = {@ForeignKey(entity = Runner.class, parentColumns = "id", childColumns = "runner_id", onDelete = CASCADE),
                         @ForeignKey(entity = Competition.class, parentColumns = "id", childColumns = "competition_id", onDelete = CASCADE)})
 public class UnstartedRunner {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     @ColumnInfo(name = "runner_id")
     private int runnerId;
@@ -28,6 +31,14 @@ public class UnstartedRunner {
 
     @Ignore
     public UnstartedRunner() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getRunnerId() {
