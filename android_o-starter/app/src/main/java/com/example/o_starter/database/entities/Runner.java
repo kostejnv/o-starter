@@ -68,6 +68,8 @@ public class Runner {
         this.registrationId = registrationId;
     }
 
+
+
     @Ignore
     public Runner() {  }
 
@@ -157,5 +159,17 @@ public class Runner {
 
     public void setRegistrationId(String registrationId) {
         this.registrationId = registrationId;
+    }
+
+    @Ignore
+    public void changeByChangedRunner(ChangedRunner changedRunner){
+        setName(changedRunner.getOldName());
+        setSurname(changedRunner.getOldSurname());
+        setStartTime(changedRunner.getOldStartTime());
+        setClubShort(changedRunner.getOldClubShort());
+        setCardNumber(changedRunner.getOldCardNumber());
+        setStartNumber(changedRunner.getOldStartNumber());
+        setCategory(changedRunner.getCategory());
+        setRegistrationId(changedRunner.getOldRegistrationId());
     }
 }

@@ -74,7 +74,6 @@ public class MinutesRecViewAdapter extends RecyclerView.Adapter<MinutesRecViewAd
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView timeTextView;
-        private ImageView arrowImageView;
         private RecyclerView runnersRecView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -84,7 +83,6 @@ public class MinutesRecViewAdapter extends RecyclerView.Adapter<MinutesRecViewAd
 
         private void InitializeComponents(@NonNull View itemView) {
             timeTextView = itemView.findViewById(R.id.time_text_view);
-            arrowImageView = itemView.findViewById(R.id.arrow_up_image_view);
             runnersRecView = itemView.findViewById(R.id.runnersRecView);
             Log.i(TAG, "initialize components in minute item");
         }

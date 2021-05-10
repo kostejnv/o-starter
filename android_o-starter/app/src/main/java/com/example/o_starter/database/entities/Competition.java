@@ -46,6 +46,12 @@ public class Competition {
     @TypeConverters(ArrayListDateToStringConverter.class)
     private List<Date> minutesWithRunner;
 
+    @ColumnInfo(name = "server_id")
+    private int serverId;
+
+    @ColumnInfo(name = "was_finished")
+    private boolean wasFinished;
+
     @Embedded
     private CompetitionSettings settings;
     private int change;

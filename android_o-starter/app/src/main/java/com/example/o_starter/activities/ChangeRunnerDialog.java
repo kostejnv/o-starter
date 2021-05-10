@@ -2,7 +2,10 @@ package com.example.o_starter.activities;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +23,7 @@ import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.ChangedRunner;
 import com.example.o_starter.database.entities.Competition;
 import com.example.o_starter.database.entities.Runner;
+import com.google.android.material.snackbar.Snackbar;
 
 public class ChangeRunnerDialog extends DialogFragment {
 
@@ -32,6 +36,9 @@ public class ChangeRunnerDialog extends DialogFragment {
     private RunnerRecViewAdapter adapter;
 
     private Runner runner;
+    private ChangedRunner changedRunner;
+
+    private static final String TAG = "ChangeDialog";
 
     public ChangeRunnerDialog(RunnerRecViewAdapter adapter, Runner runner) {
         this.adapter = adapter;
@@ -75,7 +82,20 @@ public class ChangeRunnerDialog extends DialogFragment {
                             insertChangedRunnerToDatabase();
                             updateRunnerInDatabase();
                             adapter.notifyDataSetChanged();
-                            Toast.makeText(getContext(), change, Toast.LENGTH_SHORT).show();
+                            SendChangeToServerAsyncTask sendChangeToServer = new SendChangeToServerAsyncTask();
+                            sendChangeToServer.execute();
+                            Snackbar.make(getActivity().findViewById(R.id.minute_rec_view), change, Snackbar.LENGTH_LONG)
+                                    .setAction("Undo", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            sendChangeToServer.wasUndoPressed = true;
+                                            runner.changeByChangedRunner(changedRunner);
+                                            StartlistsDatabase.getInstance(getContext()).runnerDao().updateSiglerunner(runner);
+                                            StartlistsDatabase.getInstance(getContext()).changedRunnerDao().deleteSingleRunner(changedRunner);
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    })
+                            .show();
                             dismiss();
                         } else {
                             Toast.makeText(getContext(), "Nothing Changed", Toast.LENGTH_SHORT).show();
@@ -91,22 +111,7 @@ public class ChangeRunnerDialog extends DialogFragment {
     }
 
     private void insertChangedRunnerToDatabase(){
-            ChangedRunner changedRunner = new ChangedRunner(runner);
-        if(!givenNameEditText.getText().toString().equals("")) {
-            changedRunner.setOldName(givenNameEditText.getText().toString());
-        }
-        if(!familyNameEditText.getText().toString().equals("")) {
-            changedRunner.setOldSurname(familyNameEditText.getText().toString());
-        }
-        if (!SIEditTextNumber.getText().toString().equals("")){
-            changedRunner.setOldCardNumber(Integer.parseInt(SIEditTextNumber.getText().toString()));
-        }
-        if (!startNumberEditTextNumber.getText().toString().equals("")){
-            changedRunner.setOldStartNumber(Integer.parseInt(startNumberEditTextNumber.getText().toString()));
-        }
-        if(!regEditText.getText().toString().equals("")) {
-            changedRunner.setOldRegistrationId(regEditText.getText().toString());
-        }
+        changedRunner = new ChangedRunner(runner);
         Competition competition = StartlistsDatabase.getInstance(getContext()).competitionDao().GetCompetitionById(runner.getCompetitionId());
         changedRunner.setChange(competition.getChange());
         competition.setChange(competition.getChange()+1);
@@ -184,5 +189,27 @@ public class ChangeRunnerDialog extends DialogFragment {
         startNumberEditTextNumber = view.findViewById(R.id.startNumberEditTextNumber);
         regEditText = view.findViewById(R.id.regEditText);
 
+    }
+
+
+
+    private class SendChangeToServerAsyncTask extends AsyncTask<Void,Void,Void> {
+        public boolean wasUndoPressed = false;
+        private static final int SLEEP_TIME = 5000;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            SystemClock.sleep(SLEEP_TIME);
+            if (!wasUndoPressed){
+                //TODO: poslat zmenu na server
+                Log.i(TAG, "Sent to server");
+            }
+            else
+            {
+                Log.i(TAG, "Not Sent to server");
+            }
+
+            return null;
+        }
     }
 }

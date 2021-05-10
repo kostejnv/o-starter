@@ -68,7 +68,7 @@ public class ChangedRunner {
         this.oldStartNumber = runner.getStartNumber();
         this.oldCompetitionId = runner.getCompetitionId();
         this.oldRegistrationId = runner.getRegistrationId();
-        this.category = category;
+        this.category = runner.getCategory();
     }
 
     @Ignore

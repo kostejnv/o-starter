@@ -14,17 +14,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.o_starter.CompetitionBase;
 import com.example.o_starter.DialogFragUpdateListener;
 import com.example.o_starter.adapters.CompetitionsRecViewAdapter;
 import com.example.o_starter.R;
+import com.example.o_starter.database.StartlistsDatabase;
+import com.example.o_starter.database.entities.Competition;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DialogFragUpdateListener {
 
     private RecyclerView competitionsRecView;
+    private TextView addCompetitionTextview;
+
     private static final String TAG = "MainActivity";
     private CompetitionsRecViewAdapter adapter;
 
@@ -38,17 +45,21 @@ public class MainActivity extends AppCompatActivity implements DialogFragUpdateL
 
 
 
-        adapter = new CompetitionsRecViewAdapter(this);
+
+        adapter = new CompetitionsRecViewAdapter(this, findViewById(android.R.id.content));
 
         competitionsRecView.setAdapter(adapter);
         competitionsRecView.setLayoutManager(new LinearLayoutManager(this));
         competitionsRecView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+        adapter.notifyDataChanged();
         Log.i(TAG, "competition recycler view created");
 
     }
 
     private void InitializeComponents() {
         competitionsRecView = findViewById(R.id.competitionsRecView);
+        addCompetitionTextview = findViewById(R.id.addCompetitionTextview);
         Log.i(TAG, "components initialized");
 
     }
@@ -90,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements DialogFragUpdateL
 
     @Override
     public void OnDBUpdate() {
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataChanged();
     }
 }
 

@@ -232,7 +232,7 @@ public class XMLv3StartlistsConverter implements StartlistsConverter {
                 }
                 if (parser.getName().equals(XML_STARTTIME)) {
                     String sdate = getContent(parser, XML_STARTTIME);
-                    Date date = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS").parse(sdate);
+                    Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(sdate);
                     runner.setStartTime(date);
 
                 } else if (parser.getName().equals(XML_CONTROLCARD)) {

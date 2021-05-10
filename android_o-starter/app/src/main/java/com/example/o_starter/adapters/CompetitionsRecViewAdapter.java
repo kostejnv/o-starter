@@ -36,9 +36,12 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
 
     private Context context;
     private static final String TAG = "CompetitionsAdapter";
+    private List<Competition> competitions;
+    private View parent;
 
-    public CompetitionsRecViewAdapter(Context context){
+    public CompetitionsRecViewAdapter(Context context, View parent) {
         this.context = context;
+        this.parent = parent;
     }
 
     @NonNull
@@ -53,7 +56,7 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //TODO:jiny thread
-        List<Competition> competitions = StartlistsDatabase.getInstance(context).competitionDao().GetAllCompetition();
+        competitions = StartlistsDatabase.getInstance(context).competitionDao().GetAllCompetition();
         holder.competitionTextView.setText(competitions.get(position).getName());
         Date date = competitions.get(position).getStartTime();
         holder.dateTextView.setText(new SimpleDateFormat("E dd.MM.yyyy").format(date));
@@ -128,6 +131,8 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionCount();
@@ -165,6 +170,17 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
             int competitionId = integers[0];
             StartlistsDatabase.getInstance(context).competitionDao().DeleteById(competitionId);
             return null;
+        }
+    }
+
+    public void notifyDataChanged(){
+        notifyDataSetChanged();
+        if(StartlistsDatabase.getInstance(context).competitionDao().GetAllCompetition().size()==0){
+            parent.findViewById(R.id.addCompetitionTextview).setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            parent.findViewById(R.id.addCompetitionTextview).setVisibility(View.GONE);
         }
     }
 
