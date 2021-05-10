@@ -7,4 +7,7 @@ urlpatterns = [
     path('<int:race_id>/', views.view_all, name='view_all'),
     path('<int:race_id>/changes', views.view_changes, name='view_changes'),
     path('<int:race_id>/unstarted', views.view_unstarted, name='view_unstarted'),
+    path('create_race', views.create_race, name='view_create_race'),
+    path('<int:race_id>/send_changes', views.send_changes, name='view_send_changes'),
+    path('send_unstarted', views.send_unstarted, name='view_send_unstarted')
 ]

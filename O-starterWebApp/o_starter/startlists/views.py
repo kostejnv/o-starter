@@ -1,19 +1,38 @@
+import json
+from types import SimpleNamespace
+
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
 from . import models
 from django.urls import reverse
 
 # Create your views here.
+from .models import Race
+
+
 def index(request):
     return HttpResponse(status=201)
 
+@csrf_exempt
 def create_race(request):
+    if request.method == 'POST' and request.accepts("application/json"):
+        post_data = json.loads(request.body, object_hook=lambda d: SimpleNamespace(**d))
+        try:
+            race = Race(name = post_data.name)
+            race.save()
+            return HttpResponse(str(race.id))
+        except:
+            return HttpResponse(status= 404)
+    return HttpResponse(status=404)
+
+
+
+def send_changes(request, race_id):
     pass
 
-def add_changes(request):
-    pass
-
-def add_unstarted(request):
+def send_unstarted(request, race_idand):
     pass
 
 def view_all(request, race_id):

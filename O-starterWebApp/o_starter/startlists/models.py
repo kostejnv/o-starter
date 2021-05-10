@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Race(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
 
     def __str__(self):
@@ -16,10 +16,11 @@ class Change(models.Model):
     old_firstname = models.CharField(max_length=50, default='')
     old_lastname = models.CharField(max_length=50, default='')
     old_sinumber = models.IntegerField(default=0)
+
     new_start_time = models.CharField(max_length=20, default='00:00')
     new_reg_number = models.CharField(max_length=10, default='XXX0000')  # more beacause of undefined behavior
-    new_firstname = models.CharField(max_length=50, default='')
-    new_lastname = models.CharField(max_length=50, default='')
+    new_firstname = models.CharField(max_length=200, default='')
+    new_lastname = models.CharField(max_length=200, default='')
     new_sinumber = models.IntegerField(default=0)
 
     def old_record(self):
