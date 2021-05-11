@@ -36,6 +36,7 @@ import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.Competition;
 import com.example.o_starter.database.entities.Runner;
 import com.example.o_starter.import_startlists.XMLv3StartlistsConverter;
+import com.example.o_starter.server_communication.ServerCommunicator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -116,6 +117,10 @@ public class NewCompetitionFragment extends DialogFragment {
                                 db.runnerDao().insertSingleRunner(runner);
                             }
                             ((DialogFragUpdateListener)(MainActivity)(getActivity())).OnDBUpdate();
+                            if (newCompetition.getSettings().getSendOnServer()){
+                                AddCompetitonToServerAsyncTask addCompetitionToServer = new AddCompetitonToServerAsyncTask(competitionId);
+                                addCompetitionToServer.execute();
+                            }
                             dialog.dismiss();
                         }
                     }
@@ -240,7 +245,33 @@ public class NewCompetitionFragment extends DialogFragment {
                 runner.setCompetitionId(competitionId);
                 db.runnerDao().insertSingleRunner(runner);
             }
+
             return null;
+        }
+    }
+
+    private class AddCompetitonToServerAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        private int competitionId;
+        private boolean wasSuccessful;
+
+        public AddCompetitonToServerAsyncTask(int competitionId) {
+            this.competitionId = competitionId;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            wasSuccessful = ServerCommunicator.getInstance(getContext()).CreateRaceOnServer(competitionId);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if (!wasSuccessful){
+                Toast.makeText(getContext(), "Error! No connection...", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

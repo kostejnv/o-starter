@@ -169,7 +169,7 @@ public class Runner {
         setClubShort(changedRunner.getOldClubShort());
         setCardNumber(changedRunner.getOldCardNumber());
         setStartNumber(changedRunner.getOldStartNumber());
-        setCategory(changedRunner.getCategory());
+        setCategory(changedRunner.getOldCategory());
         setRegistrationId(changedRunner.getOldRegistrationId());
     }
 }

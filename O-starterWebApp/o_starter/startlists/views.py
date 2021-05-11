@@ -22,18 +22,18 @@ def create_race(request):
         try:
             race = Race(name = post_data.name)
             race.save()
-            return HttpResponse(str(race.id))
+            output = {}
+            output['id'] = race.id
+            return JsonResponse(output)
         except:
             return HttpResponse(status= 404)
     return HttpResponse(status=404)
 
 
 
-def send_changes(request, race_id):
+def send_data(request, race_id):
     pass
 
-def send_unstarted(request, race_idand):
-    pass
 
 def view_all(request, race_id):
     return HttpResponseRedirect(reverse('view_changes', args=[race_id]))

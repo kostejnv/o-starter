@@ -42,9 +42,10 @@ public class ChangedRunner {
     private int oldCompetitionId;
     @ColumnInfo(name = "old_registration_id")
     private String oldRegistrationId;
-    private String category;
+    @ColumnInfo(name = "old_category")
+    private String oldCategory;
 
-    public ChangedRunner(int runnerId, int competitionId, int change, String oldName, String oldSurname, Date oldStartTime, String oldClubShort, int oldCardNumber, int oldStartNumber, int oldCompetitionId, String oldRegistrationId, String category) {
+    public ChangedRunner(int runnerId, int competitionId, int change, String oldName, String oldSurname, Date oldStartTime, String oldClubShort, int oldCardNumber, int oldStartNumber, int oldCompetitionId, String oldRegistrationId, String oldCategory) {
         this.runnerId = runnerId;
         this.competitionId = competitionId;
         this.change = change;
@@ -56,7 +57,7 @@ public class ChangedRunner {
         this.oldStartNumber = oldStartNumber;
         this.oldCompetitionId = oldCompetitionId;
         this.oldRegistrationId = oldRegistrationId;
-        this.category = category;
+        this.oldCategory = oldCategory;
     }
 
     @Ignore
@@ -71,7 +72,7 @@ public class ChangedRunner {
         this.oldStartNumber = runner.getStartNumber();
         this.oldCompetitionId = runner.getCompetitionId();
         this.oldRegistrationId = runner.getRegistrationId();
-        this.category = runner.getCategory();
+        this.oldCategory = runner.getCategory();
     }
 
     @Ignore
@@ -166,12 +167,12 @@ public class ChangedRunner {
         this.oldCompetitionId = oldCompetitionId;
     }
 
-    public String getCategory() {
-        return category;
+    public String getOldCategory() {
+        return oldCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setOldCategory(String oldCategory) {
+        this.oldCategory = oldCategory;
     }
 
     public String getOldRegistrationId() {
