@@ -12,6 +12,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.o_starter.database.dao.ChangedRunnerDao;
 import com.example.o_starter.database.dao.CompetitionDao;
 import com.example.o_starter.database.dao.RunnerDao;
+import com.example.o_starter.database.dao.UnsentChangedDao;
+import com.example.o_starter.database.dao.UnsentUnstartedDao;
 import com.example.o_starter.database.dao.UnstartedRunnerDao;
 import com.example.o_starter.database.entities.ChangedRunner;
 import com.example.o_starter.database.entities.Competition;
@@ -28,6 +30,8 @@ public abstract class StartlistsDatabase extends RoomDatabase {
     public abstract RunnerDao runnerDao();
     public abstract ChangedRunnerDao changedRunnerDao();
     public abstract UnstartedRunnerDao unstartedRunnerDao();
+    public abstract UnsentChangedDao unsentChangedDao();
+    public abstract UnsentUnstartedDao unsentUnstartedDao();
 
     //database instance
     private static StartlistsDatabase instance;

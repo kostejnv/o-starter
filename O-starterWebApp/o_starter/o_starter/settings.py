@@ -26,10 +26,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['10.0.2.2', '127.0.0.1']
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
 # Application definition
 
 INSTALLED_APPS = [
     'startlists.apps.StartlistsConfig',
+    'sslserver',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

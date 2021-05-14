@@ -34,4 +34,7 @@ public interface RunnerDao {
                                 " AND category IN (:categories_to_show)" +
                                 " AND start_time = :time")
     List<Runner> GetRunnersInMinute(int competition_id, List<String> categories_to_show, Date time);
+
+    @Query("SELECT * FROM runners WHERE id=:id")
+    Runner getById(int id);
 }

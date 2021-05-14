@@ -4,7 +4,6 @@ package com.example.o_starter.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.Notification;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,11 +12,8 @@ import android.nfc.FormatException;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,7 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.o_starter.DialogFragUpdateListener;
+import com.example.o_starter.CompetitionsUpdateListener;
 import com.example.o_starter.R;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.Competition;
@@ -38,12 +34,7 @@ import com.example.o_starter.database.entities.Runner;
 import com.example.o_starter.import_startlists.XMLv3StartlistsConverter;
 import com.example.o_starter.server_communication.ServerCommunicator;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class NewCompetitionFragment extends DialogFragment {
 
@@ -116,7 +107,7 @@ public class NewCompetitionFragment extends DialogFragment {
                                 runner.setCompetitionId(competitionId);
                                 db.runnerDao().insertSingleRunner(runner);
                             }
-                            ((DialogFragUpdateListener)(MainActivity)(getActivity())).OnDBUpdate();
+                            ((CompetitionsUpdateListener)(MainActivity)(getActivity())).OnDBUpdate();
                             if (newCompetition.getSettings().getSendOnServer()){
                                 AddCompetitonToServerAsyncTask addCompetitionToServer = new AddCompetitonToServerAsyncTask(competitionId);
                                 addCompetitionToServer.execute();
@@ -270,7 +261,7 @@ public class NewCompetitionFragment extends DialogFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             if (!wasSuccessful){
-                Toast.makeText(getContext(), "Error! No connection...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Server connection failed. \nTry to check internet connection", Toast.LENGTH_SHORT).show();
             }
         }
     }

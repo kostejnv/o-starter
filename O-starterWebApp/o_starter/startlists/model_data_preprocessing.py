@@ -1,34 +1,37 @@
 from . import models
 
-def create_change(change_str, race):
-    parameters = change_str.split("@#")
+def insert_change_to_database(change, race):
     race.change_set.create(
-        old_start_time=parameters[0],
-        old_reg_number=parameters[1],
-        old_firstname=parameters[2],
-        old_lastname=parameters[3],
-        old_sinumber=parameters[4],
-        new_start_time=parameters[5],
-        new_reg_number=parameters[6],
-        new_firstname=parameters[7],
-        new_lastname=parameters[8],
-        new_sinumber=parameters[9])
+        old_firstname= change.old_given,
+        old_lastname = change.old_family,
+        old_start_time = change.old_start_time,
+        old_club = change.old_club_short,
+        old_sinumber = change.old_card_number,
+        old_start_number = change.old_start_number,
+        old_reg_number = change.old_registration_id,
+        old_category = change.old_category,
 
-def add_all_changes(all_changes_str, race):
-    changes_str = all_changes_str.split("@&")
-    for change_str in changes_str:
-        create_change(change_str, race)
+        new_firstname = change.new_given,
+        new_lastname = change.new_family,
+        new_start_time = change.new_start_time,
+        new_club = change.new_club_short,
+        new_sinumber = change.new_card_number,
+        new_start_number = change.new_start_number,
+        new_reg_number = change.new_registration_id,
+        new_category = change.new_category)
+    race.save()
 
 
-def create_unstarted_runner(unstarted_runner_str, race):
-    parameters = unstarted_runner_str.split("@#")
+def insert_unstarted_runner_to_database(unstarted_runner, race):
     race.unstarted_runner_set.create(
-        start_time=parameters[0],
-        reg_number=parameters[1],
-        firstname=parameters[2],
-        lastname=parameters[3])
+        firstname=unstarted_runner.old_given,
+        lastname=unstarted_runner.old_family,
+        start_time=unstarted_runner.old_start_time,
+        club=unstarted_runner.old_club_short,
+        sinumber=unstarted_runner.old_card_number,
+        start_number=unstarted_runner.old_start_number,
+        reg_number=unstarted_runner.old_registration_id,
+        category=unstarted_runner.old_category)
+    race.save()
 
-def add_all_unstarted_runners(all_unstarted_runners_str, race):
-    unstarted_runners_str = all_unstarted_runners_str.split("@&")
-    for unstarted_runner_str in unstarted_runners_str:
-        create_change(unstarted_runner_str, race)
+

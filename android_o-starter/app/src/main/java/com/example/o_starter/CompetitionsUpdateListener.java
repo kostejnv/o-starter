@@ -1,5 +1,5 @@
 package com.example.o_starter;
 
-public interface DialogFragUpdateListener {
+public interface CompetitionsUpdateListener {
     public void OnDBUpdate();
 }

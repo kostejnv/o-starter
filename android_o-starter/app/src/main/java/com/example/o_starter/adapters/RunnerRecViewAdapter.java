@@ -36,6 +36,10 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
     private List<String> categoriesToShow;
     private List<Runner> runners;
 
+    public Context getContext() {
+        return context;
+    }
+
     public RunnerRecViewAdapter(Context context, int competitionId, Date startTime) {
         this.context = context;
         this.competitionId = competitionId;

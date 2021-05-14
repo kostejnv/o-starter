@@ -1,6 +1,7 @@
 package com.example.o_starter.activities;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,15 +17,27 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.o_starter.DialogFragUpdateListener;
 import com.example.o_starter.R;
 import com.example.o_starter.adapters.RunnerRecViewAdapter;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.ChangedRunner;
 import com.example.o_starter.database.entities.Competition;
 import com.example.o_starter.database.entities.Runner;
+import com.example.o_starter.database.entities.UnsentChange;
+import com.example.o_starter.server_communication.ServerCommunicator;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.lang.ref.WeakReference;
+import java.util.Objects;
+
+
+/**
+ * Dialog class for editing runners.
+ *
+ * This class cares about editing runner. It shows dialog and then
+ * check if there are changes. If yes, it saves changedRunner to database
+ * and try to send change on server
+ */
 public class ChangeRunnerDialog extends DialogFragment {
 
     private EditText givenNameEditText;
@@ -33,40 +46,62 @@ public class ChangeRunnerDialog extends DialogFragment {
     private EditText startNumberEditTextNumber;
     private EditText regEditText;
 
-    private RunnerRecViewAdapter adapter;
+    //calling adapter for notify purpose
+    private final RunnerRecViewAdapter adapter;
 
-    private Runner runner;
+    private final Runner runner;
     private ChangedRunner changedRunner;
 
     private static final String TAG = "ChangeDialog";
 
+    /**
+     * Class constructor
+     * @param adapter calling adapter
+     * @param runner editable runner
+     */
     public ChangeRunnerDialog(RunnerRecViewAdapter adapter, Runner runner) {
         this.adapter = adapter;
         this.runner = runner;
     }
 
+
+    /**
+     * Create and set dialog functions.
+     *
+     * Main method of the class. Sets all components and functions.
+     * It initializes all components and saves change to database
+     * and sends it on server.
+     *
+     * @return edit runner dialog
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        View view = getActivity().getLayoutInflater().inflate(R.layout.change_runner_dialog, null, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+
+        //inflate dialog view
+        View view = requireActivity().getLayoutInflater().inflate(R.layout.change_runner_dialog, null, false);
 
         InitializeComponents(view);
 
+        //set edittexts hints
         givenNameEditText.setHint(runner.getName());
         familyNameEditText.setHint(runner.getSurname());
-        SIEditTextNumber.setHint(new Integer(runner.getCardNumber()).toString());
-        startNumberEditTextNumber.setHint(new Integer(runner.getStartNumber()).toString());
+        SIEditTextNumber.setHint(Integer.valueOf(runner.getCardNumber()).toString());
+        startNumberEditTextNumber.setHint(Integer.valueOf(runner.getStartNumber()).toString());
         regEditText.setHint(runner.getRegistrationId());
 
-        final AlertDialog dialog = new AlertDialog.Builder(getContext())
+        //set main attributes of dialog
+        final AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setView(view)
-                .setTitle("Change Runner")
-                .setPositiveButton("Change", null) //Set to null. We override the onclick
-                .setNegativeButton("Cancel", null)
+                .setTitle(R.string.change_runner)
+                .setPositiveButton(R.string.change, null) //Set to null. We override the onclick
+                .setNegativeButton(R.string.cancel, null)
                 .create();
 
+
+        //set function of "change" button
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
             @Override
@@ -78,17 +113,23 @@ public class ChangeRunnerDialog extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (WasChanged()) {
-                            String change = getStringChange();
-                            insertChangedRunnerToDatabase();
-                            updateRunnerInDatabase();
+                            String readableChange = getStringChange();
+                            int changedRunnerId = insertChangedRunnerToDatabase();
+                            updateRunnerInDatabase(runner);
                             adapter.notifyDataSetChanged();
-                            SendChangeToServerAsyncTask sendChangeToServer = new SendChangeToServerAsyncTask();
+                            //TODO:check if should send
+                            SendChangeToServerAsyncTask sendChangeToServer = new SendChangeToServerAsyncTask(changedRunnerId, adapter.getContext(), runner);
                             sendChangeToServer.execute();
-                            Snackbar.make(getActivity().findViewById(R.id.minute_rec_view), change, Snackbar.LENGTH_LONG)
+
+                            //offer user cancel change
+                            Snackbar.make(requireActivity().findViewById(R.id.minute_rec_view), readableChange, Snackbar.LENGTH_LONG)
                                     .setAction("Undo", new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
+                                            // it stops sending on server
+                                            //TODO: check ifsendonserver
                                             sendChangeToServer.wasUndoPressed = true;
+                                            //return change back in database
                                             runner.changeByChangedRunner(changedRunner);
                                             StartlistsDatabase.getInstance(getContext()).runnerDao().updateSiglerunner(runner);
                                             StartlistsDatabase.getInstance(getContext()).changedRunnerDao().deleteSingleRunner(changedRunner);
@@ -110,16 +151,24 @@ public class ChangeRunnerDialog extends DialogFragment {
 
     }
 
-    private void insertChangedRunnerToDatabase(){
+    /**
+     * create change runner and save into database
+     * @return id of changedRunner
+     */
+    private int insertChangedRunnerToDatabase(){
         changedRunner = new ChangedRunner(runner);
         Competition competition = StartlistsDatabase.getInstance(getContext()).competitionDao().GetCompetitionById(runner.getCompetitionId());
+        //TODO: delete changes
         changedRunner.setChange(competition.getChange());
         competition.setChange(competition.getChange()+1);
         StartlistsDatabase.getInstance(getContext()).competitionDao().updateSingleCompetition(competition);
-        StartlistsDatabase.getInstance(getContext()).changedRunnerDao().insertSingleRunner(changedRunner);
+        return (int) StartlistsDatabase.getInstance(getContext()).changedRunnerDao().insertSingleRunner(changedRunner);
     }
 
-    private void updateRunnerInDatabase(){
+    /**
+     * Update changed field of runner
+     */
+    private void updateRunnerInDatabase(Runner runner){
         if(!givenNameEditText.getText().toString().equals("")) {
             runner.setName(givenNameEditText.getText().toString());
         }
@@ -138,6 +187,9 @@ public class ChangeRunnerDialog extends DialogFragment {
         StartlistsDatabase.getInstance(getContext()).runnerDao().updateSiglerunner(runner);
     }
 
+    /**
+     * check if an editView was filled
+     */
     private boolean WasChanged() {
         return !givenNameEditText.getText().toString().equals("")
                 || !familyNameEditText.getText().toString().equals("")
@@ -146,6 +198,10 @@ public class ChangeRunnerDialog extends DialogFragment {
                 ||!regEditText.getText().toString().equals("");
     }
 
+    /**
+     * create string that described change
+     * @return change in read-form
+     */
     private String getStringChange() {
         StringBuilder stringChange = new StringBuilder();
         if (!givenNameEditText.getText().toString().equals("")) {
@@ -182,6 +238,9 @@ public class ChangeRunnerDialog extends DialogFragment {
         return change.substring(0, change.length()-1);
     }
 
+    /**
+     * Self-documenting
+     */
     private void InitializeComponents(View view) {
         givenNameEditText = view.findViewById(R.id.givenNameEditText);
         familyNameEditText = view.findViewById(R.id.familyNameEditText);
@@ -192,24 +251,69 @@ public class ChangeRunnerDialog extends DialogFragment {
     }
 
 
-
-    private class SendChangeToServerAsyncTask extends AsyncTask<Void,Void,Void> {
+    /**
+     * Async task for sneding change on server
+     */
+    private static class SendChangeToServerAsyncTask extends AsyncTask<Void,Void,Void> {
+        //if user wants to cancel change
         public boolean wasUndoPressed = false;
-        private static final int SLEEP_TIME = 5000;
+        private final int changedRunnerId;
+        private boolean failedConnection = true;
+        private final WeakReference<Context> contextReference;
+        private final Runner runner;
 
+        /**
+         * Task constructor
+         */
+        private SendChangeToServerAsyncTask(int changedRunnerId, Context context, Runner runner) {
+            this.changedRunnerId = changedRunnerId;
+            this.contextReference = new WeakReference<Context>(context);
+            this.runner = runner;
+        }
+
+        /**
+         * Try to send change on Server.
+         *
+         * If user not cancel sending on server, add change into UnsentChanges
+         * and call for Sending all data to Server
+         */
         @Override
         protected Void doInBackground(Void... voids) {
+            //time to pressed undo
+            int SLEEP_TIME = 5000;
             SystemClock.sleep(SLEEP_TIME);
             if (!wasUndoPressed){
-                //TODO: poslat zmenu na server
-                Log.i(TAG, "Sent to server");
-            }
-            else
-            {
-                Log.i(TAG, "Not Sent to server");
+                // get a reference to the context if it is still there
+                Context context = contextReference.get();
+                if (context == null) return null;
+                StartlistsDatabase.getInstance(contextReference.get()).unsentChangedDao().insertSingleChange(new UnsentChange(changedRunnerId));
+                if(ServerCommunicator.getInstance(contextReference.get()).SendDataToServer(runner.getCompetitionId())){
+                    Log.i(TAG, "Data sent to server");
+                    failedConnection = false;
+                }
+                else
+                {
+                    Log.i(TAG, "connection error");
+                    failedConnection = true;
+                }
             }
 
             return null;
+        }
+
+        /**
+         * Notify user if sending to Server failed
+         */
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            // get a reference to the context if it is still there
+            Context context = contextReference.get();
+            if (context == null) return;
+
+            if (failedConnection){
+                Toast.makeText(context, "Server connection failed. \nTry to check internet connection", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

@@ -9,11 +9,6 @@
         android:icon="@drawable/ic_add"
         app:showAsAction="ifRoom"/>
 
-    <item
-        android:id="@+id/setting_item"
-        android:title="@string/settings"
-        android:icon="@drawable/ic_settings"
-        app:showAsAction="never"/>
 
     <item
         android:id="@+id/about_item"

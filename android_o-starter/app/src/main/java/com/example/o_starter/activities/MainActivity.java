@@ -1,33 +1,29 @@
 package com.example.o_starter.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.o_starter.CompetitionBase;
-import com.example.o_starter.DialogFragUpdateListener;
+import com.example.o_starter.CompetitionsUpdateListener;
 import com.example.o_starter.adapters.CompetitionsRecViewAdapter;
 import com.example.o_starter.R;
-import com.example.o_starter.database.StartlistsDatabase;
-import com.example.o_starter.database.entities.Competition;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements DialogFragUpdateListener {
+public class MainActivity extends AppCompatActivity implements CompetitionsUpdateListener {
 
     private RecyclerView competitionsRecView;
     private TextView addCompetitionTextview;
@@ -83,15 +79,23 @@ public class MainActivity extends AppCompatActivity implements DialogFragUpdateL
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        //TODO: make actions
         switch (item.getItemId()){
             case R.id.new_competition_item:
                 DialogFragment newFragment = new NewCompetitionFragment();
                 newFragment.show(getSupportFragmentManager(), "new competition");
                 return true;
-            case R.id.setting_item:
-                return true;
             case R.id.about_item:
+                new AlertDialog.Builder(this)
+                        .setTitle("About app")
+                        .setMessage("\nO-starter is developing by Vít Koštejn.\n" +
+                                "\nIn case of issue, please contact me on v.kostejn.experimental@gmail.com")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                            }
+                        })
+                        .show();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

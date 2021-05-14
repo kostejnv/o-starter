@@ -16,12 +16,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.o_starter.DialogFragUpdateListener;
+import com.example.o_starter.CompetitionsUpdateListener;
 import com.example.o_starter.R;
 import com.example.o_starter.activities.SettingsStartlistActivity;
 import com.example.o_starter.activities.StartlistViewActivity;
@@ -97,7 +94,7 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
                                                 int competitionId = competitions.get(position).getId();
                                                 DeleteCompetitionAsyncTask deleteTask = new DeleteCompetitionAsyncTask();
                                                 deleteTask.execute(competitionId);
-                                                ((DialogFragUpdateListener)context).OnDBUpdate();
+                                                ((CompetitionsUpdateListener)context).OnDBUpdate();
                                             }
                                         })
                                         .setNegativeButton("No", null)

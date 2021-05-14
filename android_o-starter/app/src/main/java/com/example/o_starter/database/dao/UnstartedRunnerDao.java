@@ -7,19 +7,23 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.o_starter.database.entities.Runner;
+import com.example.o_starter.database.entities.UnstartedRunner;
 
 @Dao
 public interface UnstartedRunnerDao {
 
     @Insert
-    long insertSingleRunner(Runner runner);
+    long insertSingleRunner(UnstartedRunner runner);
 
     @Delete
-    void deleteSingleRunner(Runner runner);
+    void deleteSingleRunner(UnstartedRunner runner);
 
     @Update
-    void updateSiglerunner(Runner runner);
+    void updateSiglerunner(UnstartedRunner runner);
 
     @Query("DELETE FROM unstarted_runner WHERE competition_id = :competition_id")
     void deleteByCompetitionId(int competition_id);
+
+    @Query("SELECT * FROM unstarted_runner WHERE id = :id")
+    UnstartedRunner GetById(int id);
 }

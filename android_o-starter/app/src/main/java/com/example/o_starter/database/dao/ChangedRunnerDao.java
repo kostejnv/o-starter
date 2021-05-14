@@ -23,4 +23,7 @@ public interface ChangedRunnerDao {
 
     @Query("DELETE FROM changed_runners WHERE competition_id = :competition_id")
     void deleteByCompetitionId(int competition_id);
+
+    @Query("Select * FROM changed_runners WHERE id = :id")
+    ChangedRunner getById(int id);
 }
