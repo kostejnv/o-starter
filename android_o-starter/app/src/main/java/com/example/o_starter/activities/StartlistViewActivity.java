@@ -21,6 +21,9 @@ import com.example.o_starter.adapters.MinutesRecViewAdapter;
 
 import java.security.InvalidParameterException;
 
+/**
+ * Activity for checking and editing runners of give competition
+ */
 public class StartlistViewActivity extends AppCompatActivity {
 
     public static final String COMPETITION_ID_INTENT = "COMPETITION_ID";
@@ -29,26 +32,33 @@ public class StartlistViewActivity extends AppCompatActivity {
     private MinutesRecViewAdapter adapter;
     private int competitionId;
 
+    /**
+     * Setting all components and their functionalities
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startlist_view);
 
-        InitializeComponents();
+        minuteRecView = findViewById(R.id.minute_rec_view);
 
         competitionId = getIntent().getIntExtra(COMPETITION_ID_INTENT, -1);
         if (competitionId == -1){
             Log.e(TAG, "competitionId was not send", new InvalidParameterException());
         }
 
+        //set Minutes adapter
         adapter = new MinutesRecViewAdapter(this, competitionId);
-
         minuteRecView.setAdapter(adapter);
         minuteRecView.setLayoutManager(new LinearLayoutManager(this));
         minuteRecView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
         Log.i(TAG, "minute recycler view created");
     }
 
+    /**
+     *Create Menu for given competition
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -57,6 +67,9 @@ public class StartlistViewActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Set menu items functionality
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -72,9 +85,5 @@ public class StartlistViewActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
-    }
-
-    private void InitializeComponents() {
-        minuteRecView = findViewById(R.id.minute_rec_view);
     }
 }

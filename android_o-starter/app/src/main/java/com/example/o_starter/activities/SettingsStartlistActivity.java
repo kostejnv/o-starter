@@ -7,16 +7,24 @@ import android.util.Log;
 
 import com.example.o_starter.R;
 
+import java.util.Objects;
+
+/**
+ * Activity for settings given activity that runs {@link SettingsStartlistFragment SettingsStartlistFragment}
+ */
 public class SettingsStartlistActivity extends AppCompatActivity {
 
     private static final String TAG = "SettingsStartlistAct";
 
+    /**
+     * Run {@link SettingsStartlistFragment SettingsStartlistFragment}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_startlist);
 
-        getSupportActionBar().setTitle(R.string.settings);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.settings);
         Log.i(TAG, "action bar title changed");
 
 

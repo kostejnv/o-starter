@@ -16,12 +16,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.o_starter.CompetitionBase;
 import com.example.o_starter.CompetitionsUpdateListener;
 import com.example.o_starter.adapters.CompetitionsRecViewAdapter;
 import com.example.o_starter.R;
-
-import java.util.ArrayList;
 
 /**
  * Class for launching activity with competition recycler view
@@ -34,6 +31,10 @@ public class MainActivity extends AppCompatActivity implements CompetitionsUpdat
     private static final String TAG = "MainActivity";
     private CompetitionsRecViewAdapter adapter;
 
+
+    /**
+     *Initialize and set all functions of activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "created");
@@ -42,20 +43,19 @@ public class MainActivity extends AppCompatActivity implements CompetitionsUpdat
 
         InitializeComponents();
 
-
-
-
+        // Set and show competition adapter
         adapter = new CompetitionsRecViewAdapter(this, findViewById(android.R.id.content));
-
         competitionsRecView.setAdapter(adapter);
         competitionsRecView.setLayoutManager(new LinearLayoutManager(this));
         competitionsRecView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-
         adapter.notifyDataChanged();
         Log.i(TAG, "competition recycler view created");
 
     }
 
+    /**
+     * Self-Documenting
+     */
     private void InitializeComponents() {
         competitionsRecView = findViewById(R.id.competitionsRecView);
         addCompetitionTextview = findViewById(R.id.addCompetitionTextview);
@@ -63,15 +63,10 @@ public class MainActivity extends AppCompatActivity implements CompetitionsUpdat
 
     }
 
-    private ArrayList<CompetitionBase> setData(){
-        //TODO: dabase
-        ArrayList<CompetitionBase> competitions = new ArrayList<CompetitionBase>();
-        competitions.add(new CompetitionBase("MCR Kratka", "13.6.2021", null));
-        competitions.add(new CompetitionBase("Oblastak Praha", "6.6.2021", null));
-        Log.i(TAG, "test data setted");
-        return competitions;
-    }
 
+    /**
+     *Build main menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -80,11 +75,14 @@ public class MainActivity extends AppCompatActivity implements CompetitionsUpdat
         return true;
     }
 
+    /**
+     *set function for menu items
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.new_competition_item:
-                DialogFragment newFragment = new NewCompetitionFragment();
+                DialogFragment newFragment = new NewCompetitionDialog();
                 newFragment.show(getSupportFragmentManager(), "new competition");
                 return true;
             case R.id.about_item:
@@ -105,6 +103,11 @@ public class MainActivity extends AppCompatActivity implements CompetitionsUpdat
 
     }
 
+    /**
+     * Notify competition adapter that data were changed
+     *
+     * For updating competition recycler view purpose
+     */
     @Override
     public void OnDBUpdate() {
         adapter.notifyDataChanged();

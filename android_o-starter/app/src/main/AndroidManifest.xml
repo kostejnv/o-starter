@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OStarter">
         <activity android:name=".activities.StartlistViewActivity"></activity>
-        <activity android:name=".activities.NewCompetitionActivity"></activity>
         <activity android:name=".activities.SettingsStartlistActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>

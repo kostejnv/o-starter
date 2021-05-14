@@ -35,8 +35,12 @@ import com.example.o_starter.import_startlists.XMLv3StartlistsConverter;
 import com.example.o_starter.server_communication.ServerCommunicator;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class NewCompetitionFragment extends DialogFragment {
+/**
+ * Class with dialog for creating new competition in {@link MainActivity MainActivity}
+ */
+public class NewCompetitionDialog extends DialogFragment {
 
     private static final String Tag = "NewCompFrag";
     private static final int REQUEST_STORAGE_PERMISSION = 101;
@@ -51,16 +55,21 @@ public class NewCompetitionFragment extends DialogFragment {
     private Competition newCompetition;
     private ArrayList<Runner> competitors;
 
+    /**
+     * Main method for creating and setting new competition dialog
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        View view = getActivity().getLayoutInflater().inflate(R.layout.new_competition_dialog, null,false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+
+        View view = requireActivity().getLayoutInflater().inflate(R.layout.new_competition_dialog, null,false);
 
         InitializeComponents(view);
         requestStoragePermission();
 
+        //open file manager if click on load and permitted
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,14 +85,15 @@ public class NewCompetitionFragment extends DialogFragment {
             }
         });
 
-
-        final AlertDialog dialog = new AlertDialog.Builder(getContext())
+        //create dialog and set main information
+        final AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setView(view)
                 .setTitle(R.string.new_competition)
                 .setPositiveButton(R.string.create, null) //Set to null. We override the onclick
                 .setNegativeButton(R.string.cancel, null)
                 .create();
 
+        //override create button functions
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
             @Override
@@ -107,7 +117,7 @@ public class NewCompetitionFragment extends DialogFragment {
                                 runner.setCompetitionId(competitionId);
                                 db.runnerDao().insertSingleRunner(runner);
                             }
-                            ((CompetitionsUpdateListener)(MainActivity)(getActivity())).OnDBUpdate();
+                            ((CompetitionsUpdateListener)(MainActivity)(requireActivity())).OnDBUpdate();
                             if (newCompetition.getSettings().getSendOnServer()){
                                 AddCompetitonToServerAsyncTask addCompetitionToServer = new AddCompetitonToServerAsyncTask(competitionId);
                                 addCompetitionToServer.execute();
@@ -122,6 +132,9 @@ public class NewCompetitionFragment extends DialogFragment {
 
     }
 
+    /**
+     *Self-documenting
+     */
     private void InitializeComponents(View view){
 
         competitionNameTextView = view.findViewById(R.id.competitionNameTextView);
@@ -132,17 +145,26 @@ public class NewCompetitionFragment extends DialogFragment {
 
     }
 
+    /**
+     * Ask for permission if it was done till now
+     */
     private void requestStoragePermission(){
         if(!checkStoragePermission()){
             requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
         }
     }
 
+    /**
+     * Self-documenting
+     */
     private boolean checkStoragePermission(){
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED;
     }
 
+    /**
+     * Open file Manager to find XML
+     */
     private void performFileSearch(){
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -150,17 +172,9 @@ public class NewCompetitionFragment extends DialogFragment {
         startActivityForResult(intent, READ_REQUEST_CODE);
     }
 
-
-    //TODO: je potreba?
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_STORAGE_PERMISSION) {
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED){
-
-            }
-        }
-    }
-
+    /**
+     * Get XML path and process it
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK){
@@ -176,6 +190,9 @@ public class NewCompetitionFragment extends DialogFragment {
     //__________________________________________________________________________________
     //Async Tasks
 
+    /**
+     * Async task for getting competition data from XML
+     */
     private class ProcessXMLDataAsyncTask extends AsyncTask<Uri, Void, Void>{
 
         private Competition competition;
@@ -183,6 +200,9 @@ public class NewCompetitionFragment extends DialogFragment {
         private boolean WasProcessOK;
 
 
+        /**
+         * Process XML and get data to data fields
+         */
         @Override
         protected Void doInBackground(Uri... uris) {
             Uri uri = uris[0];
@@ -199,6 +219,10 @@ public class NewCompetitionFragment extends DialogFragment {
             return null;
         }
 
+
+        /**
+         *Save competition data to class and sets views
+         */
         @Override
         protected void onPostExecute(Void aVoid) {
             if(WasProcessOK){
@@ -218,33 +242,14 @@ public class NewCompetitionFragment extends DialogFragment {
         }
     }
 
-    private class AddCompetitionToDatabase extends AsyncTask<Void,Void,Void>{
-
-        private Competition competition;
-        private ArrayList<Runner> runners;
-
-        public AddCompetitionToDatabase(Competition competition, ArrayList<Runner> runners) {
-            this.competition = competition;
-            this.runners = runners;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            StartlistsDatabase db = StartlistsDatabase.getInstance(getContext());
-            int competitionId = (int) db.competitionDao().insertSingleCompetition(competition);
-            for(Runner runner: runners){
-                runner.setCompetitionId(competitionId);
-                db.runnerDao().insertSingleRunner(runner);
-            }
-
-            return null;
-        }
-    }
-
+    /**
+     * Self-documenting
+     */
     private class AddCompetitonToServerAsyncTask extends AsyncTask<Void, Void, Void>{
 
-        private int competitionId;
+        private final int competitionId;
         private boolean wasSuccessful;
+
 
         public AddCompetitonToServerAsyncTask(int competitionId) {
             this.competitionId = competitionId;
@@ -258,6 +263,10 @@ public class NewCompetitionFragment extends DialogFragment {
             return null;
         }
 
+
+        /**
+         * Show message if connection was not successful
+         */
         @Override
         protected void onPostExecute(Void aVoid) {
             if (!wasSuccessful){

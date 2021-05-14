@@ -1,13 +1,12 @@
 package com.example.o_starter.adapters;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,30 +14,27 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.o_starter.R;
 import com.example.o_starter.activities.ChangeRunnerDialog;
-import com.example.o_starter.activities.NewCompetitionFragment;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.Runner;
 
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Adapter for recycler view of given minute and competition runners in {@link MinutesRecViewAdapter MinutesRecViewAdapter}
+ */
 public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdapter.ViewHolder> {
 
-    private Context context;
+    private final Context context;
     public static final String TAG = "RunnerRecView";
-    private int competitionId;
-    private Date startTime;
+    private final int competitionId;
+    private final Date startTime;
     private List<String> categoriesToShow;
     private List<Runner> runners;
-
-    public Context getContext() {
-        return context;
-    }
 
     public RunnerRecViewAdapter(Context context, int competitionId, Date startTime) {
         this.context = context;
@@ -46,6 +42,9 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
         this.startTime = startTime;
     }
 
+    /**
+     * Self-documenting
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,19 +54,27 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
         return holder;
     }
 
+    /**
+     * setting all components of view holder
+     */
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        //get runner if it was not initialize
         TryInitializeData();
+
+        //initialize components
         holder.SItextView.setText(String.valueOf(runners.get(position).getCardNumber()));
-        holder.runnerNametextView.setText(String.format(runners.get(position).getName() + " " + runners.get(position).getSurname()));
+        holder.runnerNametextView.setText(runners.get(position).getName() + " " + runners.get(position).getSurname());
         holder.startNumbertextView.setText(String.valueOf(runners.get(position).getStartNumber()));
         holder.registrationIDtextView.setText(runners.get(position).getRegistrationId());
         if(runners.get(position).isChecked()){
             holder.startedcheckBox.setChecked(runners.get(position).isChecked());
             holder.runnerLayout.setBackgroundColor(context.getResources().getColor(R.color.light_gray));
         }
-        holder.startedcheckBox.setChecked(runners.get(position).isChecked());
 
+        //Set functionality if runner was checked
         holder.startedcheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +91,7 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
             }
         });
 
+        //Show change runner dialog if clik on edit
         holder.editImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +110,9 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
 
     }
 
+    /**
+     * Get runners from database if it was not done till now
+     */
     private void TryInitializeData(){
         if (categoriesToShow == null){
             categoriesToShow = StartlistsDatabase.getInstance(context).competitionDao().GetCategoriesToShow(competitionId).getCategoriesToShow();
@@ -111,15 +122,22 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
         }
     }
 
+    /**
+     * Self-documenting
+     */
     @Override
     public int getItemCount() {
         TryInitializeData();
         return runners.size();
     }
 
+    /**
+     * Holder of views for each minute
+     */
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView SItextView;
+
         private TextView runnerNametextView;
         private TextView startNumbertextView;
         private TextView registrationIDtextView;
@@ -127,13 +145,17 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
         private CheckBox startedcheckBox;
         private ConstraintLayout runnerLayout;
 
-
-
+        /**
+         * Self-documenting
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             InitializeComponents(itemView);
         }
 
+        /**
+         * Self-documenting
+         */
         private void InitializeComponents(@NonNull View itemView) {
             SItextView = itemView.findViewById(R.id.SItextView);
             runnerNametextView = itemView.findViewById(R.id.runnerNametextView);
@@ -145,5 +167,10 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
 
             Log.i(TAG, "Initialize components in minute item");
         }
+
+    }
+
+    public Context getContext() {
+        return context;
     }
 }

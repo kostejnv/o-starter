@@ -29,18 +29,29 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Recycler view adapter for all competitions in {@link com.example.o_starter.activities.MainActivity MainActivity}
+ */
 public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<CompetitionsRecViewAdapter.ViewHolder> {
 
-    private Context context;
+    private final Context context;
     private static final String TAG = "CompetitionsAdapter";
     private List<Competition> competitions;
-    private View parent;
+    private final View parent;
 
+    /**
+     *
+     * @param context context of parent
+     * @param parent parent view
+     */
     public CompetitionsRecViewAdapter(Context context, View parent) {
         this.context = context;
         this.parent = parent;
     }
 
+    /**
+     *Self-documenting
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,16 +61,18 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
         return holder;
     }
 
+    /**
+     * Set components for each item in recycler view
+     */
     @SuppressLint("SimpleDateFormat")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //TODO:jiny thread
         competitions = StartlistsDatabase.getInstance(context).competitionDao().GetAllCompetition();
         holder.competitionTextView.setText(competitions.get(position).getName());
         Date date = competitions.get(position).getStartTime();
         holder.dateTextView.setText(new SimpleDateFormat("E dd.MM.yyyy").format(date));
 
-
+        //Setting menu functionalities
         holder.menuImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +127,7 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
             }
         });
 
+        //go to StartlistViewActivity after clik on start image
         holder.startImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,14 +143,17 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
 
     }
 
-
-
+    /**
+     * @return number of competiton
+     */
     @Override
     public int getItemCount() {
         return StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionCount();
     }
 
-
+    /**
+     * Holder of views for each item
+     */
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView startImageView;
@@ -148,7 +165,6 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             InitializeComponents(itemView);
-            //PreferenceManager.setDefaultValues(context, R.xml.preferences_startlist, false);
         }
 
         private void InitializeComponents(@NonNull View itemView) {
@@ -162,6 +178,9 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
 
     }
 
+    /**
+     * Self-documenting
+     */
     private class DeleteCompetitionAsyncTask extends AsyncTask<Integer, Void,Void>{
         @Override
         protected Void doInBackground(Integer... integers) {
@@ -169,8 +188,17 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
             StartlistsDatabase.getInstance(context).competitionDao().DeleteById(competitionId);
             return null;
         }
+
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            notifyDataChanged();
+        }
     }
 
+    /**
+     * Notify adapter about change in competition list and update TextView about No competition
+     */
     public void notifyDataChanged(){
         notifyDataSetChanged();
         if(StartlistsDatabase.getInstance(context).competitionDao().GetAllCompetition().size()==0){
