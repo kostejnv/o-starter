@@ -4,7 +4,7 @@
 
 
     <item
-        android:title="Close Competition"
+        android:title="@string/close_competition"
         android:id="@+id/startlist_close_competition"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_finish_competition"/>

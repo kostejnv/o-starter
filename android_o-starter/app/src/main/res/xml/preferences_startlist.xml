@@ -36,7 +36,7 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="check_box_preference_2"
-            android:title="@string/shoft_on_actual_time_automatically" />
+            android:title="@string/shift_on_actual_time_automatically" />
 
     </PreferenceCategory>
 

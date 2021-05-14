@@ -23,6 +23,9 @@ import com.example.o_starter.R;
 
 import java.util.ArrayList;
 
+/**
+ * Class for launching activity with competition recycler view
+ */
 public class MainActivity extends AppCompatActivity implements CompetitionsUpdateListener {
 
     private RecyclerView competitionsRecView;
@@ -86,10 +89,9 @@ public class MainActivity extends AppCompatActivity implements CompetitionsUpdat
                 return true;
             case R.id.about_item:
                 new AlertDialog.Builder(this)
-                        .setTitle("About app")
-                        .setMessage("\nO-starter is developing by Vít Koštejn.\n" +
-                                "\nIn case of issue, please contact me on v.kostejn.experimental@gmail.com")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        .setTitle(R.string.about_app)
+                        .setMessage(R.string.about_app_text)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Continue with delete operation
                             }

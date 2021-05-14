@@ -1,6 +1,7 @@
 package com.example.o_starter.import_startlists;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.nfc.FormatException;
@@ -232,7 +233,7 @@ public class XMLv3StartlistsConverter implements StartlistsConverter {
                 }
                 if (parser.getName().equals(XML_STARTTIME)) {
                     String sdate = getContent(parser, XML_STARTTIME);
-                    Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(sdate);
+                    @SuppressLint("SimpleDateFormat") Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").parse(sdate);
                     runner.setStartTime(date);
 
                 } else if (parser.getName().equals(XML_CONTROLCARD)) {

@@ -23,6 +23,7 @@ import java.security.InvalidParameterException;
 
 public class StartlistViewActivity extends AppCompatActivity {
 
+    public static final String COMPETITION_ID_INTENT = "COMPETITION_ID";
     public static final String TAG = "StartlistViewAct";
     private RecyclerView minuteRecView;
     private MinutesRecViewAdapter adapter;
@@ -35,7 +36,7 @@ public class StartlistViewActivity extends AppCompatActivity {
 
         InitializeComponents();
 
-        competitionId = getIntent().getIntExtra("COMPETITION_ID", -1);
+        competitionId = getIntent().getIntExtra(COMPETITION_ID_INTENT, -1);
         if (competitionId == -1){
             Log.e(TAG, "competitionId was not send", new InvalidParameterException());
         }

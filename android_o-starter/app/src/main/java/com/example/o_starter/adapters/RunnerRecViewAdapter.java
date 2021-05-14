@@ -143,7 +143,7 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
             startedcheckBox = itemView.findViewById(R.id.StartedcheckBox);
             runnerLayout = itemView.findViewById(R.id.runner_layout);
 
-            Log.i(TAG, "initialize components in minute item");
+            Log.i(TAG, "Initialize components in minute item");
         }
     }
 }

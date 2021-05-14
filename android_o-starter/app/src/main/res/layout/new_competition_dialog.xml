@@ -17,13 +17,14 @@
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/loadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Load StartLists"
+        android:text="@string/load_startlists"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/competitionNameTextView"
         app:layout_constraintStart_toStartOf="@+id/competitionNameTextView"
@@ -34,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="(The support format is IOF XML v.3)"
+        android:text="@string/the_support_format_is_iof_xml_v_3"
         app:layout_constraintEnd_toEndOf="@+id/loadButton"
         app:layout_constraintStart_toStartOf="@+id/loadButton"
         app:layout_constraintTop_toBottomOf="@+id/loadButton" />
@@ -44,7 +45,6 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:src="@drawable/ic_ok"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/loadButton"
@@ -56,7 +56,6 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:src="@drawable/ic_cross"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/loadButton"
@@ -69,8 +68,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:checked="true"
-        android:text="Send data on Server"
+        android:text="@string/send_data_on_server"
         app:layout_constraintStart_toStartOf="@+id/loadTextView"
-        app:layout_constraintTop_toBottomOf="@+id/loadTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/loadTextView"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

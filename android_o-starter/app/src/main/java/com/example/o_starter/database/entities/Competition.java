@@ -169,6 +169,6 @@ public class Competition {
         setSettings(settings);
         setStartTime(minutesSet.first());
         setMinutesWithRunner(new ArrayList<Date>(minutesSet));
-        Log.i(TAG, String.format("get all parametrs from runner to competition " + getId() + ", first minute is " + new SimpleDateFormat("hh:mm").format(minutesSet.first())));
+        Log.i(TAG, String.format("get all parameters from runner to competition " + getId() + ", first minute is " + new SimpleDateFormat("hh:mm").format(minutesSet.first())));
     }
 }

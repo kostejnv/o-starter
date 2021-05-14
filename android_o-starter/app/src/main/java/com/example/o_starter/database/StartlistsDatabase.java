@@ -25,6 +25,8 @@ import com.example.o_starter.database.entities.UnstartedRunner;
 @Database(entities = {Competition.class, Runner.class, ChangedRunner.class, UnstartedRunner.class, UnsentChange.class, UnsentUnstertedRunner.class}, version = 1)
 public abstract class StartlistsDatabase extends RoomDatabase {
 
+    public static final String DATABASE_NAME = "startlists_db";
+
     //Dao classes
     public abstract CompetitionDao competitionDao();
     public abstract RunnerDao runnerDao();
@@ -38,7 +40,7 @@ public abstract class StartlistsDatabase extends RoomDatabase {
 
     public static synchronized StartlistsDatabase getInstance(Context context){
         if (instance == null) {
-            instance = Room.databaseBuilder(context, StartlistsDatabase.class, "startlists_db")
+            instance = Room.databaseBuilder(context, StartlistsDatabase.class, DATABASE_NAME)
                     .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .addCallback(initialCallback)

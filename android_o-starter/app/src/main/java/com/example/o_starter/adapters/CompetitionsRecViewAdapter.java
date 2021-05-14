@@ -50,6 +50,7 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
         return holder;
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //TODO:jiny thread
@@ -84,8 +85,8 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
                                 break;
                             case R.id.delete_race_item:
                                 new AlertDialog.Builder(context)
-                                        .setTitle("Delete Competition")
-                                        .setMessage("Are you sure you want to delete this Competition?")
+                                        .setTitle(R.string.delete_competition)
+                                        .setMessage(R.string.really_delete_competition)
 
                                         // Specifying a listener allows you to take an action before dismissing the dialog.
                                         // The dialog is automatically dismissed when a dialog button is clicked.
@@ -97,7 +98,7 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
                                                 ((CompetitionsUpdateListener)context).OnDBUpdate();
                                             }
                                         })
-                                        .setNegativeButton("No", null)
+                                        .setNegativeButton(R.string.no, null)
                                         .show();
                                 break;
                             default:
@@ -117,7 +118,7 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, StartlistViewActivity.class);
-                intent.putExtra("COMPETITION_ID", competitions.get(position).getId());
+                intent.putExtra(StartlistViewActivity.COMPETITION_ID_INTENT, competitions.get(position).getId());
                 context.startActivity(intent);
                 Log.i(TAG, "startlist view activity started");
             }

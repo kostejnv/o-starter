@@ -1,5 +1,6 @@
 package com.example.o_starter.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class MinutesRecViewAdapter extends RecyclerView.Adapter<MinutesRecViewAd
         return holder;
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (sortedMinutes == null){

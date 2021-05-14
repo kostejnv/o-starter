@@ -71,7 +71,7 @@ public class NewCompetitionFragment extends DialogFragment {
 
                 }
                 else{
-                    Toast.makeText(getContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.permission_denied, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -79,9 +79,9 @@ public class NewCompetitionFragment extends DialogFragment {
 
         final AlertDialog dialog = new AlertDialog.Builder(getContext())
                 .setView(view)
-                .setTitle("New Competition")
+                .setTitle(R.string.new_competition)
                 .setPositiveButton(R.string.create, null) //Set to null. We override the onclick
-                .setNegativeButton("cancel", null)
+                .setNegativeButton(R.string.cancel, null)
                 .create();
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -95,7 +95,7 @@ public class NewCompetitionFragment extends DialogFragment {
                     @Override
                     public void onClick(View view) {
                         if (newCompetition == null || competitionNameTextView.getText().toString().equals("")){
-                            Toast.makeText(getContext(), "Invalid data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.invalid_data, Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -261,7 +261,7 @@ public class NewCompetitionFragment extends DialogFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             if (!wasSuccessful){
-                Toast.makeText(getContext(), "Server connection failed. \nTry to check internet connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.connection_failed, Toast.LENGTH_SHORT).show();
             }
         }
     }
