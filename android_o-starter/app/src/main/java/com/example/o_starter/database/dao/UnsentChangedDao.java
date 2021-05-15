@@ -11,6 +11,9 @@ import com.example.o_starter.database.entities.UnsentChange;
 
 import java.util.List;
 
+/**
+ * Class with methods that edit "unsent_changed_runners" table in database
+ */
 @Dao
 public interface UnsentChangedDao {
 
@@ -24,6 +27,10 @@ public interface UnsentChangedDao {
     @Update
     void updateSigleChange(UnsentChange change);
 
+    /**
+     * Returns all unsent changed runner for given competition
+     * @param competition_id ID of given competition
+     */
     @Query("SELECT * FROM unsent_changes " +
             "JOIN changed_runners ON unsent_changes.changed_runner_id = changed_runners.id " +
             "WHERE changed_runners.competition_id = :competition_id")

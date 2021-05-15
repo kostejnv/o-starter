@@ -11,6 +11,9 @@ import com.example.o_starter.database.entities.UnsentUnstertedRunner;
 
 import java.util.List;
 
+/**
+ * Class with methods that edit "unsent_unstarted_runners" table in database
+ */
 @Dao
 public interface UnsentUnstartedDao {
     @Insert
@@ -22,6 +25,10 @@ public interface UnsentUnstartedDao {
     @Update
     void updateSigleRunner(UnsentUnstertedRunner runner);
 
+    /**
+     * Returns all unsent unstarted runners for given competition
+     * @param competition_id ID of given competition
+     */
     @Query("SELECT * FROM unsent_unstarted_runners " +
             "JOIN unstarted_runner ON unsent_unstarted_runners.unstarted_runner_id = unstarted_runner.id " +
             "WHERE unstarted_runner.competition_id = :competition_id")

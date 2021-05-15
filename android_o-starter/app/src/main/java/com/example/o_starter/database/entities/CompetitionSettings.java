@@ -9,6 +9,11 @@ import com.example.o_starter.database.converters.ListStringToJsonConverter;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Part of Entity {@link Competition Competition} in database.
+ *
+ * It contains information about behavior of application for given competition
+ */
 public class CompetitionSettings {
 
     private Boolean sendOnServer;

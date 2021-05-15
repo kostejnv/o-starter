@@ -11,6 +11,11 @@ import com.example.o_starter.database.entities.Runner;
 
 import static androidx.room.ForeignKey.CASCADE;
 
+/**
+ * Entity for table "unstarted_runners" in database.
+ *
+ * It contains ID of runner that has not started till end of competition and competition ID
+ */
 @Entity(tableName = "unstarted_runner",
         foreignKeys = {@ForeignKey(entity = Runner.class, parentColumns = "id", childColumns = "runner_id", onDelete = CASCADE),
                         @ForeignKey(entity = Competition.class, parentColumns = "id", childColumns = "competition_id", onDelete = CASCADE)})

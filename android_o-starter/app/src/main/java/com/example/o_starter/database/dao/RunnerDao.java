@@ -13,6 +13,9 @@ import com.example.o_starter.database.entities.Runner;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Class with methods that edit "runners" table in database
+ */
 @Dao
 public interface RunnerDao {
 
@@ -25,16 +28,24 @@ public interface RunnerDao {
     @Update
     void updateSiglerunner(Runner runner);
 
-    @Query("DELETE FROM runners WHERE competition_id = :competition_id")
-    void deleteByCompetitionId(int competition_id);
-
-
+    /**
+     * Returns runners of given competition that start in specific minute
+     * @param competition_id ID of runners competition
+     * @param categories_to_show categories that are allowed for returned runners
+     * @param time time of start returned runners
+     * @return List of runners satisfied given conditions
+     */
     @TypeConverters(DateToLongConverter.class)
     @Query("SELECT * FROM runners WHERE competition_id = :competition_id" +
                                 " AND category IN (:categories_to_show)" +
                                 " AND start_time = :time")
     List<Runner> GetRunnersInMinute(int competition_id, List<String> categories_to_show, Date time);
 
+    /**
+     * select runenr from table by ID
+     * @param id unique identificator of runner
+     * @return runner with given ID
+     */
     @Query("SELECT * FROM runners WHERE id=:id")
     Runner getById(int id);
 }

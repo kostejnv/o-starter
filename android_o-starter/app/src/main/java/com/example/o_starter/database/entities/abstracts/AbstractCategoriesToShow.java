@@ -7,6 +7,11 @@ import com.example.o_starter.database.converters.ListStringToJsonConverter;
 
 import java.util.List;
 
+/**
+ * Abstract class for List of categories.
+ *
+ * Main purpose is return type for query in database {@link com.example.o_starter.database.dao.CompetitionDao#GetCategoriesToShow(int) GetCategoriesToShow}
+ */
 public class AbstractCategoriesToShow {
 
     @TypeConverters(ListStringToJsonConverter.class)

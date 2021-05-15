@@ -8,7 +8,11 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-
+/**
+ * Entity for table "unsent_unstarted_runners" in database.
+ *
+ * It contains ID of unstarted_runner that was not sent to Server
+ */
 @Entity(tableName = "unsent_unstarted_runners",
         foreignKeys = {@ForeignKey(entity = UnstartedRunner.class, parentColumns = "id", childColumns = "unstarted_runner_id", onDelete = CASCADE)})
 public class UnsentUnstertedRunner {

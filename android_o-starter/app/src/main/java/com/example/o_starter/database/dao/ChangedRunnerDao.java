@@ -9,21 +9,26 @@ import androidx.room.Update;
 import com.example.o_starter.database.entities.ChangedRunner;
 import com.example.o_starter.database.entities.Runner;
 
+/**
+ * Class with methods that edit "changed_runners" table in database
+ */
 @Dao
 public interface ChangedRunnerDao {
 
     @Insert
-    long insertSingleRunner(ChangedRunner runner);
+    long insertSingleRunner(ChangedRunner changedRunner);
 
     @Delete
-    void deleteSingleRunner(ChangedRunner runner);
+    void deleteSingleRunner(ChangedRunner changedRunner);
 
     @Update
-    void updateSiglerunner(ChangedRunner runner);
+    void updateSiglerunner(ChangedRunner changedRunner);
 
-    @Query("DELETE FROM changed_runners WHERE competition_id = :competition_id")
-    void deleteByCompetitionId(int competition_id);
-
+    /**
+     * select changedRunner from table by ID
+     * @param id unique identificator of changedRunner
+     * @return changeRunner with given ID
+     */
     @Query("Select * FROM changed_runners WHERE id = :id")
     ChangedRunner getById(int id);
 }

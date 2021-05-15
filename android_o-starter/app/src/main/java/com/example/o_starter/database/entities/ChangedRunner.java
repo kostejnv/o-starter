@@ -13,6 +13,11 @@ import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
+/**
+ * Entity for table :changed_runners" in database.
+ *
+ * It contains information about old record of runner and his/her ID
+ */
 @Entity(tableName = "changed_runners",
         foreignKeys = {@ForeignKey(entity = Runner.class, parentColumns = "id", childColumns = "runner_id", onDelete = CASCADE),
                         @ForeignKey(entity = Competition.class, parentColumns = "id", childColumns = "competition_id", onDelete = CASCADE)})

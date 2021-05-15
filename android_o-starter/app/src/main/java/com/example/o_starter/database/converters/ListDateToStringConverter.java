@@ -12,7 +12,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-public class ArrayListDateToStringConverter {
+/**
+ * Self-documenting
+ */
+public class ListDateToStringConverter {
 
     @TypeConverter
     public String ListDateToJson(List<Date> set){

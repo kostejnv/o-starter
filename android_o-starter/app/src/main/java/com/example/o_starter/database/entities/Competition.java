@@ -3,8 +3,6 @@ package com.example.o_starter.database.entities;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
@@ -12,7 +10,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.o_starter.database.converters.ArrayListDateToStringConverter;
+import com.example.o_starter.database.converters.ListDateToStringConverter;
 import com.example.o_starter.database.converters.DateToLongConverter;
 
 import java.text.SimpleDateFormat;
@@ -21,12 +19,15 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-
+/**
+ * Entity for table "competitons" in database.
+ *
+ * It contains general information about competition, its states and its settings
+ */
 @Entity(tableName = "competitions")
 public class Competition {
 
@@ -43,7 +44,7 @@ public class Competition {
     private Date startTime;
 
     @ColumnInfo(name = "minutes_with_runner")
-    @TypeConverters(ArrayListDateToStringConverter.class)
+    @TypeConverters(ListDateToStringConverter.class)
     private List<Date> minutesWithRunner;
 
     @ColumnInfo(name = "server_id")
@@ -145,9 +146,13 @@ public class Competition {
         this.wasFinished = wasFinished;
     }
 
+    /**
+     * Set information that can be obtained from runners
+     * @param runners collection of runner of given competition
+     */
     @SuppressLint("SimpleDateFormat")
     @Ignore
-    public void SetInfoByRunners(ArrayList<Runner> runners){
+    public void SetInfoByRunners(Collection<Runner> runners){
         CompetitionSettings settings = new CompetitionSettings();
         settings.setSendOnServer(false);
 

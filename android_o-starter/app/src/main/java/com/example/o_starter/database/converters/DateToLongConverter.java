@@ -5,6 +5,9 @@ import androidx.room.TypeConverter;
 import java.util.Comparator;
 import java.util.Date;
 
+/**
+ * Self-documenting
+ */
 public class DateToLongConverter {
     @TypeConverter
     public static Date fromTimestamp(Long value) {
