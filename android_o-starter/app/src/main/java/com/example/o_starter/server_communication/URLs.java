@@ -1,17 +1,18 @@
 package com.example.o_starter.server_communication;
 
+import com.example.o_starter.EnviromentVariables;
+
 /**
  * Class with control of Server URLs
  */
 public class URLs {
-    //TODO:to enviroments
-    private static final String MAIN_DOMAIN = "https://10.0.2.2:8000/startlists/";
+    private static final String MAIN_URL = EnviromentVariables.SERVER_DOMAIN +"startlists/";
 
     public static String GetCreateRaceURL(){
-        return MAIN_DOMAIN + "create_race";
+        return MAIN_URL + "create_race";
     }
 
     public static String GetSendDataURL(int serverRaceId){
-        return MAIN_DOMAIN + serverRaceId + "/send_data";
+        return MAIN_URL + serverRaceId + "/send_data";
     }
 }

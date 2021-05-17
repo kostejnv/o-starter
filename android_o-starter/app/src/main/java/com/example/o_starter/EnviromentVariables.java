@@ -14,6 +14,11 @@ public class EnviromentVariables {
      */
     public static final String SERVER_KEY = "ijcfzrhagf";
 
+    /**
+     * Web address of server
+     */
+    public static final String SERVER_DOMAIN = "https://10.0.2.2:8000/";
+
     public enum Mode {TEST,RUN}
 }
 
