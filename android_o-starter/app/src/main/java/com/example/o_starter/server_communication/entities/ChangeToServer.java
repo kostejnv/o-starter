@@ -9,6 +9,9 @@ import com.google.gson.Gson;
 
 import java.util.Date;
 
+/**
+ * Entity class of {@link ChangedRunner ChangedRunner} in format which is compatible with Server
+ */
 public class ChangeToServer {
 
     private String old_given;

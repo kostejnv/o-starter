@@ -1,12 +1,16 @@
 package com.example.o_starter.server_communication.entities;
 
 import com.example.o_starter.EnviromentVariables;
+import com.example.o_starter.database.entities.ChangedRunner;
 import com.example.o_starter.database.entities.Runner;
 import com.example.o_starter.database.entities.UnstartedRunner;
 import com.google.gson.Gson;
 
 import java.util.Date;
 
+/**
+ * Entity class of {@link UnstartedRunner UnstartedRunner} in format which is compatible with Server
+ */
 public class UnstartedToServer {
 
     private String given;

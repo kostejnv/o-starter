@@ -22,7 +22,6 @@ import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -30,6 +29,9 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * Class that cares of communication with Server
+ */
 public class ServerCommunicator {
 
     public static final String TAG = "SeverCominucator";
@@ -47,13 +49,19 @@ public class ServerCommunicator {
         this.context = context;
     }
 
+    /**
+     * Send information about competition to server and set server id of competition to database
+     * @return true if proccess was successful else false
+     */
     public boolean CreateRaceOnServer(int competitionId) {
         Competition competition = StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionById(competitionId);
 
+        //Get data of competition in right format
         String output = new CompetitionToServer(competition).ToJson();
 
         try {
-            URL url = new URL(Domains.GetCreateRaceDomain());
+            //Connect with the Server
+            URL url = new URL(URLs.GetCreateRaceURL());
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.addRequestProperty("Content-Type", "application/json");
@@ -63,14 +71,17 @@ public class ServerCommunicator {
 
 
             //For testing purpose
+            // we do not need verification of HTTPS
             if(EnviromentVariables.MODE == EnviromentVariables.Mode.TEST) {
                 connection.setSSLSocketFactory(SSLCertificateSocketFactory.getInsecure(0, null));
                 connection.setHostnameVerifier(new AllowAllHostnameVerifier());
             }
 
 
+            //Send data to server
             connection.getOutputStream().write(output.getBytes(StandardCharsets.UTF_8));
 
+            //Build response
             InputStream inputStream = connection.getInputStream();
 
             StringBuilder sb = new StringBuilder();
@@ -83,6 +94,7 @@ public class ServerCommunicator {
             competition.setServerId(competitionFromServer.getId());
             Log.i(TAG, "server id: " + competitionFromServer.getId());
 
+            //add server_id of copmpetition to database
             StartlistsDatabase.getInstance(context).competitionDao().updateSingleCompetition(competition);
             return true;
 
@@ -92,11 +104,15 @@ public class ServerCommunicator {
 
     }
 
-
+    /**
+     * Send unsent changes and unstarted runner to Server
+     * @return true if proccess was successful else false
+     */
     public boolean SendDataToServer(int competitionId){
 
         int competitionServerId = StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionById(competitionId).getServerId();
 
+        //try create race on server if it was created yet
         if (competitionServerId == 0){
             if(!CreateRaceOnServer(competitionId))
             {
@@ -106,6 +122,9 @@ public class ServerCommunicator {
                 competitionServerId = StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionById(competitionId).getServerId();
             }
         }
+
+
+        //get data in right format for Server
 
         List<UnsentChange> unsentChanges = StartlistsDatabase.getInstance(context).unsentChangedDao().GetUnsentChangesByCompetitionId(competitionId);
         List<UnsentUnstertedRunner> unsentUnstertedRunners = StartlistsDatabase.getInstance(context).unsentUnstartedDao().GetUnsentUnstartedByCompetitionId(competitionId);
@@ -129,22 +148,25 @@ public class ServerCommunicator {
         String output = dataToServer.ToJson();
 
         try {
-
-            URL url = new URL(Domains.GetSendDataDomain(competitionServerId));
+            //Connect with the Server
+            URL url = new URL(URLs.GetSendDataURL(competitionServerId));
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.addRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
             //For testing purpose
+            // we do not need verification of HTTPS
             if(EnviromentVariables.MODE == EnviromentVariables.Mode.TEST) {
                 connection.setSSLSocketFactory(SSLCertificateSocketFactory.getInsecure(0, null));
                 connection.setHostnameVerifier(new AllowAllHostnameVerifier());
             }
 
 
+            //Send data to server
             connection.getOutputStream().write(output.getBytes(StandardCharsets.UTF_8));
 
+            //clear unsent tables if proccess was successful
             if(connection.getResponseCode() == 200){
                 StartlistsDatabase.getInstance(context).unsentUnstartedDao().deleteRunners(unsentUnstertedRunners);
                 StartlistsDatabase.getInstance(context).unsentChangedDao().deleteChanges(unsentChanges);

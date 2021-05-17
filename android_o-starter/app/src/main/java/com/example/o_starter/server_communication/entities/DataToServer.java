@@ -1,10 +1,14 @@
 package com.example.o_starter.server_communication.entities;
 
 import com.example.o_starter.EnviromentVariables;
+import com.example.o_starter.database.entities.ChangedRunner;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+/**
+ * Entity class of List of {@link ChangedRunner ChangedRunner} and {@link com.example.o_starter.database.entities.UnstartedRunner unstarted Runner} in format which is compatible with Server
+ */
 public class DataToServer {
 
     private ArrayList<ChangeToServer> changed_runners;
