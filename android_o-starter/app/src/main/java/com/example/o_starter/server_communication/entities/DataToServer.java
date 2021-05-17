@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 /**
- * Entity class of List of {@link ChangedRunner ChangedRunner} and {@link com.example.o_starter.database.entities.UnstartedRunner unstarted Runner} in format which is compatible with Server
+ * Entity class of List of  {@link ChangedRunner ChangedRunner} and unstarted {@link com.example.o_starter.database.entities.Runner Runner} in format which is compatible with Server
  */
 public class DataToServer {
 

@@ -24,14 +24,14 @@ def insert_change_to_database(change, race):
 
 def insert_unstarted_runner_to_database(unstarted_runner, race):
     race.unstarted_runner_set.create(
-        firstname=unstarted_runner.old_given,
-        lastname=unstarted_runner.old_family,
-        start_time=unstarted_runner.old_start_time,
-        club=unstarted_runner.old_club_short,
-        sinumber=unstarted_runner.old_card_number,
-        start_number=unstarted_runner.old_start_number,
-        reg_number=unstarted_runner.old_registration_id,
-        category=unstarted_runner.old_category)
+        firstname=unstarted_runner.given,
+        lastname=unstarted_runner.family,
+        start_time=unstarted_runner.start_time,
+        club=unstarted_runner.club_short,
+        sinumber=unstarted_runner.card_number,
+        start_number=unstarted_runner.start_number,
+        reg_number=unstarted_runner.registration_id,
+        category=unstarted_runner.category)
     race.save()
 
 

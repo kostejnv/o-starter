@@ -14,22 +14,23 @@ import static androidx.room.ForeignKey.CASCADE;
  * It contains ID of unstarted_runner that was not sent to Server
  */
 @Entity(tableName = "unsent_unstarted_runners",
-        foreignKeys = {@ForeignKey(entity = UnstartedRunner.class, parentColumns = "id", childColumns = "unstarted_runner_id", onDelete = CASCADE)})
+        foreignKeys = {@ForeignKey(entity = Runner.class, parentColumns = "id", childColumns = "runner_id", onDelete = CASCADE)})
 public class UnsentUnstertedRunner {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "unstarted_runner_id")
-    private int unstartedRunnerId;
+    @ColumnInfo(name = "runner_id")
+    private int runnerId;
 
-    public UnsentUnstertedRunner(int unstartedRunnerId) {
-        this.unstartedRunnerId = unstartedRunnerId;
+    public UnsentUnstertedRunner(int runnerId) {
+        this.runnerId = runnerId;
     }
 
     @Ignore
     public UnsentUnstertedRunner() {
     }
+
 
     public int getId() {
         return id;
@@ -39,11 +40,11 @@ public class UnsentUnstertedRunner {
         this.id = id;
     }
 
-    public int getUnstartedRunnerId() {
-        return unstartedRunnerId;
+    public int getRunnerId() {
+        return runnerId;
     }
 
-    public void setUnstartedRunnerId(int unstartedRunnerId) {
-        this.unstartedRunnerId = unstartedRunnerId;
+    public void setRunnerId(int runnerId) {
+        this.runnerId = runnerId;
     }
 }

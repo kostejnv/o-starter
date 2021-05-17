@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.o_starter.database.entities.Runner;
 import com.example.o_starter.database.entities.UnsentChange;
 import com.example.o_starter.database.entities.UnsentUnstertedRunner;
 
@@ -30,7 +31,10 @@ public interface UnsentUnstartedDao {
      * @param competition_id ID of given competition
      */
     @Query("SELECT * FROM unsent_unstarted_runners " +
-            "JOIN unstarted_runner ON unsent_unstarted_runners.unstarted_runner_id = unstarted_runner.id " +
-            "WHERE unstarted_runner.competition_id = :competition_id")
+            "JOIN runners ON unsent_unstarted_runners.runner_id = runners.id " +
+            "WHERE runners.competition_id = :competition_id")
     List<UnsentUnstertedRunner> GetUnsentUnstartedByCompetitionId(int competition_id);
+
+    @Query("DELETE FROM unsent_unstarted_runners")
+    void DeleteAllUnstarted();
 }

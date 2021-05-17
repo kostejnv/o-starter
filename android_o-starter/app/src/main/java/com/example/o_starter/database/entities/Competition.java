@@ -1,8 +1,10 @@
 package com.example.o_starter.database.entities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,9 +16,11 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import com.example.o_starter.R;
+import com.example.o_starter.activities.StartlistViewActivity;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.converters.ListDateToStringConverter;
 import com.example.o_starter.database.converters.DateToLongConverter;
+import com.example.o_starter.server_communication.ServerCommunicator;
 import com.example.o_starter.server_communication.URLs;
 
 import java.text.SimpleDateFormat;
@@ -28,6 +32,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Entity for table "competitons" in database.
@@ -188,11 +193,10 @@ public class Competition {
      * get share offer for URL of server changes view if possible
      */
     public void shareChange(int competitionId, Context context){
-        Competition competition = StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionById(competitionId);
-        if (competition.getSettings().getSendOnServer()){
+        if (getSettings().getSendOnServer()){
 
             //get URL
-            String shareURL = URLs.GetChangesViewURL(competition,context);
+            String shareURL = URLs.GetChangesViewURL(this,context);
             if (shareURL != null){
                 //shareURL
                 Intent sendIntent = new Intent();
@@ -208,6 +212,54 @@ public class Competition {
         }
         else{
             Toast.makeText(context, R.string.change_synchronisation_with_server, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Make competition finished and try send unstarted competitiors on Server if possible
+     * @param context
+     */
+    @Ignore
+    public void FinishCompetition(Context context){
+        //check if should be send unstarted to server
+        if (getSettings().getSendOnServer()) {
+            //send unstarted to server
+            StartlistsDatabase.getInstance(context).unsentUnstartedDao().DeleteAllUnstarted();
+            List<Runner> unstartedRUnners = StartlistsDatabase.getInstance(context).runnerDao().GetUnstartedRunners(getId());
+            for(Runner runner: unstartedRUnners){
+                UnsentUnstertedRunner unsentRunner = new UnsentUnstertedRunner(runner.getId());
+                StartlistsDatabase.getInstance(context).unsentUnstartedDao().insertSingleRunner(unsentRunner);
+            }
+            boolean wasSuccessful = false;
+            try {
+                ProgressDialog loadingDialog = ProgressDialog.show(context, "",
+                        "", true);
+                wasSuccessful = new SendUnstartedTOServerAsyncTask(context).execute().get();
+                loadingDialog.setIndeterminate(false);
+            } catch (ExecutionException | InterruptedException e) {
+                wasSuccessful = false;
+            }
+
+            //if sending was not successful
+            if(!wasSuccessful){
+                Toast.makeText(context, "Contection failed. Please send data about unstarted runners to server later.", Toast.LENGTH_LONG).show();
+            }
+        }
+        //make competition finished and update in database
+        setWasFinished(true);
+    }
+
+    private class SendUnstartedTOServerAsyncTask extends AsyncTask<Void, Void, Boolean> {
+        private Context context;
+
+        public SendUnstartedTOServerAsyncTask(Context context) {
+            this.context = context;
+        }
+
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            return ServerCommunicator.getInstance(context).SendDataToServer(getId());
         }
     }
 }

@@ -56,7 +56,7 @@ def send_data(request, race_id):
 
             return HttpResponse(status=200)
 
-        except:
+        except Exception as e:
             return HttpResponse(status=404)
     return HttpResponse(status=404)
 

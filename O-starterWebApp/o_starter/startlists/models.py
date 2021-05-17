@@ -41,9 +41,11 @@ class Change(models.Model):
 
 
 class Unstarted_runner(models.Model):
+    race = models.ForeignKey(Race, on_delete=models.CASCADE)
+
     firstname = models.CharField(max_length=200, default='')
     lastname = models.CharField(max_length=200, default='')
-    start_time = models.BigIntegerField(default=0)
+    start_time = models.IntegerField(default=0)
     club = models.CharField(max_length=200, default='XXX')
     sinumber = models.IntegerField(default=0)
     start_number = models.IntegerField(default=0)

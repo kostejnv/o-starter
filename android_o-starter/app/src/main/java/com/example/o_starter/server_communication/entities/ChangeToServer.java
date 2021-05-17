@@ -34,23 +34,23 @@ public class ChangeToServer {
 
 
     public ChangeToServer(ChangedRunner changedRunner, Runner newRunner){
-        this.old_given = changedRunner.getOldName();
-        this.old_family = changedRunner.getOldSurname();
+        this.old_given = (changedRunner.getOldName()==null) ? ""  : changedRunner.getOldName();
+        this.old_family = (changedRunner.getOldSurname()==null) ? ""  : changedRunner.getOldSurname();
         this.old_start_time = changedRunner.getOldStartTime().getTime();
-        this.old_club_short = changedRunner.getOldClubShort();
+        this.old_club_short = (changedRunner.getOldClubShort()==null) ? ""  : changedRunner.getOldClubShort();
         this.old_card_number = changedRunner.getOldCardNumber();
         this.old_start_number = changedRunner.getOldStartNumber();
-        this.old_registration_id = changedRunner.getOldRegistrationId();
-        this.old_category = changedRunner.getOldCategory();
+        this.old_registration_id = (changedRunner.getOldRegistrationId()==null) ? ""  : changedRunner.getOldRegistrationId();
+        this.old_category = (changedRunner.getOldCategory()==null) ? ""  : changedRunner.getOldCategory();
 
-        this.new_given = newRunner.getName();
-        this.new_family = newRunner.getSurname();
+        this.new_given = (newRunner.getName()==null) ? ""  : newRunner.getName();
+        this.new_family = (newRunner.getSurname()==null) ? ""  : newRunner.getSurname();
         this.new_start_time = newRunner.getStartTime().getTime();
-        this.new_club_short = newRunner.getClubShort();
+        this.new_club_short = (newRunner.getClubShort()==null) ? ""  : newRunner.getClubShort();
         this.new_card_number = newRunner.getCardNumber();
         this.new_start_number = newRunner.getStartNumber();
-        this.new_registration_id = newRunner.getRegistrationId();
-        this.new_category = newRunner.getCategory();
+        this.new_registration_id = (newRunner.getRegistrationId()==null) ? ""  : newRunner.getRegistrationId();
+        this.new_category = (newRunner.getCategory()==null) ? ""  : newRunner.getCategory();
     }
 
 

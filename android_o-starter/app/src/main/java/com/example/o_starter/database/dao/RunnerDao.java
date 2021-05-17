@@ -48,4 +48,10 @@ public interface RunnerDao {
      */
     @Query("SELECT * FROM runners WHERE id=:id")
     Runner getById(int id);
+
+    /**
+     * return runners of given competition that have not been checked yet
+     */
+    @Query("SELECT * FROM runners WHERE competition_id = :competitionId AND NOT checked")
+    List<Runner> GetUnstartedRunners(int competitionId);
 }

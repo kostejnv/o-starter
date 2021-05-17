@@ -11,7 +11,6 @@ import com.example.o_starter.database.entities.Competition;
 import com.example.o_starter.database.entities.Runner;
 import com.example.o_starter.database.entities.UnsentChange;
 import com.example.o_starter.database.entities.UnsentUnstertedRunner;
-import com.example.o_starter.database.entities.UnstartedRunner;
 import com.example.o_starter.server_communication.entities.ChangeToServer;
 import com.example.o_starter.server_communication.entities.CompetitionFromServer;
 import com.example.o_starter.server_communication.entities.CompetitionToServer;
@@ -139,8 +138,8 @@ public class ServerCommunicator {
 
         ArrayList<UnstartedToServer> unstartedsToServer = new ArrayList<UnstartedToServer>();
         for(UnsentUnstertedRunner unsentUnstertedRunner :unsentUnstertedRunners){
-            UnstartedRunner unstartedRunner = StartlistsDatabase.getInstance(context).unstartedRunnerDao().GetById(unsentUnstertedRunner.getUnstartedRunnerId());
-            Runner runner = StartlistsDatabase.getInstance(context).runnerDao().getById(unstartedRunner.getRunnerId());
+            Runner unstartedRunner = StartlistsDatabase.getInstance(context).runnerDao().getById(unsentUnstertedRunner.getRunnerId());
+            Runner runner = StartlistsDatabase.getInstance(context).runnerDao().getById(unstartedRunner.getId());
             unstartedsToServer.add(new UnstartedToServer(runner));
         }
 

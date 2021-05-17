@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -80,6 +83,19 @@ public class StartlistViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.startlist_close_competition:
+                AlertDialog alertDialog = new AlertDialog.Builder(StartlistViewActivity.this)
+                .setTitle(getString(R.string.finish_competition))
+                .setMessage(getString(R.string.really_finish_competition))
+                        .setNegativeButton(R.string.no, null)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Competition competition = StartlistsDatabase.getInstance(StartlistViewActivity.this).competitionDao().GetCompetitionById(competitionId);
+                        competition.FinishCompetition(StartlistViewActivity.this);
+                        finish();
+                    }
+                }).create();
+                alertDialog.show();
                 return true;
             case R.id.startlist_setting_item:
                 return true;
@@ -94,6 +110,8 @@ public class StartlistViewActivity extends AppCompatActivity {
         }
 
     }
+
+
 
 
 }

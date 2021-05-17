@@ -14,13 +14,11 @@ import com.example.o_starter.database.dao.CompetitionDao;
 import com.example.o_starter.database.dao.RunnerDao;
 import com.example.o_starter.database.dao.UnsentChangedDao;
 import com.example.o_starter.database.dao.UnsentUnstartedDao;
-import com.example.o_starter.database.dao.UnstartedRunnerDao;
 import com.example.o_starter.database.entities.ChangedRunner;
 import com.example.o_starter.database.entities.Competition;
 import com.example.o_starter.database.entities.Runner;
 import com.example.o_starter.database.entities.UnsentChange;
 import com.example.o_starter.database.entities.UnsentUnstertedRunner;
-import com.example.o_starter.database.entities.UnstartedRunner;
 
 /**
  * Class containing Database
@@ -28,7 +26,7 @@ import com.example.o_starter.database.entities.UnstartedRunner;
  * In the class there is the access to datatabase throw {@link StartlistsDatabase#getInstance(Context) getInstance}
  * method and to every Dao class. Every migration is described here
  */
-@Database(entities = {Competition.class, Runner.class, ChangedRunner.class, UnstartedRunner.class, UnsentChange.class, UnsentUnstertedRunner.class}, version = 1)
+@Database(entities = {Competition.class, Runner.class, ChangedRunner.class, UnsentChange.class, UnsentUnstertedRunner.class}, version = 1)
 public abstract class StartlistsDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "startlists_db";
@@ -37,7 +35,6 @@ public abstract class StartlistsDatabase extends RoomDatabase {
     public abstract CompetitionDao competitionDao();
     public abstract RunnerDao runnerDao();
     public abstract ChangedRunnerDao changedRunnerDao();
-    public abstract UnstartedRunnerDao unstartedRunnerDao();
     public abstract UnsentChangedDao unsentChangedDao();
     public abstract UnsentUnstartedDao unsentUnstartedDao();
 
