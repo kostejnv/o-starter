@@ -1,7 +1,10 @@
 package com.example.o_starter.database.entities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
@@ -10,8 +13,11 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.example.o_starter.R;
+import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.converters.ListDateToStringConverter;
 import com.example.o_starter.database.converters.DateToLongConverter;
+import com.example.o_starter.server_communication.URLs;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -175,5 +181,33 @@ public class Competition {
         setStartTime(minutesSet.first());
         setMinutesWithRunner(new ArrayList<Date>(minutesSet));
         Log.i(TAG, String.format("get all parameters from runner to competition " + getId() + ", first minute is " + new SimpleDateFormat("hh:mm").format(minutesSet.first())));
+    }
+
+    @Ignore
+    /**
+     * get share offer for URL of server changes view if possible
+     */
+    public void shareChange(int competitionId, Context context){
+        Competition competition = StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionById(competitionId);
+        if (competition.getSettings().getSendOnServer()){
+
+            //get URL
+            String shareURL = URLs.GetChangesViewURL(competition,context);
+            if (shareURL != null){
+                //shareURL
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, shareURL);
+                sendIntent.setType("text/plain");
+                Intent shareIntent = Intent.createChooser(sendIntent,null);
+                context.startActivity(shareIntent);
+            }
+            else{
+                Toast.makeText(context, R.string.connection_failed, Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Toast.makeText(context, R.string.change_synchronisation_with_server, Toast.LENGTH_SHORT).show();
+        }
     }
 }

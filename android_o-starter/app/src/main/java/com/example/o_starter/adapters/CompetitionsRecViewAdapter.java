@@ -91,6 +91,8 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
                                 Log.i(TAG, "open settings activity");
                                 break;
                             case R.id.share_changes_item:
+                                Competition competition = StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionById(competitions.get(position).getId());
+                                competition.shareChange(competition.getId(),context);
                                 break;
                             case R.id.show_changes_item:
                                 break;

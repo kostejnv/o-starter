@@ -8,16 +8,22 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.o_starter.R;
 import com.example.o_starter.adapters.CompetitionsRecViewAdapter;
 import com.example.o_starter.adapters.MinutesRecViewAdapter;
+import com.example.o_starter.database.StartlistsDatabase;
+import com.example.o_starter.database.entities.Competition;
+import com.example.o_starter.server_communication.URLs;
 
 import java.security.InvalidParameterException;
 
@@ -78,6 +84,8 @@ public class StartlistViewActivity extends AppCompatActivity {
             case R.id.startlist_setting_item:
                 return true;
             case R.id.startlist_share_changes_item:
+                Competition competition = StartlistsDatabase.getInstance(this).competitionDao().GetCompetitionById(competitionId);
+                competition.shareChange(competitionId,this);
                 return true;
             case R.id.startlist_show_changes_item:
                 return true;
@@ -86,4 +94,6 @@ public class StartlistViewActivity extends AppCompatActivity {
         }
 
     }
+
+
 }

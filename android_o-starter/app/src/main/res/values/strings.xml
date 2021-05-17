@@ -58,4 +58,5 @@
     <string name="load_startlists">Load StartLists</string>
     <string name="the_support_format_is_iof_xml_v_3">(The support format is IOF XML v.3)</string>
     <string name="close_competition">Close Competition</string>
+    <string name="change_synchronisation_with_server">This competition is not synchronized with server. You can change it in settings</string>
 </resources>
