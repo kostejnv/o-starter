@@ -13,10 +13,6 @@
         android:title="@string/show_changes"
         android:id="@+id/show_changes_item"/>
     <item
-        android:title="@string/share_race"
-        android:id="@+id/share_race_item"/>
-
-    <item
         android:title="@string/delete_race"
         android:id="@+id/delete_race_item"/>
 

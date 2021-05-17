@@ -62,7 +62,6 @@ public class MinutesRecViewAdapter extends RecyclerView.Adapter<MinutesRecViewAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (sortedMinutes == null){
-            //TODO: jiny thread
             sortedMinutes = StartlistsDatabase.getInstance(context).competitionDao().GetMinutesWithRunnerById(competitionId).getMinutesWithRunner();
         }
 

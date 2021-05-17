@@ -94,8 +94,6 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
                                 break;
                             case R.id.show_changes_item:
                                 break;
-                            case R.id.share_race_item:
-                                break;
                             case R.id.delete_race_item:
                                 new AlertDialog.Builder(context)
                                         .setTitle(R.string.delete_competition)
