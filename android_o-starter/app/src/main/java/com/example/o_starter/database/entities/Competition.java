@@ -247,6 +247,7 @@ public class Competition {
         }
         //make competition finished and update in database
         setWasFinished(true);
+        StartlistsDatabase.getInstance(context).competitionDao().updateSingleCompetition(this);
     }
 
     private class SendUnstartedTOServerAsyncTask extends AsyncTask<Void, Void, Boolean> {

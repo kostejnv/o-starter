@@ -111,7 +111,33 @@ public class StartlistViewActivity extends AppCompatActivity {
 
     }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        Competition competition = StartlistsDatabase.getInstance(StartlistViewActivity.this).competitionDao().GetCompetitionById(competitionId);
+        if (competition.isWasFinished()){
+            //finish activity ordinary
+            finish();
+        }
+        else
+        {
+            //offer user finish competition
+            AlertDialog alertDialog = new AlertDialog.Builder(StartlistViewActivity.this)
+                    .setTitle(getString(R.string.finish_competition))
+                    .setMessage(R.string.back_ask)
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            competition.FinishCompetition(StartlistViewActivity.this);
+                            finish();
+                        }
+                    }).create();
+            alertDialog.show();
+        }
+    }
 }
