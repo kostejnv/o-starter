@@ -256,7 +256,7 @@ public class ChangeRunnerDialog extends DialogFragment {
         //if user wants to cancel change
         public boolean wasUndoPressed = false;
         private final int changedRunnerId;
-        private boolean failedConnection = true;
+        private boolean failedConnection = false;
         private final WeakReference<Context> contextReference;
         private final Runner runner;
 
