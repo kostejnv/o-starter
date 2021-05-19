@@ -69,7 +69,6 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         competitions = StartlistsDatabase.getInstance(context).competitionDao().GetAllCompetition();
-        Competition currentCompetition = competitions.get(position);
         holder.competitionTextView.setText(competitions.get(position).getName());
         Date date = competitions.get(position).getStartTime();
         holder.dateTextView.setText(new SimpleDateFormat("E dd.MM.yyyy").format(date));
@@ -86,6 +85,7 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
                     @SuppressLint("NonConstantResourceId")
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        Competition currentCompetition = StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionById(competitions.get(position).getId());
                         switch (item.getItemId()) {
                             case R.id.setting_item:
                                 Intent intent = new Intent(context, SettingsStartlistActivity.class);
