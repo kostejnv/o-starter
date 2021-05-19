@@ -156,7 +156,6 @@ public class Competition {
     @Ignore
     public void SetInfoByRunners(Collection<Runner> runners) {
         CompetitionSettings settings = new CompetitionSettings();
-        settings.setSendOnServer(false);
 
         HashSet<String> allCategories = new HashSet<String>();
 

@@ -108,6 +108,7 @@ public class XMLv3StartlistsConverter implements StartlistsConverter {
 
         InputStream inputStream = context.getContentResolver().openInputStream(fileUri);
         initXMLPullparser(inputStream);
+        competition.SetInfoByRunners(runners);
 
 
     }

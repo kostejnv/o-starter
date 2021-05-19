@@ -209,7 +209,6 @@ public class NewCompetitionDialog extends DialogFragment {
             try {
                 competition = converter.getCompetition();
                 runners = converter.getRunners();
-                competition.SetInfoByRunners(runners);
                 WasProcessOK = true;
             } catch (FormatException e) {
                 WasProcessOK = false;
