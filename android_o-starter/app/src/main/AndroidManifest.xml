@@ -9,12 +9,16 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.OStarter">
-        <activity android:name=".activities.StartlistViewActivity"></activity>
+        android:theme="@style/Theme.OStarter"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activities.ViewChangesActivity"
+            android:label="@string/title_activity_view_changes"
+            android:theme="@style/Theme.OStarter.NoActionBar"></activity>
+        <activity android:name=".activities.StartlistViewActivity" />
         <activity android:name=".activities.SettingsStartlistActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>

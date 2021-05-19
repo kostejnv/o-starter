@@ -36,7 +36,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * Entity for table "competitons" in database.
- *
+ * <p>
  * It contains general information about competition, its states and its settings
  */
 @Entity(tableName = "competitions")
@@ -69,7 +69,8 @@ public class Competition {
     private int change;
 
     @Ignore
-    public Competition() {  }
+    public Competition() {
+    }
 
     @Ignore
     public Competition(int id, String name, Date startTime, List<Date> minutesWithRunner, int serverId, boolean wasFinished, CompetitionSettings settings, int change) {
@@ -159,11 +160,12 @@ public class Competition {
 
     /**
      * Set information that can be obtained from runners
+     *
      * @param runners collection of runner of given competition
      */
     @SuppressLint("SimpleDateFormat")
     @Ignore
-    public void SetInfoByRunners(Collection<Runner> runners){
+    public void SetInfoByRunners(Collection<Runner> runners) {
         CompetitionSettings settings = new CompetitionSettings();
         settings.setSendOnServer(false);
 
@@ -172,7 +174,7 @@ public class Competition {
         SortedSet<Date> minutesSet = new TreeSet<Date>(new Comparator<Date>() {
             @Override
             public int compare(Date o1, Date o2) {
-                return (int) (o1.getTime()-o2.getTime());
+                return (int) (o1.getTime() - o2.getTime());
             }
         });
 
@@ -192,75 +194,75 @@ public class Competition {
     /**
      * get share offer for URL of server changes view if possible
      */
-    public void shareChange(int competitionId, Context context){
-        if (getSettings().getSendOnServer()){
+    public void shareChange(int competitionId, Context context) {
+        if (getSettings().getSendOnServer()) {
 
             //get URL
-            String shareURL = URLs.GetChangesViewURL(this,context);
-            if (shareURL != null){
+            String shareURL = URLs.GetChangesViewURL(this, context);
+            if (shareURL != null) {
                 //shareURL
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, shareURL);
                 sendIntent.setType("text/plain");
-                Intent shareIntent = Intent.createChooser(sendIntent,null);
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
                 context.startActivity(shareIntent);
-            }
-            else{
+            } else {
                 Toast.makeText(context, R.string.connection_failed, Toast.LENGTH_SHORT).show();
             }
-        }
-        else{
+        } else {
             Toast.makeText(context, R.string.change_synchronisation_with_server, Toast.LENGTH_SHORT).show();
         }
     }
 
     /**
      * Make competition finished and try send unstarted competitiors on Server if possible
+     *
      * @param context
      */
     @Ignore
-    public void FinishCompetition(Context context){
-        //check if should be send unstarted to server
+    public void FinishCompetition(Context context) {
         if (getSettings().getSendOnServer()) {
-            //send unstarted to server
-            StartlistsDatabase.getInstance(context).unsentUnstartedDao().DeleteAllUnstarted();
-            List<Runner> unstartedRUnners = StartlistsDatabase.getInstance(context).runnerDao().GetUnstartedRunners(getId());
-            for(Runner runner: unstartedRUnners){
-                UnsentUnstertedRunner unsentRunner = new UnsentUnstertedRunner(runner.getId());
-                StartlistsDatabase.getInstance(context).unsentUnstartedDao().insertSingleRunner(unsentRunner);
-            }
-            boolean wasSuccessful = false;
-            try {
-                ProgressDialog loadingDialog = ProgressDialog.show(context, "",
-                        "", true);
-                wasSuccessful = new SendUnstartedTOServerAsyncTask(context).execute().get();
-                loadingDialog.setIndeterminate(false);
-            } catch (ExecutionException | InterruptedException e) {
-                wasSuccessful = false;
-            }
-
-            //if sending was not successful
-            if(!wasSuccessful){
-                Toast.makeText(context, "Contection failed. Please send data about unstarted runners to server later.", Toast.LENGTH_LONG).show();
-            }
+            boolean wasSuccessful;
+            new SendUnstartedTOServerAsyncTask(context, this).execute();
         }
         //make competition finished and update in database
         setWasFinished(true);
         StartlistsDatabase.getInstance(context).competitionDao().updateSingleCompetition(this);
     }
 
+    /**
+     * AsyncTask that cares about sending unstarted runners to Server
+     */
     private class SendUnstartedTOServerAsyncTask extends AsyncTask<Void, Void, Boolean> {
         private Context context;
+        private Competition competition;
 
-        public SendUnstartedTOServerAsyncTask(Context context) {
+        public SendUnstartedTOServerAsyncTask(Context context, Competition competition) {
             this.context = context;
+            this.competition = competition;
         }
-
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            return ServerCommunicator.getInstance(context).SendDataToServer(getId());
+            //check if should be send unstarted to server
+
+            //send unstarted to server
+            StartlistsDatabase.getInstance(context).unsentUnstartedDao().DeleteAllUnstarted();
+            List<Runner> unstartedRUnners = StartlistsDatabase.getInstance(context).runnerDao().GetUnstartedRunners(competition.getId());
+            for (Runner runner : unstartedRUnners) {
+                UnsentUnstertedRunner unsentRunner = new UnsentUnstertedRunner(runner.getId());
+                StartlistsDatabase.getInstance(context).unsentUnstartedDao().insertSingleRunner(unsentRunner);
+            }
+            return ServerCommunicator.getInstance(context).SendDataToServer(competition.getId());
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if(!aBoolean) {
+                Toast.makeText(context, R.string.unstarted_failed, Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

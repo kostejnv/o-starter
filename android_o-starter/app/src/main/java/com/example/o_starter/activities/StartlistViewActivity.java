@@ -111,6 +111,9 @@ public class StartlistViewActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Offer finish competition after press back
+     */
     @Override
     public void onBackPressed() {
         Competition competition = StartlistsDatabase.getInstance(StartlistViewActivity.this).competitionDao().GetCompetitionById(competitionId);
@@ -133,8 +136,8 @@ public class StartlistViewActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            competition.FinishCompetition(StartlistViewActivity.this);
                             finish();
+                            competition.FinishCompetition(StartlistViewActivity.this);
                         }
                     }).create();
             alertDialog.show();

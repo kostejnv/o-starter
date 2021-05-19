@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/runner_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/old_data_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/old_data"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/new_data_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/new_data"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/old_data_textView" />
+
+    <TextView
+        android:id="@+id/old_reg_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dok9800"
+        android:fontFamily="sans-serif-black"
+        app:layout_constraintBottom_toBottomOf="@+id/old_data_textView"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/old_data_textView" />
+
+    <TextView
+        android:id="@+id/old_name_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_name"
+        android:fontFamily="sans-serif-black"
+        app:layout_constraintBottom_toBottomOf="@+id/old_reg_textView"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/old_reg_textView" />
+
+    <TextView
+        android:id="@+id/new_reg_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dok9800"
+        app:layout_constraintBottom_toBottomOf="@+id/new_data_textView"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/new_data_textView" />
+
+    <TextView
+        android:id="@+id/new_name_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_name"
+        app:layout_constraintBottom_toBottomOf="@+id/new_reg_textView"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/new_reg_textView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="80dp"
+        android:orientation="vertical" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="150dp" />
+
+    <TextView
+        android:id="@+id/new_SI_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_SI"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/new_name_textView"
+        app:layout_constraintStart_toEndOf="@+id/new_name_textView"
+        app:layout_constraintTop_toTopOf="@+id/new_name_textView" />
+
+    <TextView
+        android:id="@+id/new_start_number_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_statNumber"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/new_SI_textView"
+        app:layout_constraintStart_toEndOf="@+id/new_SI_textView"
+        app:layout_constraintTop_toTopOf="@+id/new_SI_textView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

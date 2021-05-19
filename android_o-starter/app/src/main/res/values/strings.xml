@@ -63,4 +63,16 @@
     <string name="really_finish_competition">Are you really finish this competition? New list of unstarted runners will be created.</string>
     <string name="yes">Yes</string>
     <string name="back_ask">Do you want to finish this competition? The list of unstarted runners will created.</string>
+    <string name="old_data">Old Data:</string>
+    <string name="new_data">New Data:</string>
+    <string name="title_activity_view_changes">ViewChangesActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_unstarted">Unstarted Runners</string>
+    <string name="tab_changes">Changes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="the_competition_has_not_finished_yet">The competition has not finished yet</string>
+    <string name="finish">Finish</string>
+    <string name="unstarted_failed">Contection failed. Please send data about unstarted runners to server later.</string>
 </resources>

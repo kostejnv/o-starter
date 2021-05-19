@@ -26,7 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.o_starter.CompetitionsUpdateListener;
+import com.example.o_starter.DatabaseUpdateListener;
 import com.example.o_starter.R;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.Competition;
@@ -35,7 +35,6 @@ import com.example.o_starter.import_startlists.XMLv3StartlistsConverter;
 import com.example.o_starter.server_communication.ServerCommunicator;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Class with dialog for creating new competition in {@link MainActivity MainActivity}
@@ -117,7 +116,7 @@ public class NewCompetitionDialog extends DialogFragment {
                                 runner.setCompetitionId(competitionId);
                                 db.runnerDao().insertSingleRunner(runner);
                             }
-                            ((CompetitionsUpdateListener)(MainActivity)(requireActivity())).OnDBUpdate();
+                            ((DatabaseUpdateListener)(MainActivity)(requireActivity())).OnDBUpdate();
                             if (newCompetition.getSettings().getSendOnServer()){
                                 AddCompetitonToServerAsyncTask addCompetitionToServer = new AddCompetitonToServerAsyncTask(competitionId);
                                 addCompetitionToServer.execute();

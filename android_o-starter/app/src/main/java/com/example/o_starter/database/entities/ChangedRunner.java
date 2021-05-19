@@ -43,6 +43,7 @@ public class ChangedRunner {
     private int oldCardNumber;
     @ColumnInfo(name = "old_start_number")
     private int oldStartNumber;
+    //TODO: delete old competition id
     @ColumnInfo(name = "old_competition_id")
     private int oldCompetitionId;
     @ColumnInfo(name = "old_registration_id")

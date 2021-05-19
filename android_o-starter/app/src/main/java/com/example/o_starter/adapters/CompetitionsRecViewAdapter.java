@@ -18,10 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.o_starter.CompetitionsUpdateListener;
+import com.example.o_starter.DatabaseUpdateListener;
 import com.example.o_starter.R;
 import com.example.o_starter.activities.SettingsStartlistActivity;
 import com.example.o_starter.activities.StartlistViewActivity;
+import com.example.o_starter.activities.ViewChangesActivity;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.Competition;
 
@@ -68,6 +69,7 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         competitions = StartlistsDatabase.getInstance(context).competitionDao().GetAllCompetition();
+        Competition currentCompetition = competitions.get(position);
         holder.competitionTextView.setText(competitions.get(position).getName());
         Date date = competitions.get(position).getStartTime();
         holder.dateTextView.setText(new SimpleDateFormat("E dd.MM.yyyy").format(date));
@@ -91,10 +93,12 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
                                 Log.i(TAG, "open settings activity");
                                 break;
                             case R.id.share_changes_item:
-                                Competition competition = StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionById(competitions.get(position).getId());
-                                competition.shareChange(competition.getId(),context);
+                                currentCompetition.shareChange(currentCompetition.getId(),context);
                                 break;
                             case R.id.show_changes_item:
+                                Intent intent1 = new Intent(context, ViewChangesActivity.class);
+                                intent1.putExtra(ViewChangesActivity.COMPETITION_ID_TAG, currentCompetition.getId());
+                                context.startActivity(intent1);
                                 break;
                             case R.id.delete_race_item:
                                 new AlertDialog.Builder(context)
@@ -108,7 +112,7 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
                                                 int competitionId = competitions.get(position).getId();
                                                 DeleteCompetitionAsyncTask deleteTask = new DeleteCompetitionAsyncTask();
                                                 deleteTask.execute(competitionId);
-                                                ((CompetitionsUpdateListener)context).OnDBUpdate();
+                                                ((DatabaseUpdateListener)context).OnDBUpdate();
                                             }
                                         })
                                         .setNegativeButton(R.string.no, null)

@@ -16,14 +16,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.o_starter.CompetitionsUpdateListener;
+import com.example.o_starter.DatabaseUpdateListener;
 import com.example.o_starter.adapters.CompetitionsRecViewAdapter;
 import com.example.o_starter.R;
 
 /**
  * Class for launching activity with competition recycler view
  */
-public class MainActivity extends AppCompatActivity implements CompetitionsUpdateListener {
+public class MainActivity extends AppCompatActivity implements DatabaseUpdateListener {
 
     private RecyclerView competitionsRecView;
     private TextView addCompetitionTextview;
