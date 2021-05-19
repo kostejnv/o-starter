@@ -104,6 +104,9 @@ public class StartlistViewActivity extends AppCompatActivity {
                 competition.shareChange(competitionId,this);
                 return true;
             case R.id.startlist_show_changes_item:
+                Intent intent1 = new Intent(this, ViewChangesActivity.class);
+                intent1.putExtra(ViewChangesActivity.COMPETITION_ID_TAG, competitionId);
+                this.startActivity(intent1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
