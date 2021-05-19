@@ -117,9 +117,14 @@ public class ChangeRunnerDialog extends DialogFragment {
                             int changedRunnerId = insertChangedRunnerToDatabase();
                             updateRunnerInDatabase(runner);
                             adapter.notifyDataSetChanged();
-                            //TODO:check if should send
+
                             SendChangeToServerAsyncTask sendChangeToServer = new SendChangeToServerAsyncTask(changedRunnerId, adapter.getContext(), runner);
-                            sendChangeToServer.execute();
+
+                            //check if should be send to Server
+                            Competition competition = StartlistsDatabase.getInstance(getContext()).competitionDao().GetCompetitionById(runner.getCompetitionId());
+                            if(competition.getSettings().getSendOnServer()) {
+                                sendChangeToServer.execute();
+                            }
 
                             //offer user cancel change
                             Snackbar.make(requireActivity().findViewById(R.id.minute_rec_view), readableChange, Snackbar.LENGTH_LONG)
@@ -127,8 +132,9 @@ public class ChangeRunnerDialog extends DialogFragment {
                                         @Override
                                         public void onClick(View v) {
                                             // it stops sending on server
-                                            //TODO: check ifsendonserver
-                                            sendChangeToServer.wasUndoPressed = true;
+                                            if(competition.getSettings().getSendOnServer()) {
+                                                sendChangeToServer.wasUndoPressed = true;
+                                            }
                                             //return change back in database
                                             runner.changeByChangedRunner(changedRunner);
                                             StartlistsDatabase.getInstance(getContext()).runnerDao().updateSiglerunner(runner);
