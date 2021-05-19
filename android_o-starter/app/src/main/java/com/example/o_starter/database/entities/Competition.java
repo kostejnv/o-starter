@@ -66,14 +66,13 @@ public class Competition {
 
     @Embedded
     private CompetitionSettings settings;
-    private int change;
 
     @Ignore
     public Competition() {
     }
 
     @Ignore
-    public Competition(int id, String name, Date startTime, List<Date> minutesWithRunner, int serverId, boolean wasFinished, CompetitionSettings settings, int change) {
+    public Competition(int id, String name, Date startTime, List<Date> minutesWithRunner, int serverId, boolean wasFinished, CompetitionSettings settings) {
         this.id = id;
         this.name = name;
         this.startTime = startTime;
@@ -81,25 +80,15 @@ public class Competition {
         this.serverId = serverId;
         this.wasFinished = wasFinished;
         this.settings = settings;
-        this.change = change;
     }
 
-    public Competition(String name, Date startTime, List<Date> minutesWithRunner, int serverId, boolean wasFinished, CompetitionSettings settings, int change) {
+    public Competition(String name, Date startTime, List<Date> minutesWithRunner, int serverId, boolean wasFinished, CompetitionSettings settings) {
         this.name = name;
         this.startTime = startTime;
         this.minutesWithRunner = minutesWithRunner;
         this.serverId = serverId;
         this.wasFinished = wasFinished;
         this.settings = settings;
-        this.change = change;
-    }
-
-    public int getChange() {
-        return change;
-    }
-
-    public void setChange(int change) {
-        this.change = change;
     }
 
     public void setId(int id) {
@@ -183,7 +172,6 @@ public class Competition {
             minutesSet.add(runner.getStartTime());
         }
         settings.setCategoriesToShow(new ArrayList<String>(allCategories));
-        setChange(0);
         setSettings(settings);
         setStartTime(minutesSet.first());
         setMinutesWithRunner(new ArrayList<Date>(minutesSet));

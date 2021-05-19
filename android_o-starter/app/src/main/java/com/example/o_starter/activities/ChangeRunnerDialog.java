@@ -159,8 +159,6 @@ public class ChangeRunnerDialog extends DialogFragment {
         changedRunner = new ChangedRunner(runner);
         Competition competition = StartlistsDatabase.getInstance(getContext()).competitionDao().GetCompetitionById(runner.getCompetitionId());
         //TODO: delete changes
-        changedRunner.setChange(competition.getChange());
-        competition.setChange(competition.getChange()+1);
         StartlistsDatabase.getInstance(getContext()).competitionDao().updateSingleCompetition(competition);
         return (int) StartlistsDatabase.getInstance(getContext()).changedRunnerDao().insertSingleRunner(changedRunner);
     }
@@ -252,7 +250,7 @@ public class ChangeRunnerDialog extends DialogFragment {
 
 
     /**
-     * Async task for sneding change on server
+     * Async task for sending change on server
      */
     private static class SendChangeToServerAsyncTask extends AsyncTask<Void,Void,Void> {
         //if user wants to cancel change

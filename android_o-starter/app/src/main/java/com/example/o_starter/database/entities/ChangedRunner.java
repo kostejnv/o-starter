@@ -30,7 +30,6 @@ public class ChangedRunner {
     private int runnerId;
     @ColumnInfo(name = "competition_id")
     private int competitionId;
-    private int change;
 
     private String oldName;
     private String oldSurname;
@@ -43,25 +42,20 @@ public class ChangedRunner {
     private int oldCardNumber;
     @ColumnInfo(name = "old_start_number")
     private int oldStartNumber;
-    //TODO: delete old competition id
-    @ColumnInfo(name = "old_competition_id")
-    private int oldCompetitionId;
     @ColumnInfo(name = "old_registration_id")
     private String oldRegistrationId;
     @ColumnInfo(name = "old_category")
     private String oldCategory;
 
-    public ChangedRunner(int runnerId, int competitionId, int change, String oldName, String oldSurname, Date oldStartTime, String oldClubShort, int oldCardNumber, int oldStartNumber, int oldCompetitionId, String oldRegistrationId, String oldCategory) {
+    public ChangedRunner(int runnerId, int competitionId, String oldName, String oldSurname, Date oldStartTime, String oldClubShort, int oldCardNumber, int oldStartNumber, String oldRegistrationId, String oldCategory) {
         this.runnerId = runnerId;
         this.competitionId = competitionId;
-        this.change = change;
         this.oldName = oldName;
         this.oldSurname = oldSurname;
         this.oldStartTime = oldStartTime;
         this.oldClubShort = oldClubShort;
         this.oldCardNumber = oldCardNumber;
         this.oldStartNumber = oldStartNumber;
-        this.oldCompetitionId = oldCompetitionId;
         this.oldRegistrationId = oldRegistrationId;
         this.oldCategory = oldCategory;
     }
@@ -76,7 +70,6 @@ public class ChangedRunner {
         this.oldClubShort = runner.getClubShort();
         this.oldCardNumber = runner.getCardNumber();
         this.oldStartNumber = runner.getStartNumber();
-        this.oldCompetitionId = runner.getCompetitionId();
         this.oldRegistrationId = runner.getRegistrationId();
         this.oldCategory = runner.getCategory();
     }
@@ -109,13 +102,6 @@ public class ChangedRunner {
         this.competitionId = competitionId;
     }
 
-    public int getChange() {
-        return change;
-    }
-
-    public void setChange(int change) {
-        this.change = change;
-    }
 
     public String getOldName() {
         return oldName;
@@ -163,14 +149,6 @@ public class ChangedRunner {
 
     public void setOldStartNumber(int oldStartNumber) {
         this.oldStartNumber = oldStartNumber;
-    }
-
-    public int getOldCompetitionId() {
-        return oldCompetitionId;
-    }
-
-    public void setOldCompetitionId(int oldCompetitionId) {
-        this.oldCompetitionId = oldCompetitionId;
     }
 
     public String getOldCategory() {
