@@ -11,7 +11,7 @@ from .variables import server_key
 from .model_data_preprocessing import *
 
 # Create your views here.
-from .models import Race
+from .models import Race, Unstarted_runner
 
 
 def index(request):
@@ -49,6 +49,9 @@ def send_data(request, race_id):
 
             for change in post_data.changed_runners:
                 insert_change_to_database(change, race)
+
+            if len(post_data.unstarted_runners) != 0:
+                race.unstarted_runner_set.all().delete()
 
             for unstarted_runner in post_data.unstarted_runners:
                 insert_unstarted_runner_to_database(unstarted_runner, race)

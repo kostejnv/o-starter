@@ -1,6 +1,7 @@
 package com.example.o_starter.server_communication;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.o_starter.EnviromentVariables;
 import com.example.o_starter.database.StartlistsDatabase;
@@ -13,6 +14,7 @@ import java.io.IOException;
  */
 public class URLs {
     private static final String MAIN_URL = EnviromentVariables.SERVER_DOMAIN +"startlists/";
+    private static final String TAG = "URLs";
 
     public static String GetCreateRaceURL(){
         return MAIN_URL + "create_race";
@@ -26,6 +28,7 @@ public class URLs {
      * @return  URL of web side that shows on server uploaded changes if reachable else null
      */
     public static String GetChangesViewURL(Competition competition, Context context) {
+        Log.i(TAG, competition.getServerId().toString());
         if (competition.getServerId() == null) {
             //resolve problem with no server id
             if (!competition.getSettings().getSendOnServer() || !ServerCommunicator.getInstance(context).CreateRaceOnServer(competition.getId())) {
