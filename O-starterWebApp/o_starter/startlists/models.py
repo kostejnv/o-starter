@@ -1,12 +1,20 @@
 from django.db import models
+import random, string
 
+def get_unique_key():
+    key = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(6))
+    all_race_ids = list(map(lambda race: race.id, Race.objects.all()))
+    while key in all_race_ids:
+        key = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(6))
+    return key
 
 class Race(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.CharField(max_length=6, primary_key=True, default=get_unique_key)
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
+
 
 
 class Change(models.Model):
@@ -54,3 +62,5 @@ class Unstarted_runner(models.Model):
 
     def __str__(self):
         return f'{self.reg_number} {self.lastname} {self.firstname}'
+
+

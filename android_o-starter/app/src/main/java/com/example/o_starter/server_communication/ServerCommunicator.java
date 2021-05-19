@@ -109,10 +109,10 @@ public class ServerCommunicator {
      */
     public boolean SendDataToServer(int competitionId){
 
-        int competitionServerId = StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionById(competitionId).getServerId();
+        String competitionServerId = StartlistsDatabase.getInstance(context).competitionDao().GetCompetitionById(competitionId).getServerId();
 
         //try create race on server if it was created yet
-        if (competitionServerId == 0){
+        if (competitionServerId == null){
             if(!CreateRaceOnServer(competitionId))
             {
                 return false;

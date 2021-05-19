@@ -59,7 +59,7 @@ public class Competition {
     private List<Date> minutesWithRunner;
 
     @ColumnInfo(name = "server_id")
-    private int serverId;
+    private String serverId;
 
     @ColumnInfo(name = "was_finished")
     private boolean wasFinished;
@@ -72,7 +72,7 @@ public class Competition {
     }
 
     @Ignore
-    public Competition(int id, String name, Date startTime, List<Date> minutesWithRunner, int serverId, boolean wasFinished, CompetitionSettings settings) {
+    public Competition(int id, String name, Date startTime, List<Date> minutesWithRunner, String serverId, boolean wasFinished, CompetitionSettings settings) {
         this.id = id;
         this.name = name;
         this.startTime = startTime;
@@ -82,7 +82,7 @@ public class Competition {
         this.settings = settings;
     }
 
-    public Competition(String name, Date startTime, List<Date> minutesWithRunner, int serverId, boolean wasFinished, CompetitionSettings settings) {
+    public Competition(String name, Date startTime, List<Date> minutesWithRunner, String serverId, boolean wasFinished, CompetitionSettings settings) {
         this.name = name;
         this.startTime = startTime;
         this.minutesWithRunner = minutesWithRunner;
@@ -131,11 +131,11 @@ public class Competition {
         this.minutesWithRunner = minutesWithRunner;
     }
 
-    public int getServerId() {
+    public String getServerId() {
         return serverId;
     }
 
-    public void setServerId(int serverId) {
+    public void setServerId(String serverId) {
         this.serverId = serverId;
     }
 
@@ -185,7 +185,14 @@ public class Competition {
         if (getSettings().getSendOnServer()) {
 
             //get URL
-            String shareURL = URLs.GetChangesViewURL(this, context);
+            GetShareURLAsyncTask getShareURL = new GetShareURLAsyncTask(context);
+            String shareURL = null;
+            try {
+                shareURL = getShareURL.execute().get();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+
             if (shareURL != null) {
                 //shareURL
                 Intent sendIntent = new Intent();
@@ -199,6 +206,19 @@ public class Competition {
             }
         } else {
             Toast.makeText(context, R.string.change_synchronisation_with_server, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class GetShareURLAsyncTask extends AsyncTask<Void,Void,String>{
+        private Context context;
+
+        public GetShareURLAsyncTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            return URLs.GetChangesViewURL(Competition.this, context);
         }
     }
 

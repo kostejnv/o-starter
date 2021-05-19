@@ -18,15 +18,15 @@ public class URLs {
         return MAIN_URL + "create_race";
     }
 
-    public static String GetSendDataURL(int serverRaceId){
+    public static String GetSendDataURL(String serverRaceId){
         return MAIN_URL + serverRaceId + "/send_data";
     }
 
     /**
-     * Return URL of web side that shows on server uploaded changes
+     * @return  URL of web side that shows on server uploaded changes if reachable else null
      */
     public static String GetChangesViewURL(Competition competition, Context context) {
-        if (competition.getServerId() == 0) {
+        if (competition.getServerId() == null) {
             //resolve problem with no server id
             if (!competition.getSettings().getSendOnServer() || !ServerCommunicator.getInstance(context).CreateRaceOnServer(competition.getId())) {
                 return null;
