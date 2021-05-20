@@ -1,6 +1,7 @@
 package com.example.o_starter.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +27,8 @@ import com.example.o_starter.dialogs.NewCompetitionDialog;
  * Class for launching activity with competition recycler view
  */
 public class MainActivity extends AppCompatActivity implements DatabaseUpdateListener {
+
+    public static final int REQUEST_SETTINGS_CHAGED = 101;
 
     private RecyclerView competitionsRecView;
     private TextView addCompetitionTextview;
@@ -105,13 +109,27 @@ public class MainActivity extends AppCompatActivity implements DatabaseUpdateLis
     }
 
     /**
-     * Notify competition adapter that data were changed
+     * Notify competition adapter that data were changed.
      *
      * For updating competition recycler view purpose
      */
     @Override
     public void OnDBUpdate() {
         adapter.notifyDataChanged();
+    }
+
+
+    /**
+     * Get information if competition was updated and call {@link MainActivity#OnDBUpdate() OnDBUpdate()}
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_SETTINGS_CHAGED && resultCode == RESULT_OK && data != null){
+            if(data.getExtras().getBoolean(SettingsStartlistActivity.SHOULD_UPDATE)){
+                OnDBUpdate();
+            }
+        }
     }
 }
 

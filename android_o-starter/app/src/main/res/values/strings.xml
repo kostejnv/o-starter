@@ -76,4 +76,9 @@
     <string name="finish">Finish</string>
     <string name="unstarted_failed">Contection failed. Please send data about unstarted runners to server later.</string>
     <string name="view_changes_and_unstarted_runners">View Changes And Unstarted Runners</string>
+    <string name="send_on_server_summary">The changes in startlist will be sent on Internet and you can show them there.</string>
+    <string name="change_event_name">Change Event Name</string>
+    <string name="KEY_NAME">KEY_NAME</string>
+    <string name="KEY_SEND_ON_SERVER">KEY_SEND_ON_SERVER</string>
+    <string name="KEY_CATEGORIES_TO_SHOW">KEY_CATEGORIES_TO_SHOW</string>
 </resources>

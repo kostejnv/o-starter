@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="@string/web_server">
 
         <SwitchPreference
-            android:defaultValue="true"
-            android:id="@+id/sendDataOnServerPreferences"
-            android:key="switch_preference_1"
+            android:key="@string/KEY_SEND_ON_SERVER"
             android:title="@string/send_data_on_server"
-            android:summary="The changes in startlist will be sent on Internet and you can show them there."/>
+            android:summary="@string/send_on_server_summary"/>
 
     </PreferenceCategory>
 
@@ -16,27 +15,13 @@
     <PreferenceCategory android:title="@string/edit_startlist">
 
         <EditTextPreference
-            android:defaultValue="Default value"
-            android:inputType="time"
-            android:key="edit_text_preference_1"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:title="@string/change_starttime" />
+            android:key="@string/KEY_NAME"
+            android:title="@string/change_event_name"/>
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="check_box_preference_1"
-            android:title="@string/show_only_some_cat" />
+        <MultiSelectListPreference
+            android:key="@string/KEY_CATEGORIES_TO_SHOW"
+            android:title="@string/show_only_some_cat"/>
 
-    </PreferenceCategory>
-
-
-    <PreferenceCategory android:title="@string/control">
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="check_box_preference_2"
-            android:title="@string/shift_on_actual_time_automatically" />
 
     </PreferenceCategory>
 

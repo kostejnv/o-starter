@@ -171,6 +171,7 @@ public class Competition {
             minutesSet.add(runner.getStartTime());
         }
         settings.setCategoriesToShow(new ArrayList<String>(allCategories));
+        settings.setAllCategories(new ArrayList<String>(allCategories));
         setSettings(settings);
         setStartTime(minutesSet.first());
         setMinutesWithRunner(new ArrayList<Date>(minutesSet));

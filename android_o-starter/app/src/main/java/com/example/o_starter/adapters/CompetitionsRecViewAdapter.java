@@ -1,6 +1,7 @@
 package com.example.o_starter.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,15 +17,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.o_starter.DatabaseUpdateListener;
 import com.example.o_starter.R;
+import com.example.o_starter.activities.MainActivity;
 import com.example.o_starter.activities.SettingsStartlistActivity;
 import com.example.o_starter.activities.StartlistViewActivity;
 import com.example.o_starter.activities.ViewChangesActivity;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.Competition;
+import com.example.o_starter.startlist_settings.SettingsStartlistFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -89,7 +93,9 @@ public class  CompetitionsRecViewAdapter extends RecyclerView.Adapter<Competitio
                         switch (item.getItemId()) {
                             case R.id.setting_item:
                                 Intent intent = new Intent(context, SettingsStartlistActivity.class);
-                                context.startActivity(intent);
+                                intent.putExtra(SettingsStartlistFragment.TAG_COMPETITION_ID, competitions.get(position).getId());
+                                //return result if competition data was changed - updating components
+                                ((Activity)context).startActivityForResult(intent, MainActivity.REQUEST_SETTINGS_CHAGED);
                                 Log.i(TAG, "open settings activity");
                                 break;
                             case R.id.share_changes_item:

@@ -21,10 +21,14 @@ public class CompetitionSettings {
     @TypeConverters(ListStringToJsonConverter.class)
     @ColumnInfo(name = "categories_to_show")
     private List<String> categoriesToShow;
+    @TypeConverters(ListStringToJsonConverter.class)
+    @ColumnInfo(name = "all_categories")
+    private List<String> allCategories;
 
-    public CompetitionSettings(Boolean sendOnServer, List<String> categoriesToShow) {
+    public CompetitionSettings(Boolean sendOnServer, List<String> categoriesToShow, List<String> allCategories) {
         this.sendOnServer = sendOnServer;
         this.categoriesToShow = categoriesToShow;
+        this.allCategories = allCategories;
     }
 
     @Ignore
@@ -45,5 +49,13 @@ public class CompetitionSettings {
 
     public void setCategoriesToShow(List<String> categoriesToShow) {
         this.categoriesToShow = categoriesToShow;
+    }
+
+    public List<String> getAllCategories() {
+        return allCategories;
+    }
+
+    public void setAllCategories(List<String> allCategories) {
+        this.allCategories = allCategories;
     }
 }

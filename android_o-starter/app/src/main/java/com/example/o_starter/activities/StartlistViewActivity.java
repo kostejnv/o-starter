@@ -1,6 +1,7 @@
 package com.example.o_starter.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -21,22 +22,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.o_starter.DatabaseUpdateListener;
 import com.example.o_starter.R;
 import com.example.o_starter.adapters.CompetitionsRecViewAdapter;
 import com.example.o_starter.adapters.MinutesRecViewAdapter;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.Competition;
 import com.example.o_starter.server_communication.URLs;
+import com.example.o_starter.startlist_settings.SettingsStartlistFragment;
 
 import java.security.InvalidParameterException;
 
 /**
  * Activity for checking and editing runners of give competition
  */
-public class StartlistViewActivity extends AppCompatActivity {
+public class StartlistViewActivity extends AppCompatActivity implements DatabaseUpdateListener {
 
     public static final String COMPETITION_ID_INTENT = "COMPETITION_ID";
     public static final String TAG = "StartlistViewAct";
+    private static final int REQUEST_SETTINGS_CHAGED = 101;
     private RecyclerView minuteRecView;
     private MinutesRecViewAdapter adapter;
     private int competitionId;
@@ -98,6 +102,9 @@ public class StartlistViewActivity extends AppCompatActivity {
                 alertDialog.show();
                 return true;
             case R.id.startlist_setting_item:
+                Intent intent = new Intent(this, SettingsStartlistActivity.class);
+                intent.putExtra(SettingsStartlistFragment.TAG_COMPETITION_ID, competitionId);
+                startActivityForResult(intent,REQUEST_SETTINGS_CHAGED);
                 return true;
             case R.id.startlist_share_changes_item:
                 Competition competition = StartlistsDatabase.getInstance(this).competitionDao().GetCompetitionById(competitionId);
@@ -144,6 +151,27 @@ public class StartlistViewActivity extends AppCompatActivity {
                         }
                     }).create();
             alertDialog.show();
+        }
+    }
+
+    /**
+     * Update Minutes RecView
+     */
+    @Override
+    public void OnDBUpdate() {
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Get information if competition was updated and call {@link StartlistViewActivity#OnDBUpdate() OnDBUpdate()}
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_SETTINGS_CHAGED && resultCode == RESULT_OK && data != null){
+            if(data.getExtras().getBoolean(SettingsStartlistActivity.SHOULD_UPDATE)){
+                OnDBUpdate();
+            }
         }
     }
 }
