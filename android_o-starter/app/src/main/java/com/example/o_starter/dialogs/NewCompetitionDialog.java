@@ -1,4 +1,4 @@
-package com.example.o_starter.activities;
+package com.example.o_starter.dialogs;
 
 
 import android.Manifest;
@@ -28,6 +28,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.o_starter.DatabaseUpdateListener;
 import com.example.o_starter.R;
+import com.example.o_starter.activities.MainActivity;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.Competition;
 import com.example.o_starter.database.entities.Runner;

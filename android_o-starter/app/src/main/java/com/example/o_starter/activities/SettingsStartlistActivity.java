@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.o_starter.R;
+import com.example.o_starter.startlist_settings.SettingsStartlistFragment;
 
 import java.util.Objects;
 

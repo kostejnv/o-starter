@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.o_starter.DatabaseUpdateListener;
 import com.example.o_starter.adapters.CompetitionsRecViewAdapter;
 import com.example.o_starter.R;
+import com.example.o_starter.dialogs.NewCompetitionDialog;
 
 /**
  * Class for launching activity with competition recycler view

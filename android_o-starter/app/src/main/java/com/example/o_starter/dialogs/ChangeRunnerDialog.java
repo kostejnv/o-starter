@@ -1,4 +1,4 @@
-package com.example.o_starter.activities;
+package com.example.o_starter.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;

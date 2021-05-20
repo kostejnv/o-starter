@@ -1,4 +1,4 @@
-package com.example.o_starter.activities;
+package com.example.o_starter.startlist_settings;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.example.o_starter.R;
+import com.example.o_starter.activities.SettingsStartlistActivity;
 
 /**
  * Fragment for editing given competition in {@link SettingsStartlistActivity SettingsStartlistActivity}

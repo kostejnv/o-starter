@@ -17,7 +17,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.o_starter.R;
-import com.example.o_starter.activities.ChangeRunnerDialog;
+import com.example.o_starter.dialogs.ChangeRunnerDialog;
 import com.example.o_starter.database.StartlistsDatabase;
 import com.example.o_starter.database.entities.Runner;
 
