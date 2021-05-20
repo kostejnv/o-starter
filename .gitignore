@@ -5,6 +5,8 @@
 /development_diary.md
 /O-starterWebApp/o_starter/startlists/migrations
 
+/inputs
+
 *.iml
 .gradle
 **/local.properties
