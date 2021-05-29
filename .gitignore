@@ -1,9 +1,9 @@
 /**/.idea
-/O-starterWebApp/venv
+/server_o-starter/venv
 /**/__pycache__
-/O-starterWebApp/o_starter/db.sqlite3
+/server_o-starter/o_starter/db.sqlite3
 /development_diary.md
-/O-starterWebApp/o_starter/startlists/migrations
+/server_o-starter/o_starter/startlists/migrations
 
 /inputs
 

@@ -47,6 +47,7 @@ public class ChangeRunnerDialog extends DialogFragment {
     private EditText regEditText;
 
     //calling adapter for notify purpose
+    //TODO:update database
     private final RunnerRecViewAdapter adapter;
 
     private final Runner runner;
