@@ -60,6 +60,8 @@ public class StartlistViewActivity extends AppCompatActivity implements Database
             Log.e(TAG, "competitionId was not send", new InvalidParameterException());
         }
 
+        setTitle(StartlistsDatabase.getInstance(this).competitionDao().GetCompetitionById(competitionId).getName());
+
         //set Minutes adapter
         adapter = new MinutesRecViewAdapter(this, competitionId);
         minuteRecView.setAdapter(adapter);

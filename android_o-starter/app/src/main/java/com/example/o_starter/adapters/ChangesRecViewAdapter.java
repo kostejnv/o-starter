@@ -56,8 +56,18 @@ public class ChangesRecViewAdapter extends RecyclerView.Adapter<ChangesRecViewAd
         holder.oldNameTextView.setText(currentChange.getOldSurname()+" "+currentChange.getOldName());
         holder.newRegTextView.setText(newRunner.getRegistrationId());
         holder.newNameTextView.setText(newRunner.getSurname()+" "+newRunner.getName());
-        holder.newSITextView.setText(String.valueOf(newRunner.getCardNumber()));
-        holder.newStartNumberTextView.setText(String.valueOf(newRunner.getStartNumber()));
+        if (newRunner.getCardNumber() != 0) {
+            holder.newSITextView.setText(String.valueOf(newRunner.getCardNumber()));
+        }
+        else{
+            holder.newSITextView.setText("");
+        }
+        if (newRunner.getStartNumber() != 0) {
+            holder.newStartNumberTextView.setText(String.valueOf(newRunner.getStartNumber()));
+        }
+        else{
+            holder.newStartNumberTextView.setText("");
+        }
     }
 
     /**

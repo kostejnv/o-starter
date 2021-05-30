@@ -213,8 +213,8 @@ public class XMLv3StartlistsConverter implements StartlistsConverter {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
-            if (parser.getName().equals(XML_SHORTNAME)) {
-                category = getContent(parser, XML_SHORTNAME);
+            if (parser.getName().equals(XML_NAME)) {
+                category = getContent(parser, XML_NAME);
             } else {
                 skipTag(parser);
             }

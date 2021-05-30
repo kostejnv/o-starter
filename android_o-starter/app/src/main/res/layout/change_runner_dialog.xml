@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="15dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="15dp">
 
     <EditText
         android:id="@+id/givenNameEditText"
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/givenTextView"
+        app:layout_constraintEnd_toEndOf="@+id/familyNameEditText"
+        app:layout_constraintStart_toStartOf="@+id/familyNameEditText"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -26,8 +25,8 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/familyNameEditText"
-        app:layout_constraintStart_toStartOf="@+id/familyNameEditText"
+        app:layout_constraintEnd_toEndOf="@+id/startNumberEditTextNumber"
+        app:layout_constraintStart_toStartOf="@+id/startNumberEditTextNumber"
         app:layout_constraintTop_toBottomOf="@+id/familyNameEditText" />
 
     <EditText
@@ -37,8 +36,8 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/SIEditTextNumber"
-        app:layout_constraintStart_toStartOf="@+id/SIEditTextNumber"
+        app:layout_constraintEnd_toEndOf="@+id/regEditText"
+        app:layout_constraintStart_toStartOf="@+id/regEditText"
         app:layout_constraintTop_toBottomOf="@+id/SIEditTextNumber" />
 
     <EditText
@@ -48,19 +47,17 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/givenNameEditText"
-        app:layout_constraintStart_toStartOf="@+id/givenNameEditText"
+        app:layout_constraintEnd_toEndOf="@+id/SIEditTextNumber"
+        app:layout_constraintStart_toStartOf="@+id/SIEditTextNumber"
         app:layout_constraintTop_toBottomOf="@+id/givenNameEditText" />
 
     <TextView
         android:id="@+id/givenTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:text="@string/given_name"
         app:layout_constraintBottom_toBottomOf="@+id/givenNameEditText"
-        app:layout_constraintEnd_toStartOf="@+id/givenNameEditText"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/familyTextView"
         app:layout_constraintTop_toTopOf="@+id/givenNameEditText" />
 
     <TextView
@@ -68,9 +65,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/family_name"
-        app:layout_constraintBottom_toBottomOf="@+id/familyNameEditText"
-        app:layout_constraintStart_toStartOf="@+id/givenTextView"
-        app:layout_constraintTop_toTopOf="@+id/familyNameEditText" />
+        app:layout_constraintBottom_toTopOf="@+id/SIEditTextNumber"
+        app:layout_constraintStart_toStartOf="@+id/SITextView"
+        app:layout_constraintTop_toBottomOf="@+id/givenNameEditText" />
 
     <TextView
         android:id="@+id/SITextView"
@@ -78,7 +75,7 @@
         android:layout_height="wrap_content"
         android:text="@string/si_number"
         app:layout_constraintBottom_toBottomOf="@+id/SIEditTextNumber"
-        app:layout_constraintStart_toStartOf="@+id/familyTextView"
+        app:layout_constraintStart_toStartOf="@+id/startNumTextView"
         app:layout_constraintTop_toTopOf="@+id/SIEditTextNumber" />
 
     <TextView
@@ -87,8 +84,8 @@
         android:layout_height="wrap_content"
         android:text="@string/start_number"
         app:layout_constraintBottom_toBottomOf="@+id/startNumberEditTextNumber"
-        app:layout_constraintStart_toStartOf="@+id/SITextView"
-        app:layout_constraintTop_toTopOf="@+id/startNumberEditTextNumber" />
+        app:layout_constraintStart_toStartOf="@+id/regTextView"
+        app:layout_constraintTop_toBottomOf="@+id/SIEditTextNumber" />
 
     <TextView
         android:id="@+id/regTextView"
@@ -96,19 +93,21 @@
         android:layout_height="wrap_content"
         android:text="@string/registration_id"
         app:layout_constraintBottom_toBottomOf="@+id/regEditText"
-        app:layout_constraintStart_toStartOf="@+id/startNumTextView"
+        app:layout_constraintEnd_toStartOf="@+id/regEditText"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/regEditText" />
 
     <EditText
         android:id="@+id/regEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:ems="10"
+        android:layout_marginTop="10dp"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/startNumberEditTextNumber"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/startNumberEditTextNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/regTextView"
         app:layout_constraintTop_toBottomOf="@+id/startNumberEditTextNumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,9 +65,26 @@ public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdap
         TryInitializeData();
 
         //initialize components
-        holder.SItextView.setText(String.valueOf(runners.get(position).getCardNumber()));
+        int SINumber = runners.get(position).getCardNumber();
+        if (SINumber != 0){
+            holder.SItextView.setText(String.valueOf(SINumber));
+        }
+        else
+        {
+            holder.SItextView.setText(R.string.no_si);
+        }
+
         holder.runnerNametextView.setText(runners.get(position).getName() + " " + runners.get(position).getSurname());
-        holder.startNumbertextView.setText(String.valueOf(runners.get(position).getStartNumber()));
+
+        int startNumber = runners.get(position).getStartNumber();
+        if (startNumber != 0) {
+            holder.startNumbertextView.setText(String.valueOf(startNumber));
+        }
+        else
+        {
+            holder.startNumbertextView.setText("");
+        }
+
         holder.registrationIDtextView.setText(runners.get(position).getRegistrationId());
         if(runners.get(position).isChecked()){
             holder.startedcheckBox.setChecked(runners.get(position).isChecked());

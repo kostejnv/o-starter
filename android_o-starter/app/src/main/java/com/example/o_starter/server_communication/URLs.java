@@ -28,7 +28,6 @@ public class URLs {
      * @return  URL of web side that shows on server uploaded changes if reachable else null
      */
     public static String GetChangesViewURL(Competition competition, Context context) {
-        Log.i(TAG, competition.getServerId().toString());
         if (competition.getServerId() == null) {
             //resolve problem with no server id
             if (!competition.getSettings().getSendOnServer() || !ServerCommunicator.getInstance(context).CreateRaceOnServer(competition.getId())) {

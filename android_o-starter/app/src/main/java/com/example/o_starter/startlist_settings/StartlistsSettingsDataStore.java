@@ -12,6 +12,7 @@ import com.example.o_starter.database.entities.Competition;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 /**
@@ -88,9 +89,9 @@ public class StartlistsSettingsDataStore extends PreferenceDataStore implements 
     public Set<String> getStringSet(String key, @Nullable Set<String> defValues) {
         switch(key){
             case KEY_CATEGORIES_TO_SHOW:
-                return new HashSet<String>(database.competitionDao().GetCompetitionById(competitionId).getSettings().getCategoriesToShow());
+                return new TreeSet<>(database.competitionDao().GetCompetitionById(competitionId).getSettings().getCategoriesToShow());
             case KEY_ALL_CATEGORIES:
-                return new HashSet<String>(database.competitionDao().GetCompetitionById(competitionId).getSettings().getAllCategories());
+                return new TreeSet<>(database.competitionDao().GetCompetitionById(competitionId).getSettings().getAllCategories());
             default:
                 return defValues;
         }

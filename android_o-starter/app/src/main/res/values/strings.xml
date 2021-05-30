@@ -81,4 +81,5 @@
     <string name="KEY_NAME">KEY_NAME</string>
     <string name="KEY_SEND_ON_SERVER">KEY_SEND_ON_SERVER</string>
     <string name="KEY_CATEGORIES_TO_SHOW">KEY_CATEGORIES_TO_SHOW</string>
+    <string name="no_si">No SI</string>
 </resources>

@@ -17,8 +17,10 @@ import com.example.o_starter.DatabaseUpdateListener;
 import com.example.o_starter.R;
 import com.example.o_starter.activities.SettingsStartlistActivity;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Fragment for editing given competition in {@link SettingsStartlistActivity SettingsStartlistActivity}
@@ -63,10 +65,10 @@ public class SettingsStartlistFragment extends PreferenceFragment {
         });
 
         //prepare collections for categories to show selecting
-        Set<String> allCategoriesSet = dataStore.getStringSet("KEY_ALL_CATEGORIES", new HashSet<>());
+        Set<String> allCategoriesSet = dataStore.getStringSet("KEY_ALL_CATEGORIES", new TreeSet<>());
         String[] allCategoriesArray = new String[allCategoriesSet.size()];
         allCategoriesSet.toArray(allCategoriesArray);
-        Set<String> categoriesToShowSet = dataStore.getStringSet("KEY_CATEGORIES_TO_SHOW", new HashSet<>());
+        Set<String> categoriesToShowSet = dataStore.getStringSet("KEY_CATEGORIES_TO_SHOW", new TreeSet<>());
 
         //initialize categorize to show selection
         MultiSelectListPreference categoriesToSHowPref = (MultiSelectListPreference) findPreference("KEY_CATEGORIES_TO_SHOW");

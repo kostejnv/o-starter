@@ -89,8 +89,12 @@ public class ChangeRunnerDialog extends DialogFragment {
         //set edittexts hints
         givenNameEditText.setHint(runner.getName());
         familyNameEditText.setHint(runner.getSurname());
-        SIEditTextNumber.setHint(Integer.valueOf(runner.getCardNumber()).toString());
-        startNumberEditTextNumber.setHint(Integer.valueOf(runner.getStartNumber()).toString());
+        if (runner.getCardNumber() != 0) {
+            SIEditTextNumber.setHint(Integer.valueOf(runner.getCardNumber()).toString());
+        }
+        if (runner.getStartNumber() != 0) {
+            startNumberEditTextNumber.setHint(Integer.valueOf(runner.getStartNumber()).toString());
+        }
         regEditText.setHint(runner.getRegistrationId());
 
         //set main attributes of dialog

@@ -71,7 +71,7 @@
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_begin="80dp"
+        app:layout_constraintGuide_begin="110dp"
         android:orientation="vertical" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="150dp" />
+        app:layout_constraintGuide_begin="180dp" />
 
     <TextView
         android:id="@+id/new_SI_textView"

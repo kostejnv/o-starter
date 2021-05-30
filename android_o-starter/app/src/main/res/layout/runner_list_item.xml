@@ -41,7 +41,8 @@
         android:text="@string/default_statNumber"
         app:layout_constraintBottom_toTopOf="@+id/registrationIDtextView"
         app:layout_constraintStart_toStartOf="@+id/registrationIDtextView"
-        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintTop_toTopOf="@+id/SItextView"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <TextView
@@ -50,7 +51,8 @@
         android:layout_height="17dp"
         android:layout_marginEnd="20dp"
         android:text="@string/dok9800"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintBottom_toBottomOf="@+id/runnerNametextView"
         app:layout_constraintEnd_toStartOf="@+id/editImageView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/runnerNametextView"
