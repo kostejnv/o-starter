@@ -1,0 +1,71 @@
+startlists package
+==================
+
+
+Submodules
+----------
+
+startlists.admin module
+-----------------------
+
+.. automodule:: startlists.admin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+startlists.apps module
+----------------------
+
+.. automodule:: startlists.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+startlists.model\_data\_preprocessing module
+--------------------------------------------
+
+.. automodule:: startlists.model_data_preprocessing
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+startlists.models module
+------------------------
+
+.. automodule:: startlists.models
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+startlists.urls module
+----------------------
+
+.. automodule:: startlists.urls
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+startlists.variables module
+---------------------------
+
+.. automodule:: startlists.variables
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+startlists.views module
+-----------------------
+
+.. automodule:: startlists.views
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: startlists
+    :members:
+    :undoc-members:
+    :show-inheritance:

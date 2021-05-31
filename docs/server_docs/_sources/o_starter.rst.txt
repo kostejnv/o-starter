@@ -1,0 +1,46 @@
+o\_starter package
+==================
+
+Submodules
+----------
+
+o\_starter.asgi module
+----------------------
+
+.. automodule:: o_starter.asgi
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+o\_starter.settings module
+--------------------------
+
+.. automodule:: o_starter.settings
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+o\_starter.urls module
+----------------------
+
+.. automodule:: o_starter.urls
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+o\_starter.wsgi module
+----------------------
+
+.. automodule:: o_starter.wsgi
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: o_starter
+    :members:
+    :undoc-members:
+    :show-inheritance:
