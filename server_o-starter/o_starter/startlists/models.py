@@ -1,14 +1,25 @@
 from django.db import models
 import random, string
 
-def get_unique_key():
+
+def get_unique_key() -> str:
+    """return unique string id
+
+    Returns unique string id from numeric-alphabetic characters of length 6
+    """
+
     key = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(6))
     all_race_ids = list(map(lambda race: race.id, Race.objects.all()))
     while key in all_race_ids:
         key = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(6))
     return key
 
+
 class Race(models.Model):
+    """
+    Database table of races
+    """
+
     id = models.CharField(max_length=6, primary_key=True, default=get_unique_key)
     name = models.CharField(max_length=200)
 
@@ -16,8 +27,11 @@ class Race(models.Model):
         return self.name
 
 
-
 class Change(models.Model):
+    """
+    Database table of changed runners
+    """
+
     race = models.ForeignKey(Race, on_delete=models.CASCADE)
 
     old_firstname = models.CharField(max_length=200, default='')
@@ -49,6 +63,10 @@ class Change(models.Model):
 
 
 class Unstarted_runner(models.Model):
+    """
+    Database table of unstarted runners
+    """
+
     race = models.ForeignKey(Race, on_delete=models.CASCADE)
 
     firstname = models.CharField(max_length=200, default='')
@@ -62,5 +80,3 @@ class Unstarted_runner(models.Model):
 
     def __str__(self):
         return f'{self.reg_number} {self.lastname} {self.firstname}'
-
-

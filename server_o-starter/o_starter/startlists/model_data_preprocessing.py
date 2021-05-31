@@ -1,6 +1,10 @@
 from . import models
 
 def insert_change_to_database(change, race):
+    """
+    Insert changed runner to database from format created from JSON file
+    """
+
     race.change_set.create(
         old_firstname= change.old_given,
         old_lastname = change.old_family,
@@ -23,6 +27,10 @@ def insert_change_to_database(change, race):
 
 
 def insert_unstarted_runner_to_database(unstarted_runner, race):
+    """
+    Insert unstarted runner to database from format created from JSON file
+    """
+
     race.unstarted_runner_set.create(
         firstname=unstarted_runner.given,
         lastname=unstarted_runner.family,
