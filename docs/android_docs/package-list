@@ -1,0 +1,14 @@
+com.example.o_starter
+com.example.o_starter.activities
+com.example.o_starter.activities.ui.view_changes
+com.example.o_starter.adapters
+com.example.o_starter.database
+com.example.o_starter.database.converters
+com.example.o_starter.database.dao
+com.example.o_starter.database.entities
+com.example.o_starter.database.entities.abstracts
+com.example.o_starter.dialogs
+com.example.o_starter.import_startlists
+com.example.o_starter.server_communication
+com.example.o_starter.server_communication.entities
+com.example.o_starter.startlist_settings
