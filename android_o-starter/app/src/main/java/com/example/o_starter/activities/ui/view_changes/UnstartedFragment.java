@@ -25,7 +25,7 @@ import com.example.o_starter.database.StartlistsDatabase;
  */
 public class UnstartedFragment extends Fragment {
 
-    public static final String COMPETITION_ID ="COMPETITION_ID";
+    private static final String COMPETITION_ID ="COMPETITION_ID";
 
     /**
      * Get new instance of fragment for given competition

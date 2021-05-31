@@ -30,7 +30,7 @@ import java.util.List;
 public class RunnerRecViewAdapter extends RecyclerView.Adapter<RunnerRecViewAdapter.ViewHolder> {
 
     private final Context context;
-    public static final String TAG = "RunnerRecView";
+    private static final String TAG = "RunnerRecView";
     private final int competitionId;
     private final Date startTime;
     private List<String> categoriesToShow;

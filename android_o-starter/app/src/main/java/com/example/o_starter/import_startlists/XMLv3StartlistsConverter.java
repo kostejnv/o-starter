@@ -39,26 +39,25 @@ public class XMLv3StartlistsConverter implements StartlistsConverter {
     private ArrayList<Runner> runners;
 
     //xml tags
-    public static final String TAG = "XMLConverter";
-    public static final String XML_STARTLIST = "StartList";
-    public static final String XML_EVENT = "Event";
-    public static final String XML_NAME = "Name";
-    public static final String XML_CLASSSTART = "ClassStart";
-    public static final String XML_CLASS = "Class";
-    public static final String XML_SHORTNAME = "ShortName";
-    public static final String XML_GIVEN = "Given";
-    public static final String XML_FAMILY = "Family";
-    public static final String XML_PERSONSTART = "PersonStart";
-    public static final String XML_PERSON = "Person";
-    public static final String XML_ORGANISATION = "Organisation";
-    public static final String XML_START = "Start";
-    public static final String XML_STARTTIME = "StartTime";
-    public static final String XML_BIBNUMBER = "BibNumber";
-    public static final String XML_CONTROLCARD = "ControlCard";
-    public static final String XML_ID = "Id";
+    private static final String TAG = "XMLConverter";
+    private static final String XML_STARTLIST = "StartList";
+    private static final String XML_EVENT = "Event";
+    private static final String XML_NAME = "Name";
+    private static final String XML_CLASSSTART = "ClassStart";
+    private static final String XML_CLASS = "Class";
+    private static final String XML_SHORTNAME = "ShortName";
+    private static final String XML_GIVEN = "Given";
+    private static final String XML_FAMILY = "Family";
+    private static final String XML_PERSONSTART = "PersonStart";
+    private static final String XML_PERSON = "Person";
+    private static final String XML_ORGANISATION = "Organisation";
+    private static final String XML_START = "Start";
+    private static final String XML_STARTTIME = "StartTime";
+    private static final String XML_BIBNUMBER = "BibNumber";
+    private static final String XML_CONTROLCARD = "ControlCard";
+    private static final String XML_ID = "Id";
 
 
-    //TODO:get infobyRynners here
     public XMLv3StartlistsConverter(Uri fileUri, Context context) {
         this.fileUri = fileUri;
         this.context = context;

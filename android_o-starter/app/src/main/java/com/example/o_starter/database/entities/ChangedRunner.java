@@ -26,9 +26,9 @@ public class ChangedRunner {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "runner_id")
+    @ColumnInfo(name = "runner_id", index = true)
     private int runnerId;
-    @ColumnInfo(name = "competition_id")
+    @ColumnInfo(name = "competition_id", index = true)
     private int competitionId;
 
     private String oldName;

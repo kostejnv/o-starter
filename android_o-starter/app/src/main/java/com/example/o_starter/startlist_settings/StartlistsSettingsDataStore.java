@@ -19,10 +19,10 @@ import java.util.TreeSet;
  * Class that is used for communication between database and startlist settings
  */
 public class StartlistsSettingsDataStore extends PreferenceDataStore implements android.preference.PreferenceDataStore {
-    public static final String KEY_SEND_ON_SERVER = "KEY_SEND_ON_SERVER";
-    public static final String KEY_NAME = "KEY_NAME";
-    public static final String KEY_CATEGORIES_TO_SHOW = "KEY_CATEGORIES_TO_SHOW";
-    public static final String KEY_ALL_CATEGORIES = "KEY_ALL_CATEGORIES";
+    private static final String KEY_SEND_ON_SERVER = "KEY_SEND_ON_SERVER";
+    private static final String KEY_NAME = "KEY_NAME";
+    private static final String KEY_CATEGORIES_TO_SHOW = "KEY_CATEGORIES_TO_SHOW";
+    private static final String KEY_ALL_CATEGORIES = "KEY_ALL_CATEGORIES";
 
     private StartlistsDatabase database;
     private int competitionId;

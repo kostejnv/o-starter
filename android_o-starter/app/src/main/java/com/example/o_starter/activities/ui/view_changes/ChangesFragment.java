@@ -22,7 +22,7 @@ import com.example.o_starter.adapters.CompetitionsRecViewAdapter;
 public class ChangesFragment extends Fragment {
 
     private RecyclerView changesRecView;
-    public static final String COMPETITION_ID ="COMPETITION_ID";
+    private static final String COMPETITION_ID ="COMPETITION_ID";
 
     /**
      * Get new instance of fragment for given competition

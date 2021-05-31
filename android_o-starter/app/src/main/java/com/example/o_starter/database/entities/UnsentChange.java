@@ -20,7 +20,7 @@ public class UnsentChange {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "changed_runner_id")
+    @ColumnInfo(name = "changed_runner_id", index = true)
     private int changedRunnerId;
 
     public UnsentChange(int changedRunnerId) {

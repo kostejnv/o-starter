@@ -19,7 +19,7 @@ import com.example.o_starter.activities.ui.view_changes.ViewChangesPagerAdapter;
 public class ViewChangesActivity extends AppCompatActivity implements DatabaseUpdateListener {
 
     public static final String COMPETITION_ID_TAG = "COMPETITION_ID";
-    public static final String TAG = "ViewChangesAct";
+    private static final String TAG = "ViewChangesAct";
     private ViewChangesPagerAdapter sAdapter;
 
     @Override

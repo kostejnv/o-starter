@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RoomWarnings;
 import androidx.room.Update;
 
 import com.example.o_starter.database.entities.Runner;
@@ -30,6 +31,7 @@ public interface UnsentUnstartedDao {
      * Returns all unsent unstarted runners for given competition
      * @param competition_id ID of given competition
      */
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM unsent_unstarted_runners " +
             "JOIN runners ON unsent_unstarted_runners.runner_id = runners.id " +
             "WHERE runners.competition_id = :competition_id")

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class MinutesRecViewAdapter extends RecyclerView.Adapter<MinutesRecViewAdapter.ViewHolder> {
     private final Context context;
-    public static final String TAG = "MinuteAdapter";
+    private static final String TAG = "MinuteAdapter";
     private List<Date> sortedMinutes;
     private final int competitionId;
     private RunnerRecViewAdapter adapter;

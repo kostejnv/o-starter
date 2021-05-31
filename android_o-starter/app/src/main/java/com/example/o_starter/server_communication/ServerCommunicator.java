@@ -33,7 +33,7 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class ServerCommunicator {
 
-    public static final String TAG = "SeverCominucator";
+    private static final String TAG = "SeverCominucator";
     private static ServerCommunicator instance;
     private static Context context;
 

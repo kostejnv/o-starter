@@ -36,7 +36,7 @@ public class Runner {
     private int cardNumber;
     @ColumnInfo(name = "start_number")
     private int startNumber;
-    @ColumnInfo(name = "competition_id")
+    @ColumnInfo(name = "competition_id", index = true)
     private int competitionId;
     private String category;
     private boolean checked;

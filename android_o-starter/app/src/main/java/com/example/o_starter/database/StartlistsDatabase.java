@@ -29,7 +29,7 @@ import com.example.o_starter.database.entities.UnsentUnstertedRunner;
 @Database(entities = {Competition.class, Runner.class, ChangedRunner.class, UnsentChange.class, UnsentUnstertedRunner.class}, version = 1)
 public abstract class StartlistsDatabase extends RoomDatabase {
 
-    public static final String DATABASE_NAME = "startlists_db";
+    private static final String DATABASE_NAME = "startlists_db";
 
     //Dao classes
     public abstract CompetitionDao competitionDao();

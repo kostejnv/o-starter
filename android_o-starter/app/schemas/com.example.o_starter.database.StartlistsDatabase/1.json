@@ -1,0 +1,397 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "27407e88b86fab160d4d57f577bc4b4f",
+    "entities": [
+      {
+        "tableName": "competitions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `start_time` INTEGER, `minutes_with_runner` TEXT, `server_id` TEXT, `was_finished` INTEGER NOT NULL, `sendOnServer` INTEGER, `categories_to_show` TEXT, `all_categories` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "start_time",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "minutesWithRunner",
+            "columnName": "minutes_with_runner",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "serverId",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wasFinished",
+            "columnName": "was_finished",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "settings.sendOnServer",
+            "columnName": "sendOnServer",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "settings.categoriesToShow",
+            "columnName": "categories_to_show",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "settings.allCategories",
+            "columnName": "all_categories",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "runners",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `surname` TEXT, `start_time` INTEGER, `club_short` TEXT, `card_number` INTEGER NOT NULL, `start_number` INTEGER NOT NULL, `competition_id` INTEGER NOT NULL, `category` TEXT, `checked` INTEGER NOT NULL, `registration_id` TEXT, FOREIGN KEY(`competition_id`) REFERENCES `competitions`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "surname",
+            "columnName": "surname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "start_time",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "clubShort",
+            "columnName": "club_short",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cardNumber",
+            "columnName": "card_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startNumber",
+            "columnName": "start_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "competitionId",
+            "columnName": "competition_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "checked",
+            "columnName": "checked",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "registrationId",
+            "columnName": "registration_id",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_runners_competition_id",
+            "unique": false,
+            "columnNames": [
+              "competition_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_runners_competition_id` ON `${TABLE_NAME}` (`competition_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "competitions",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "competition_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "changed_runners",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `runner_id` INTEGER NOT NULL, `competition_id` INTEGER NOT NULL, `oldName` TEXT, `oldSurname` TEXT, `old_start_time` INTEGER, `old_club_short` TEXT, `old_card_number` INTEGER NOT NULL, `old_start_number` INTEGER NOT NULL, `old_registration_id` TEXT, `old_category` TEXT, FOREIGN KEY(`runner_id`) REFERENCES `runners`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`competition_id`) REFERENCES `competitions`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "runnerId",
+            "columnName": "runner_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "competitionId",
+            "columnName": "competition_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oldName",
+            "columnName": "oldName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oldSurname",
+            "columnName": "oldSurname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oldStartTime",
+            "columnName": "old_start_time",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oldClubShort",
+            "columnName": "old_club_short",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oldCardNumber",
+            "columnName": "old_card_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oldStartNumber",
+            "columnName": "old_start_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oldRegistrationId",
+            "columnName": "old_registration_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oldCategory",
+            "columnName": "old_category",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_changed_runners_runner_id",
+            "unique": false,
+            "columnNames": [
+              "runner_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_changed_runners_runner_id` ON `${TABLE_NAME}` (`runner_id`)"
+          },
+          {
+            "name": "index_changed_runners_competition_id",
+            "unique": false,
+            "columnNames": [
+              "competition_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_changed_runners_competition_id` ON `${TABLE_NAME}` (`competition_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "runners",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "runner_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "competitions",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "competition_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "unsent_changes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `changed_runner_id` INTEGER NOT NULL, FOREIGN KEY(`changed_runner_id`) REFERENCES `changed_runners`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "changedRunnerId",
+            "columnName": "changed_runner_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_unsent_changes_changed_runner_id",
+            "unique": false,
+            "columnNames": [
+              "changed_runner_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_unsent_changes_changed_runner_id` ON `${TABLE_NAME}` (`changed_runner_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "changed_runners",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "changed_runner_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "unsent_unstarted_runners",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `runner_id` INTEGER NOT NULL, FOREIGN KEY(`runner_id`) REFERENCES `runners`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "runnerId",
+            "columnName": "runner_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_unsent_unstarted_runners_runner_id",
+            "unique": false,
+            "columnNames": [
+              "runner_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_unsent_unstarted_runners_runner_id` ON `${TABLE_NAME}` (`runner_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "runners",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "runner_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '27407e88b86fab160d4d57f577bc4b4f')"
+    ]
+  }
+}

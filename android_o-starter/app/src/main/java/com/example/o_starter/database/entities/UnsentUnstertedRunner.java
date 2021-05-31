@@ -20,7 +20,7 @@ public class UnsentUnstertedRunner {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "runner_id")
+    @ColumnInfo(name = "runner_id", index = true)
     private int runnerId;
 
     public UnsentUnstertedRunner(int runnerId) {
