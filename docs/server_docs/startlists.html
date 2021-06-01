@@ -31,29 +31,11 @@
             
   <div class="section" id="startlists-package">
 <h1>startlists package<a class="headerlink" href="#startlists-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-startlists.admin">
-<span id="startlists-admin-module"></span><h2>startlists.admin module<a class="headerlink" href="#module-startlists.admin" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-startlists.apps">
-<span id="startlists-apps-module"></span><h2>startlists.apps module<a class="headerlink" href="#module-startlists.apps" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="startlists.apps.StartlistsConfig">
-<em class="property">class </em><code class="descclassname">startlists.apps.</code><code class="descname">StartlistsConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="headerlink" href="#startlists.apps.StartlistsConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
-<dl class="attribute">
-<dt id="startlists.apps.StartlistsConfig.name">
-<code class="descname">name</code><em class="property"> = 'startlists'</em><a class="headerlink" href="#startlists.apps.StartlistsConfig.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-startlists.model_data_preprocessing">
-<span id="startlists-model-data-preprocessing-module"></span><h2>startlists.model_data_preprocessing module<a class="headerlink" href="#module-startlists.model_data_preprocessing" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<p>This is the app of project that contains server functions.</p>
+<div class="section" id="startlists-model-data-preprocessing-module">
+<h2>startlists.model_data_preprocessing module<a class="headerlink" href="#startlists-model-data-preprocessing-module" title="Permalink to this headline">¶</a></h2>
+<p>Data preprocessing module contains functions that store sent data into database</p>
+<span class="target" id="module-startlists.model_data_preprocessing"></span><dl class="function">
 <dt id="startlists.model_data_preprocessing.insert_change_to_database">
 <code class="descclassname">startlists.model_data_preprocessing.</code><code class="descname">insert_change_to_database</code><span class="sig-paren">(</span><em>change</em>, <em>race</em><span class="sig-paren">)</span><a class="headerlink" href="#startlists.model_data_preprocessing.insert_change_to_database" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert changed runner to database from format created from JSON file</p>
@@ -66,9 +48,10 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-startlists.models">
-<span id="startlists-models-module"></span><h2>startlists.models module<a class="headerlink" href="#module-startlists.models" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<div class="section" id="startlists-models-module">
+<h2>startlists.models module<a class="headerlink" href="#startlists-models-module" title="Permalink to this headline">¶</a></h2>
+<p>Contains database entities.</p>
+<span class="target" id="module-startlists.models"></span><dl class="class">
 <dt id="startlists.models.Change">
 <em class="property">class </em><code class="descclassname">startlists.models.</code><code class="descname">Change</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#startlists.models.Change" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
@@ -122,8 +105,9 @@ object the first time, the query is executed.</p>
 
 <dl class="method">
 <dt id="startlists.models.Change.new_record">
-<code class="descname">new_record</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#startlists.models.Change.new_record" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">new_record</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#startlists.models.Change.new_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>return data of runner after changes</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="startlists.models.Change.new_reg_number">
@@ -188,8 +172,9 @@ object the first time, the query is executed.</p>
 
 <dl class="method">
 <dt id="startlists.models.Change.old_record">
-<code class="descname">old_record</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#startlists.models.Change.old_record" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">old_record</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#startlists.models.Change.old_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>return data of runner before changes</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="startlists.models.Change.old_reg_number">
@@ -420,20 +405,23 @@ object the first time, the query is executed.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-startlists.urls">
-<span id="startlists-urls-module"></span><h2>startlists.urls module<a class="headerlink" href="#module-startlists.urls" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<div class="section" id="startlists-urls-module">
+<h2>startlists.urls module<a class="headerlink" href="#startlists-urls-module" title="Permalink to this headline">¶</a></h2>
+<p>Redirected urls on specific function in views.</p>
+<span class="target" id="module-startlists.urls"></span><dl class="function">
 <dt id="startlists.urls.path">
 <code class="descclassname">startlists.urls.</code><code class="descname">path</code><span class="sig-paren">(</span><em>route</em>, <em>view</em>, <em>kwargs=None</em>, <em>name=None</em>, <em>*</em>, <em>Pattern=&lt;class 'django.urls.resolvers.RoutePattern'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#startlists.urls.path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-startlists.variables">
-<span id="startlists-variables-module"></span><h2>startlists.variables module<a class="headerlink" href="#module-startlists.variables" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-startlists.views">
-<span id="startlists-views-module"></span><h2>startlists.views module<a class="headerlink" href="#module-startlists.views" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<div class="section" id="startlists-variables-module">
+<h2>startlists.variables module<a class="headerlink" href="#startlists-variables-module" title="Permalink to this headline">¶</a></h2>
+<p>contains variables for specific instance of server</p>
+<span class="target" id="module-startlists.variables"></span></div>
+<div class="section" id="startlists-views-module">
+<h2>startlists.views module<a class="headerlink" href="#startlists-views-module" title="Permalink to this headline">¶</a></h2>
+<p>Contains function that are ran for specific request</p>
+<span class="target" id="module-startlists.views"></span><dl class="function">
 <dt id="startlists.views.create_race">
 <code class="descclassname">startlists.views.</code><code class="descname">create_race</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#startlists.views.create_race" title="Permalink to this definition">¶</a></dt>
 <dd><p>create new race in server database</p>
@@ -505,9 +493,6 @@ or 404 error if invalid race_id</dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="module-startlists">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-startlists" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
