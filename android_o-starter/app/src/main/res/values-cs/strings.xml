@@ -56,8 +56,6 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_unstarted">Neodstartovaní závodníci</string>
     <string name="tab_changes">Změny</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Ahoj nový fragmente</string>
     <string name="the_competition_has_not_finished_yet">Závod nebyl ještě ukončen</string>
     <string name="finish">Ukončit</string>
     <string name="unstarted_failed">Spojení selhalo. Prosím, pošlete data o neodstartovaných závodnících později.</string>
@@ -65,4 +63,7 @@
     <string name="send_on_server_summary">Změny ve startovní listině budou poslány na server a bude je tam možné zobrazit.</string>
     <string name="change_event_name">Změnit název závodu</string>
     <string name="no_si">Žádné SI</string>
+    <string name="KEY_NAME">KEY_NAME</string>
+    <string name="KEY_SEND_ON_SERVER">KEY_SEND_ON_SERVER</string>
+    <string name="KEY_CATEGORIES_TO_SHOW">KEY_CATEGORIES_TO_SHOW</string>
 </resources>

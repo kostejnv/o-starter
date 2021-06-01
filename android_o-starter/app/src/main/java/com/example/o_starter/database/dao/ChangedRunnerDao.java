@@ -39,4 +39,10 @@ public interface ChangedRunnerDao {
      */
     @Query("SELECT * FROM changed_runners WHERE competition_id = :competitionId")
     List<ChangedRunner> GetCompetitionChanges(int competitionId);
+
+    /**
+     * Delete all changed runner for given runner in given competition
+     */
+    @Query("DELETE FROM changed_runners WHERE runner_id = :runner_id AND competition_id = :competition_id")
+    void DeleteChangedRunnerByRunnerID(int runner_id, int competition_id);
 }

@@ -47,7 +47,8 @@ public class ChangeRunnerDialog extends DialogFragment {
     private EditText regEditText;
 
     //calling adapter for notify purpose
-    //TODO:update database
+    // we do not need update adapters for all minutes
+    // but only adapter for specific minutes
     private final RunnerRecViewAdapter adapter;
 
     private final Runner runner;
@@ -167,11 +168,11 @@ public class ChangeRunnerDialog extends DialogFragment {
      * @return id of changedRunner
      */
     private int insertChangedRunnerToDatabase(){
+        StartlistsDatabase db = StartlistsDatabase.getInstance(getContext());
         changedRunner = new ChangedRunner(runner);
-        Competition competition = StartlistsDatabase.getInstance(getContext()).competitionDao().GetCompetitionById(runner.getCompetitionId());
-        //TODO: delete changes
-        StartlistsDatabase.getInstance(getContext()).competitionDao().updateSingleCompetition(competition);
-        return (int) StartlistsDatabase.getInstance(getContext()).changedRunnerDao().insertSingleRunner(changedRunner);
+        Competition competition = db.competitionDao().GetCompetitionById(runner.getCompetitionId());
+        db.competitionDao().updateSingleCompetition(competition);
+        return (int) db.changedRunnerDao().insertSingleRunner(changedRunner);
     }
 
     /**
